@@ -19,8 +19,9 @@ http://tv.streams.baikal-telecom.net:8080/MoyaPlanetaHD/index.m3u8
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 #EXTINF:-1 ,RT DOC HD
 http://195.26.83.96:7017/play/a00t/index.m3u8
-#EXTINF:-1 ,RT DOC
-http://tv.ttk.mx:9100
+#EXTINF:-1 tvg-logo="https://mbmh5s36ok.a.trbcdn.net/572aecd6-static/channel/10364/logo_256_1660810041.png", Эфир
+#EXTVLCOPT:http-user-agent={"platform":"android","app":"limehd.ru.ctvshka","version_name":"4.2.4","version_code":"378","sdk":"34","name":"Xiaomi+13+Ultra","device_id":"a7f8e9d1c2b3a4f5","is_huawei":"0"}
+https://mhd116.iptv2022.com/x/47rz4kFub0pob592UABO1g,1790411097/streaming/efir/324/1/index.m3u8
 #EXTINF:-1 tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
 https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1,Кино 1
