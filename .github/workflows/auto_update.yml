@@ -51,7 +51,13 @@ jobs:
             "viju history,
             "телепутешествия",
             "discovery",
+            "discovery hd",
             "нтв сериал",
+            "моя планета hd",
+            "nat geo wild",
+            "nat geo wild hd",
+            "docu box hd",
+            "docu box",
         ]
 
         def clean_string(s):
