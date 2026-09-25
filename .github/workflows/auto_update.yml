@@ -27,7 +27,7 @@ jobs:
         import re
         import base64
 
-        # Ссылки зашифрованы в Base64, чтобы облако их не ломало
+        # Базы данных (зашифрованы в Base64)
         ENCRYPTED_SOURCES = [
             "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
             "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
@@ -35,7 +35,7 @@ jobs:
             "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1"
         ]
 
-        # Расширенный список ваших любимых каналов
+        # Список любимых каналов
         FAVORITE_CHANNELS = [
             "нтв сериалы",
             "нтв хит",
@@ -64,6 +64,7 @@ jobs:
             clean_favorites = [clean_string(fav) for fav in sorted_favorites]
             sources = [base64.b64decode(url.encode()).decode() for url in ENCRYPTED_SOURCES]
 
+            # 1. Поиск каналов по большим базам данных
             for url in sources:
                 try:
                     print(f"Скачивание источника: {url}")
@@ -72,7 +73,6 @@ jobs:
                         content = response.read().decode('utf-8', errors='ignore')
                         
                     lines = content.splitlines()
-                    print(f"  Успешно прочитано строк: {len(lines)}")
                     
                     for idx, line in enumerate(lines):
                         line_strip = line.strip()
@@ -89,16 +89,12 @@ jobs:
                                         if next_line.startswith("http"):
                                             url_found = next_line
                                             break
-                                        # ИГНОРИРУЕМ СТРОКИ ГРУПП #EXTGRP
                                         if next_line and not next_line.startswith("#EXTGRP"): 
                                             meta_lines.append(next_line)
                                     
                                     if url_found:
                                         seen_favorites.add(clean_fav)
-                                        
-                                        # ОЧИЩАЕМ group-title="..." ИЗ СТРОКИ #EXTINF С ПОМОЩЬЮ РЕГУЛЯРНОГО ВЫРАЖЕНИЯ
                                         clean_inf_line = re.sub(r'group-title="[^"]*"', '', line_strip)
-                                        # Убираем двойные пробелы, если они остались после удаления группы
                                         clean_inf_line = re.sub(r'\s+', ' ', clean_inf_line)
                                         
                                         combined_playlist.append(f"{clean_inf_line}\n")
@@ -109,6 +105,22 @@ jobs:
                                         break
                 except Exception as e:
                     print(f"Сбой источника {url}: {e}")
+
+            # 2. РЕЗЕРВНЫЙ БЛОК: Прямая ссылка на Кино 1
+            if "кино1" not in seen_favorites:
+                direct_kino1 = base64.b64decode("aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg=").decode()
+                combined_playlist.append('#EXTINF:-1,Кино 1\n')
+                combined_playlist.append(f"{direct_kino1}\n")
+                seen_favorites.add("кино1")
+                found_count += 1
+                print("  +++ ДОБАВЛЕН ИЗ ПРЯМОГО ИСТОЧНИКА: кино 1")
+
+            # 3. ДОПОЛНИТЕЛЬНЫЙ БЛОК: Поток СССР ТВ от BeeTV
+            beetv_stream = base64.b64decode("aHR0cHM6Ly9lZGdlMDItYWxtLmJlZXR2Lmt6L2Jway10b2tlbi80YW5AbWR0d3BrcW5uMDRqYmt1aXFvdHoyZ241dWkxeXUzdGNtMzN0cHhjYS9icGstdHYvMDAwMDA2MzY1L3R2ZS8wMDAwMDYzNjUtYXVkaW9fODI4ODJfcnVzPTgyNDAwLXZpZGVvPTIxMzc2MDAubTN1OA==").decode()
+            combined_playlist.append('#EXTINF:-1,СССР ТВ\n')
+            combined_playlist.append(f"{beetv_stream}\n")
+            found_count += 1
+            print("  +++ ДОБАВЛЕН ПОТОК: СССР ТВ")
 
             with open("playlist.m3u", "w", encoding="utf-8") as f:
                 f.writelines(combined_playlist)
