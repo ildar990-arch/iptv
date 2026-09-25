@@ -11,14 +11,14 @@ http://cdn.ntv.ru/th_serial/tracks-v1a1/mono.m3u8
 http://178.217.72.66:8080/teleputeshestviya/index.m3u8
 #EXTINF:-1 , Discovery
 http://45.159.74.22/DiscoveryChannel/mono.m3u8
-#EXTINF:-1 , RTG TV
-http://195.26.83.96:7007/play/a00n/index.m3u8
 #EXTINF:-1 , Travel+Adventure
 http://178.217.72.66:8080/Travel_And_Adventure/index.m3u8
 #EXTINF:-1 , Моя планета
 http://tv.streams.baikal-telecom.net:8080/MoyaPlanetaHD/index.m3u8
 #EXTINF:-1 , Неизвестная планета HD
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
+#EXTINF:-1 ,RT DOC HD
+http://195.26.83.96:7017/play/a00t/index.m3u8
 #EXTINF:-1 tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
 https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1,Кино 1
