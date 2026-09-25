@@ -1,10 +1,30 @@
-name: Запуск объединенного скрипта обновления
-run: |
-cat << 'EOF' > run_parser.py
-import urllib.request
-import urllib.error
-import re
-import base64
+name: Auto Update IPTV Playlist
+on:
+  schedule:
+    - cron: '0 05 * * *' # Автозапуск каждую ночь
+  workflow_dispatch: # Кнопка ручного запуска
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Проверка репозитория
+        uses: actions/checkout@v4
+
+      - name: Настройка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Запуск объединенного скрипта обновления
+        run: |
+          cat << 'EOF' > run_parser.py
+          import urllib.request
+          import urllib.error
+          import re
+          import base64
 
           # Базы данных (зашифрованы в Base64)
           ENCRYPTED_SOURCES = [
@@ -35,7 +55,7 @@ import base64
               headers = {
                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
               }
-              valid_statuses = [200, 201, 301, 302, 307, 308]
+              valid_statuses = [200, 201, 202, 301, 302, 307, 308]
               
               # 1. Быстрая попытка через HEAD
               try:
@@ -141,3 +161,15 @@ import base64
               main()
           EOF
           python run_parser.py
+
+      - name: Пуш обновленного плейлиста
+        run: |
+          git config --local user.email "github-actions[bot]@://github.com"
+          git config --local user.name "github-actions[bot]"
+          git add playlist.m3u
+          if git diff --staged --quiet; then
+            echo "Изменений нет. Плейлист актуален."
+          else
+            git commit -m "Автоматическое обновление плейлиста [skip ci]"
+            git push
+          fi
