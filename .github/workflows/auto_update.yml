@@ -1,10 +1,10 @@
-      name: Запуск объединенного скрипта обновления
-        run: |
-          cat << 'EOF' > run_parser.py
-          import urllib.request
-          import urllib.error
-          import re
-          import base64
+name: Запуск объединенного скрипта обновления
+run: |
+cat << 'EOF' > run_parser.py
+import urllib.request
+import urllib.error
+import re
+import base64
 
           # Базы данных (зашифрованы в Base64)
           ENCRYPTED_SOURCES = [
