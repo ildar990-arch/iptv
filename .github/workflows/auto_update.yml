@@ -2,7 +2,7 @@ name: Auto Update IPTV Playlist
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Автозапуск каждую ночь
+    - cron: '0 05 * * *' # Автозапуск каждую ночь
   workflow_dispatch: # Кнопка ручного запуска
 
 jobs:
@@ -48,12 +48,10 @@ jobs:
             "traveladventure",
             "rt doc", 
             "viju explore",
-            "viju history,
+            "viju history",
             "телепутешествия",
             "discovery",
-            "discovery hd",
             "нтв сериал",
-            "моя планета hd",
             "nat geo wild",
             "docu box",
         ]
