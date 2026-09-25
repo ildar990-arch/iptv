@@ -7,21 +7,25 @@ http://188.113.190.12/329/index.m3u8
 http://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
 #EXTINF:-1 group-title="Кино" tvg-id="ntv-serial", НТВ-Сериал
 http://cdn.ntv.ru/th_serial/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Развлечение", Discovery
+http://45.159.74.22/DiscoveryChannel/mono.m3u8
+#EXTINF:-1 group-title="Знания", Моя планета
+http://tv.streams.baikal-telecom.net:8080/MoyaPlanetaHD/index.m3u8
 #EXTINF:-1 group-title="Знания", Неизвестная планета HD
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 #EXTINF:-1 group-title="TEST (VPN)",Travel+Adventure HD
 http://77.232.131.211/TravelAdventureHD/index.m3u8
-#EXTINF:-1 group-title="TEST (VPN)",Моя Планета
-http://vod.tuva.ru/myplanet/index.m3u8
 #EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 group-title="Ott Club+Реклама",Discovery Channel HD
-http://stream.mcquack.net/177/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="Агронет",RT DOC HD
 http://195.26.83.96:7017/play/a00t/index.m3u8
 #EXTINF:-1 group-title="Велком",viju Explore
 http://46.53.200.153:7777/play/a01i/index.m3u8
 #EXTINF:-1 group-title="Велком",viju History
 http://46.53.200.153:7777/play/a01j/index.m3u8
+#EXTINF:-1 group-title="Interhost", Телепутешествия
+http://89.33.29.115:8080/Teleputeshestviya/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="Interhost", DocuBox HD
+http://89.33.29.115:8080/DocuBoxHD/tracks-v1a1/mono.m3u8
 #EXTINF:-1,Кино 1
 https://kino-1.catcast.tv/content/38617/index.m3u8
