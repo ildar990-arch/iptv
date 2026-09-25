@@ -1,4 +1,4 @@
-      - name: Запуск объединенного скрипта обновления
+      name: Запуск объединенного скрипта обновления
         run: |
           cat << 'EOF' > run_parser.py
           import urllib.request
