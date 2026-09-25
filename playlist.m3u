@@ -23,3 +23,5 @@ http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 https://cdn-dvr.ntv.ru/Skoraja_pomosh/tracks-v1a1/rewind-240.ts.m3u8
 #EXTINF:-1 tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
 https://kino-1.catcast.tv/content/38617/index.m3u8
+#EXTINF:-1,СССР ТВ
+https://edge02-alm.beetv.kz/bpk-token/4an@mdtwpkqnn04jbkuiqotz2gn5ui1yu3tcm33tpxca/bpk-tv/000006365/tve/000006365-audio_82882_rus=82400-video=2137600.m3u8
