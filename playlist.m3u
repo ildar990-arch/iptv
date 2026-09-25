@@ -1,25 +1,25 @@
 #EXTM3U
-#EXTINF:-1 group-title="Общие", НТВ
+#EXTINF:-1 , НТВ
 http://cdn.ntv.ru/ntv0/tracks-v3a1/mono.m3u8
-#EXTINF:-1 group-title="Кино", Индийское кино
+#EXTINF:-1 , Индийское кино
 http://188.113.190.12/329/index.m3u8
-#EXTINF:-1 group-title="Кино", Кино 1 Int.
+#EXTINF:-1 , Кино 1 Int.
 http://213.172.73.132:8081/nimble_live/kino_1_int/playlist.m3u8
-#EXTINF:-1 group-title="Кино" tvg-id="ntv-xit", НТВ-Хит
+#EXTINF:-1 tvg-id="ntv-xit", НТВ-Хит
 http://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
-#EXTINF:-1 group-title="Развлечение", Телепутешествия
+#EXTINF:-1 , Телепутешествия
 http://178.217.72.66:8080/teleputeshestviya/index.m3u8
-#EXTINF:-1 group-title="Развлечение", Discovery
+#EXTINF:-1 , Discovery
 http://45.159.74.22/DiscoveryChannel/mono.m3u8
-#EXTINF:-1 group-title="Развлечение", RTG TV
+#EXTINF:-1 , RTG TV
 http://195.26.83.96:7007/play/a00n/index.m3u8
-#EXTINF:-1 group-title="Развлечение", Travel+Adventure
+#EXTINF:-1 , Travel+Adventure
 http://178.217.72.66:8080/Travel_And_Adventure/index.m3u8
-#EXTINF:-1 group-title="Знания", Моя планета
+#EXTINF:-1 , Моя планета
 http://tv.streams.baikal-telecom.net:8080/MoyaPlanetaHD/index.m3u8
-#EXTINF:-1 group-title="Знания", Неизвестная планета HD
+#EXTINF:-1 , Неизвестная планета HD
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
-#EXTINF:-1 group-title="TEST (VPN)" tvg-logo="https://cdn2-static.ntv.ru/home/schedule/2025/20250926/sp_vert_live8.jpg",НТВ Сериалы Скорая помощь
+#EXTINF:-1 tvg-logo="https://cdn2-static.ntv.ru/home/schedule/2025/20250926/sp_vert_live8.jpg",НТВ Сериалы Скорая помощь
 https://cdn-dvr.ntv.ru/Skoraja_pomosh/tracks-v1a1/rewind-240.ts.m3u8
-#EXTINF:-1 group-title="Catcast TV 🐈 Not 24/7" tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
+#EXTINF:-1 tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
 https://kino-1.catcast.tv/content/38617/index.m3u8
