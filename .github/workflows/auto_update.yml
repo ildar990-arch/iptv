@@ -38,7 +38,7 @@ jobs:
 
         # Список любимых каналов
         FAVORITE_CHANNELS = [
-            "нтв сериалы",
+           
             "нтв хит",
             "нтв",
             "моя планета",
@@ -49,7 +49,8 @@ jobs:
             "rtg doc",
             "rtg",
             "телепутешествия",
-            "discovery"
+            "discovery",
+            "нтв сериал",
         ]
 
         def clean_string(s):
