@@ -43,7 +43,7 @@ jobs:
             "нтв",
             "моя планета",
             "неизвестная планета",
-            "кино 1",
+            "кино 1 international",
             "индийское кино",
             "traveladventure",
             "rtg doc",
@@ -133,6 +133,6 @@ jobs:
         if git diff --staged --quiet; then
           echo "Изменений нет. Плейлист актуален."
         else
-          git commit -m "Автоматическое обновление плейлиста [skip ci]"
+          git commit -m "Автоматическое обеспечение плейлиста [skip ci]"
           git push
         fi
