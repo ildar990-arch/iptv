@@ -32,7 +32,8 @@ jobs:
             "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
             "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
             "aHR0cHM6Ly9sb2dhbmV0LnZlcmNlbC5hcHAvTG9nYW5ldFhBbGwubTN1",
-            "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1"
+            "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1",
+            "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20z"
         ]
 
         # Список любимых каналов
@@ -108,7 +109,7 @@ jobs:
 
             # 2. РЕЗЕРВНЫЙ БЛОК: Если канал "кино 1" не нашелся в базах, берем вашу прямую ссылку
             if "кино1" not in seen_favorites:
-                # Расшифровываем прямую ссылку на Кино 1 (https://kino-1.catcast.tv/content/38617/index.m3u8)
+                # Расшифровываем прямую ссылку на Кино 1 (https://catcast.tv)
                 direct_kino1 = base64.b64decode("aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg=").decode()
                 combined_playlist.append('#EXTINF:-1,Кино 1\n')
                 combined_playlist.append(f"{direct_kino1}\n")
@@ -133,6 +134,6 @@ jobs:
         if git diff --staged --quiet; then
           echo "Изменений нет. Плейлист актуален."
         else
-          git commit -m "Автоматическое обновление плейлиста [skip ci]"
+          git commit -m "Автоматическое обеспечение плейлиста [skip ci]"
           git push
         fi
