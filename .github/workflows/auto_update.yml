@@ -46,7 +46,7 @@ jobs:
               return re.sub(r'[^a-zа-я0-9]', '', s.lower())
 
           def is_link_working(url):
-              """Проверяет доступность стрима: сначала HEAD, при отказе - коротким GET с таймаутом 10с"""
+              """Проверяет доступность стрима: сначала HEAD, при отказе - коротким GET с оптимальным таймаутом 5с"""
               headers = {
                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                   'Accept': '*/*'
@@ -55,36 +55,29 @@ jobs:
               # 1. Попытка через HEAD
               try:
                   req = urllib.request.Request(url, method='HEAD', headers=headers)
-                  with urllib.request.urlopen(req, timeout=10) as response:
+                  with urllib.request.urlopen(req, timeout=5) as response:
                       if 200 <= response.status < 400:
                           return True
               except urllib.error.HTTPError as e:
-                  # Запрет HEAD (403/405/501) — частая практика защиты Cloudflare/Nginx, идем к GET
                   if e.code in (403, 405, 501):
                       pass
                   else:
                       return False
               except Exception:
-                  # Ошибки таймаута или сети игнорируем, давая шанс методу GET
                   pass
 
               # 2. Попытка через GET (запрашиваем только заголовки)
               try:
                   req = urllib.request.Request(url, method='GET', headers=headers)
-                  with urllib.request.urlopen(req, timeout=10) as response:
+                  with urllib.request.urlopen(req, timeout=5) as response:
                       if 200 <= response.status < 400:
                           return True
               except urllib.error.HTTPError as e:
-                  # Некоторые рабочие стримы возвращают 403/404 на пустой GET без плеера, 
-                  # но если это явная критическая ошибка сервера (500+), то ссылка мертва.
                   if e.code >= 500:
                       return False
               except Exception:
-                  # Если стрим вообще сбросил соединение, не рискуем
                   return False
                   
-              # Мягкий режим: если сервер ответил, но статус нестандартный, 
-              # мы скорее доверяем ссылке, чем блокируем её
               return True
 
           def main():
@@ -92,7 +85,6 @@ jobs:
               seen_favorites = set()
               found_count = 0
 
-              # Сортируем названия от длинных к коротким
               sorted_favorites = sorted(FAVORITE_CHANNELS, key=len, reverse=True)
               clean_favorites = [clean_string(fav) for fav in sorted_favorites]
               sources = [base64.b64decode(url.encode()).decode() for url in ENCRYPTED_SOURCES]
@@ -121,7 +113,6 @@ jobs:
                                   current_meta.append(line_strip)
                           elif line_strip.startswith("http"):
                               if current_inf:
-                                  # Ищем совпадение по всей строке информации (включая tvg-name)
                                   clean_line_info = clean_string(current_inf)
                                   
                                   for i, clean_fav in enumerate(clean_favorites):
