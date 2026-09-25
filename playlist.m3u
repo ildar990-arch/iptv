@@ -1,31 +1,31 @@
 #EXTM3U
-#EXTINF:-1 group-title="Общие", НТВ
+#EXTINF:-1 , НТВ
 http://cdn.ntv.ru/ntv0/tracks-v3a1/mono.m3u8
-#EXTINF:-1 group-title="Кино", Индийское кино
+#EXTINF:-1 , Индийское кино
 http://188.113.190.12/329/index.m3u8
-#EXTINF:-1 group-title="Кино" tvg-id="ntv-xit", НТВ-Хит
+#EXTINF:-1 tvg-id="ntv-xit", НТВ-Хит
 http://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
-#EXTINF:-1 group-title="Кино" tvg-id="ntv-serial", НТВ-Сериал
+#EXTINF:-1 tvg-id="ntv-serial", НТВ-Сериал
 http://cdn.ntv.ru/th_serial/tracks-v1a1/mono.m3u8
-#EXTINF:-1 group-title="Развлечение", Discovery
-http://45.159.74.22/DiscoveryChannel/mono.m3u8
-#EXTINF:-1 group-title="Знания", Моя планета
+#EXTINF:-1 , Моя планета
 http://tv.streams.baikal-telecom.net:8080/MoyaPlanetaHD/index.m3u8
-#EXTINF:-1 group-title="Знания", Неизвестная планета HD
+#EXTINF:-1 , Неизвестная планета HD
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
-#EXTINF:-1 group-title="TEST (VPN)",Travel+Adventure HD
+#EXTINF:-1 ,Travel+Adventure HD
 http://77.232.131.211/TravelAdventureHD/index.m3u8
-#EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
+#EXTINF:-1 , Discovery Channel HD
+http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
+#EXTINF:-1 ,Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 group-title="Агронет",RT DOC HD
+#EXTINF:-1 ,RT DOC HD
 http://195.26.83.96:7017/play/a00t/index.m3u8
-#EXTINF:-1 group-title="Велком",viju Explore
+#EXTINF:-1 ,viju Explore
 http://46.53.200.153:7777/play/a01i/index.m3u8
-#EXTINF:-1 group-title="Велком",viju History
+#EXTINF:-1 ,viju History
 http://46.53.200.153:7777/play/a01j/index.m3u8
-#EXTINF:-1 group-title="Interhost", Телепутешествия
+#EXTINF:-1 , Телепутешествия
 http://89.33.29.115:8080/Teleputeshestviya/tracks-v1a1/mono.m3u8
-#EXTINF:-1 group-title="Interhost", DocuBox HD
+#EXTINF:-1 , DocuBox HD
 http://89.33.29.115:8080/DocuBoxHD/tracks-v1a1/mono.m3u8
 #EXTINF:-1,Кино 1
 https://kino-1.catcast.tv/content/38617/index.m3u8
