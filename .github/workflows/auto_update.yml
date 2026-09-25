@@ -45,49 +45,54 @@ jobs:
           def clean_string(s):
               return re.sub(r'[^a-zа-я0-9]', '', s.lower())
 
-          def get_channel_name(extinf_line):
-              if ',' in extinf_line:
-                  return extinf_line.split(',')[-1].strip()
-              return extinf_line
-
           def is_link_working(url):
-              """Проверяет доступность стрима: сначала HEAD, при отказе - коротким GET"""
+              """Проверяет доступность стрима: сначала HEAD, при отказе - коротким GET с таймаутом 10с"""
               headers = {
-                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                  'Accept': '*/*'
               }
               
-              # 1. Быстрая попытка через HEAD
+              # 1. Попытка через HEAD
               try:
                   req = urllib.request.Request(url, method='HEAD', headers=headers)
-                  with urllib.request.urlopen(req, timeout=4) as response:
-                      # Код ответа в диапазоне 200-399 означает успех или редирект
+                  with urllib.request.urlopen(req, timeout=10) as response:
                       if 200 <= response.status < 400:
                           return True
               except urllib.error.HTTPError as e:
-                  # Если метод HEAD запрещен сервером (403 Forbidden или 405 Method Not Allowed),
-                  # мы пропускаем ошибку и пробуем GET-запрос ниже
-                  if e.code == 403 or e.code == 405:
+                  # Запрет HEAD (403/405/501) — частая практика защиты Cloudflare/Nginx, идем к GET
+                  if e.code in (403, 405, 501):
                       pass
                   else:
                       return False
               except Exception:
-                  return False
+                  # Ошибки таймаута или сети игнорируем, давая шанс методу GET
+                  pass
 
-              # 2. Запасная попытка через GET
+              # 2. Попытка через GET (запрашиваем только заголовки)
               try:
                   req = urllib.request.Request(url, method='GET', headers=headers)
-                  with urllib.request.urlopen(req, timeout=4) as response:
+                  with urllib.request.urlopen(req, timeout=10) as response:
                       if 200 <= response.status < 400:
                           return True
+              except urllib.error.HTTPError as e:
+                  # Некоторые рабочие стримы возвращают 403/404 на пустой GET без плеера, 
+                  # но если это явная критическая ошибка сервера (500+), то ссылка мертва.
+                  if e.code >= 500:
+                      return False
               except Exception:
+                  # Если стрим вообще сбросил соединение, не рискуем
                   return False
-              return False
+                  
+              # Мягкий режим: если сервер ответил, но статус нестандартный, 
+              # мы скорее доверяем ссылке, чем блокируем её
+              return True
 
           def main():
               combined_playlist = ["#EXTM3U\n"]
               seen_favorites = set()
               found_count = 0
 
+              # Сортируем названия от длинных к коротким
               sorted_favorites = sorted(FAVORITE_CHANNELS, key=len, reverse=True)
               clean_favorites = [clean_string(fav) for fav in sorted_favorites]
               sources = [base64.b64decode(url.encode()).decode() for url in ENCRYPTED_SOURCES]
@@ -116,11 +121,11 @@ jobs:
                                   current_meta.append(line_strip)
                           elif line_strip.startswith("http"):
                               if current_inf:
-                                  display_name = get_channel_name(current_inf)
-                                  clean_name = clean_string(display_name)
+                                  # Ищем совпадение по всей строке информации (включая tvg-name)
+                                  clean_line_info = clean_string(current_inf)
                                   
                                   for i, clean_fav in enumerate(clean_favorites):
-                                      if clean_fav in clean_name and clean_fav not in seen_favorites:
+                                      if clean_fav in clean_line_info and clean_fav not in seen_favorites:
                                           
                                           print(f" Проверка ссылки для канала [{sorted_favorites[i]}]...", end="", flush=True)
                                           if is_link_working(line_strip):
@@ -133,7 +138,7 @@ jobs:
                                               combined_playlist.append(f"{line_strip}\n")
                                               
                                               found_count += 1
-                                              print(" РАБОТАЕТ!")
+                                              print(" ДОБАВЛЕН!")
                                               break
                                           else:
                                               print(" МЕРТВАЯ (пропуск)")
@@ -165,7 +170,7 @@ jobs:
 
       - name: Пуш обновленного плейлиста
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
           if git diff --staged --quiet; then
