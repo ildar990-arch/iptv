@@ -19,6 +19,8 @@ http://tv.streams.baikal-telecom.net:8080/MoyaPlanetaHD/index.m3u8
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 #EXTINF:-1 ,RT DOC HD
 http://195.26.83.96:7017/play/a00t/index.m3u8
+#EXTINF:-1 ,RT DOC
+http://tv.ttk.mx:9100
 #EXTINF:-1 tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
 https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1,Кино 1
