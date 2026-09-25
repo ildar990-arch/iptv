@@ -21,5 +21,3 @@ http://tv.streams.baikal-telecom.net:8080/MoyaPlanetaHD/index.m3u8
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 #EXTINF:-1 tvg-logo="https://cdn2-static.ntv.ru/home/schedule/2025/20250926/sp_vert_live8.jpg",НТВ Сериалы Скорая помощь
 https://cdn-dvr.ntv.ru/Skoraja_pomosh/tracks-v1a1/rewind-240.ts.m3u8
-#EXTINF:-1 tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
-https://kino-1.catcast.tv/content/38617/index.m3u8
