@@ -1,33 +1,27 @@
 #EXTM3U
-#EXTINF:-1 , НТВ
+#EXTINF:-1 group-title="Общие", НТВ
 http://cdn.ntv.ru/ntv0/tracks-v3a1/mono.m3u8
-#EXTINF:-1 , Индийское кино
+#EXTINF:-1 group-title="Кино", Индийское кино
 http://188.113.190.12/329/index.m3u8
-#EXTINF:-1 tvg-id="ntv-xit", НТВ-Хит
+#EXTINF:-1 group-title="Кино" tvg-id="ntv-xit", НТВ-Хит
 http://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
-#EXTINF:-1 tvg-id="ntv-serial", НТВ-Сериал
+#EXTINF:-1 group-title="Кино" tvg-id="ntv-serial", НТВ-Сериал
 http://cdn.ntv.ru/th_serial/tracks-v1a1/mono.m3u8
-#EXTINF:-1 , Телепутешествия
-http://178.217.72.66:8080/teleputeshestviya/index.m3u8
-#EXTINF:-1 , Discovery
-http://45.159.74.22/DiscoveryChannel/mono.m3u8
-#EXTINF:-1 , Travel+Adventure
-http://178.217.72.66:8080/Travel_And_Adventure/index.m3u8
-#EXTINF:-1 , Моя планета
-http://tv.streams.baikal-telecom.net:8080/MoyaPlanetaHD/index.m3u8
-#EXTINF:-1 , Неизвестная планета HD
+#EXTINF:-1 group-title="Знания", Неизвестная планета HD
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
-#EXTINF:-1 , DocuBox
-http://77.235.1.19:8000/play/a07w/index.m3u8
-#EXTINF:-1 , viju History
-http://158.101.222.193:88/georgia_play.php?id=viasathist
-#EXTINF:-1 , viju Explore
-http://158.101.222.193:88/georgia_play.php?id=viasatexp
-#EXTINF:-1 ,Nat Geo Wild HD
+#EXTINF:-1 group-title="TEST (VPN)",Travel+Adventure HD
+http://77.232.131.211/TravelAdventureHD/index.m3u8
+#EXTINF:-1 group-title="TEST (VPN)",Моя Планета
+http://vod.tuva.ru/myplanet/index.m3u8
+#EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 ,RT DOC HD
+#EXTINF:-1 group-title="Ott Club+Реклама",Discovery Channel HD
+http://stream.mcquack.net/177/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 group-title="Агронет",RT DOC HD
 http://195.26.83.96:7017/play/a00t/index.m3u8
-#EXTINF:-1 tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
-https://kino-1.catcast.tv/content/38617/index.m3u8
+#EXTINF:-1 group-title="Велком",viju Explore
+http://46.53.200.153:7777/play/a01i/index.m3u8
+#EXTINF:-1 group-title="Велком",viju History
+http://46.53.200.153:7777/play/a01j/index.m3u8
 #EXTINF:-1,Кино 1
 https://kino-1.catcast.tv/content/38617/index.m3u8
