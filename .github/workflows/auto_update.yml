@@ -55,7 +55,7 @@ jobs:
               headers = {
                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
               }
-              valid_statuses = [200, 201, 202, 301, 302, 307, 308]
+              valid_statuses = [200, 301, 302]
               
               # 1. Быстрая попытка через HEAD
               try:
@@ -164,7 +164,7 @@ jobs:
 
       - name: Пуш обновленного плейлиста
         run: |
-          git config --local user.email "github-actions[bot]@://github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
           if git diff --staged --quiet; then
