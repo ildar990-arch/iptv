@@ -45,7 +45,7 @@ jobs:
             "кино 1 international",
             "кино 1",
             "индийское кино",
-            "traveladventure",  # Убрали плюс и знаки для надежного поиска
+            "traveladventure",
             "rtg doc",
             "rtg",
             "телепутешествия",
@@ -67,7 +67,7 @@ jobs:
             for url in sources:
                 try:
                     print(f"Скачивание источника: {url}")
-                    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'})
+                    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
                     with urllib.request.urlopen(req, timeout=30) as response:
                         content = response.read().decode('utf-8', errors='ignore')
                         
@@ -89,11 +89,19 @@ jobs:
                                         if next_line.startswith("http"):
                                             url_found = next_line
                                             break
-                                        if next_line: meta_lines.append(next_line)
+                                        # ИГНОРИРУЕМ СТРОКИ ГРУПП #EXTGRP
+                                        if next_line and not next_line.startswith("#EXTGRP"): 
+                                            meta_lines.append(next_line)
                                     
                                     if url_found:
                                         seen_favorites.add(clean_fav)
-                                        combined_playlist.append(f"{line_strip}\n")
+                                        
+                                        # ОЧИЩАЕМ group-title="..." ИЗ СТРОКИ #EXTINF С ПОМОЩЬЮ РЕГУЛЯРНОГО ВЫРАЖЕНИЯ
+                                        clean_inf_line = re.sub(r'group-title="[^"]*"', '', line_strip)
+                                        # Убираем двойные пробелы, если они остались после удаления группы
+                                        clean_inf_line = re.sub(r'\s+', ' ', clean_inf_line)
+                                        
+                                        combined_playlist.append(f"{clean_inf_line}\n")
                                         for meta in meta_lines: combined_playlist.append(f"{meta}\n")
                                         combined_playlist.append(f"{url_found}\n")
                                         found_count += 1
@@ -113,7 +121,7 @@ jobs:
 
     - name: Пуш обновленного плейлиста
       run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.email "github-actions[bot]@://github.com"
         git config --local user.name "github-actions[bot]"
         git add playlist.m3u
         if git diff --staged --quiet; then
