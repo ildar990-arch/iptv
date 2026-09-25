@@ -46,7 +46,7 @@ jobs:
               return re.sub(r'[^a-zа-я0-9]', '', s.lower())
 
           def is_link_working(url):
-              """Проверяет доступность стрима: сначала HEAD, при отказе - коротким GET с оптимальным таймаутом 5с"""
+              """Проверяет доступность стрима: сначала HEAD, при отказе - коротким GET с таймаутом 5с"""
               headers = {
                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                   'Accept': '*/*'
@@ -98,7 +98,6 @@ jobs:
                           lines = content.splitlines()
                       
                       current_inf = None
-                      current_meta = []
                       
                       for line in lines:
                           line_strip = line.strip()
@@ -107,10 +106,6 @@ jobs:
                               
                           if line_strip.startswith("#EXTINF"):
                               current_inf = line_strip
-                              current_meta = []
-                          elif line_strip.startswith("#") and not line_strip.startswith("#EXTGRP"):
-                              if current_inf:
-                                  current_meta.append(line_strip)
                           elif line_strip.startswith("http"):
                               if current_inf:
                                   clean_line_info = clean_string(current_inf)
@@ -121,11 +116,13 @@ jobs:
                                           print(f" Проверка ссылки для канала [{sorted_favorites[i]}]...", end="", flush=True)
                                           if is_link_working(line_strip):
                                               seen_favorites.add(clean_fav)
-                                              clean_inf_line = re.sub(r'\s+', ' ', current_inf)
+                                              
+                                              # Очищаем строку #EXTINF от любых упоминаний group-title="..."
+                                              clean_inf_line = re.sub(r'group-title="[^"]*"', '', current_inf)
+                                              # Убираем возможные двойные пробелы, возникшие после удаления группы
+                                              clean_inf_line = re.sub(r'\s+', ' ', clean_inf_line).strip()
                                               
                                               combined_playlist.append(f"{clean_inf_line}\n")
-                                              for meta in current_meta:
-                                                  combined_playlist.append(f"{meta}\n")
                                               combined_playlist.append(f"{line_strip}\n")
                                               
                                               found_count += 1
@@ -135,7 +132,6 @@ jobs:
                                               print(" МЕРТВАЯ (пропуск)")
                                   
                                   current_inf = None
-                                  current_meta = []
                                   
                   except Exception as e:
                       print(f"Сбой источника {url}: {e}")
