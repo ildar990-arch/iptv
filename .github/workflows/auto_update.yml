@@ -1,3 +1,23 @@
+name: Auto Update IPTV Playlist
+on:
+  schedule:
+    - cron: '0 05 * * *' # Автозапуск каждую ночь
+  workflow_dispatch: # Кнопка ручного запуска
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Проверка репозитория
+        uses: actions/checkout@v4
+
+      - name: Настройка Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Запуск объединенного скрипта обновления
         run: |
           cat << 'EOF' > run_parser.py
@@ -144,3 +164,15 @@
               main()
           EOF
           python run_parser.py
+
+      - name: Пуш обновленного плейлиста
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add playlist.m3u
+          if git diff --staged --quiet; then
+            echo "Изменений нет. Плейлист актуален."
+          else
+            git commit -m "Автоматическое обновление плейлиста [skip ci]"
+            git push
+          fi
