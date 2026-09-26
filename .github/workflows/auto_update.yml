@@ -74,8 +74,8 @@ jobs:
               return None
 
           def get_quality_score(candidate):
-              """Возвращает 1, если канал в HD качестве, и 0 для обычного качества"""
-              inf_line = candidate.upper()
+              """Исправлено: извлекаем строку INF из первого элемента кортежа candidate"""
+              inf_line = candidate[0].upper()
               keywords = ["HD", "FHD", "50FPS", "1080"]
               if any(word in inf_line for word in keywords):
                   return 1
@@ -182,7 +182,7 @@ jobs:
 
       - name: Пуш обновленного плейлиста
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
           git diff --staged --quiet || (git commit -m "Автоматическое обновление плейлиста [skip ci]" && git push)
