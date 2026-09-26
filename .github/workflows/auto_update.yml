@@ -45,7 +45,7 @@ jobs:
           # Список любимых каналов
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
-              "индийское кино", "traveladventure", "rt doc", "viju explore", "viju history", 
+              "индийское кино", "traveladventure", "rt doc",
               "телепутешествия", "discovery", "нтв сериал", "nat geo wild", "docu box", "tcl", "мосфильм"
           ]
 
