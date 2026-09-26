@@ -37,7 +37,6 @@ jobs:
               "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
               "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
-              # --- ВАШИ НОВЫЕ ТРИ ИСТОЧНИКА ---
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdU=="
@@ -183,7 +182,7 @@ jobs:
 
       - name: Пуш обновленного плейлиста
         run: |
-          git config --local user.email "github-actions[bot]@://github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
           if git diff --staged --quiet; then
