@@ -50,6 +50,14 @@
                   return (fav_idx, inf, url)
               return None
 
+          def get_quality_score(candidate):
+              """Возвращает 1, если канал в HD качестве, и 0 для обычного качества"""
+              inf_line = candidate[0].upper()
+              keywords = ["HD", "FHD", "50FPS", "1080"]
+              if any(word in inf_line for word in keywords):
+                  return 1
+              return 0
+
           def main():
               combined_playlist = ["#EXTM3U\n"]
               sources = [base64.b64decode(url.encode()).decode() for url in ENCRYPTED_SOURCES]
@@ -87,11 +95,10 @@
                   except Exception as e:
                       print(f"Ошибка чтения источника {url}: {e}")
 
-              # Шаг 2: Сортировка по качеству (HD выше) и подготовка к проверке
+              # Шаг 2: Сортировка по качеству через безопасную функцию
               all_candidates = []
               for i in range(len(sorted_favorites)):
-                  # ТЕПЕРЬ ТОЧНО ИСПРАВЛЕНО: проверяем x[0] (строку INF), а не весь кортеж x
-                  candidates_by_fav[i].sort(key=lambda x: any(w in x[0].upper() for w in ["HD", "FHD", "50FPS", "1080"]), reverse=True)
+                  candidates_by_fav[i].sort(key=get_quality_score, reverse=True)
                   all_candidates.extend(candidates_by_fav[i])
 
               print(f"\nНайдено потенциальных ссылок для проверки: {len(all_candidates)}")
