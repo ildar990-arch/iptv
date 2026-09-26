@@ -39,11 +39,11 @@ jobs:
               "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U="
           ]
 
-          # Список любимых каналов
+          # Список любимых каналов (Добавлен tcl)
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
               "индийское кино", "traveladventure", "rt doc", "viju explore", "viju history", 
-              "телепутешествия", "discovery", "нтв сериал", "nat geo wild", "docu box"
+              "телепутешествия", "discovery", "нтв сериал", "nat geo wild", "docu box", "tcl", "мосфильм"
           ]
 
           def clean_string(s):
@@ -136,7 +136,7 @@ jobs:
                               valid_channels[fav_idx] = (inf, url)
                               print(f" [+] Найден рабочий поток для: {sorted_favorites[fav_idx]}")
 
-              # Шаг 3: Сборка итогового плейлиста
+              # Шаг 3: Сборка итогового плейлиста из общих баз
               seen_favorites_keys = set()
               for i in range(len(sorted_favorites)):
                   if i in valid_channels:
@@ -148,17 +148,33 @@ jobs:
                       combined_playlist.append(f"{url}\n")
                       seen_favorites_keys.add(clean_favorites[i])
 
-              # Резервный блок для Кино 1
-              if "кино1" not in seen_favorites_keys:
-                  direct_kino1 = base64.b64decode("aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg=").decode()
-                  combined_playlist.append('#EXTINF:-1,Кино 1\n')
-                  combined_playlist.append(f"{direct_kino1}\n")
-                  valid_channels[-1] = True 
+              # Шаг 4: Резервный блок ПРЯМЫХ ссылок пользователя (если каналы не нашлись в базах или упали)
+              direct_fallbacks = {
+                  "discovery": ("#EXTINF:-1,Discovery Channel", "aHR0cHM6Ly9yaXZlci0zLTM4NC5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtNDA4Lm50di5ydXR1YmUucnUvMWd0Nk8zWHo1ZFFNdHFTREd4VG1nQS8xNzkxMDMzNjA2LzY0MjVkNjJmN2UxZjg3YmMzYWVjNDViNDYyY2Q4OWVhLzEwODBwX3N0cmVhbS5tM3U4"),
+                  "tcl": ("#EXTINF:-1,TCL", "aHR0cHM6Ly9yaXZlci0zLTM0Ny5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtMzEzLm05LnJ1dHViZS5ydS9sLUVxOW15RTd4X1NoRWJZN0xNM2xnLzE3OTEwMzM3MDgvN2MzZDFhNGNjMGI0ZGZmMTE3NmFhMmRiYjBiOTAwMDAvMTA4MHBfc3RyZWFtLm0zdTg="),
+                  "кино1": ("#EXTINF:-1,Кино 1", "aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg="), # Прямой текст, без base64
+                  "мосфильм": ("#EXTINF:-1,Мосфильм", "aHR0cHM6Ly9lZGdlMDItYWxtLmJlZXR2Lmt6L2Jway10b2tlbi80YW5AZmY0NTF1bmJ6NXB0d3ZqNHljbmxxMjV4amRqcjU1Z25mMXEwMWpkYS9icGstdHYvMDAwMDA2MzY1L3R2ZS8wMDAwMDYzNjUtYXVkaW9fODI4ODJfcnVzPTgyNDAwLXZpZGVvPTIxMzc2MDAubTN1OA=="),
+                  "мояпланета": ("#EXTINF:-1,Моя Планета", "aHR0cHM6Ly9yaXRzYXR2LnJ1L3N0cmVhbS8wMDAwMDEwNDkvdHZlL2luZGV4Lm0zdTg="), # Очищенная от метрики ссылка
+                  "телепутешествия": ("#EXTINF:-1,Телепутешествия", "aHR0cHM6Ly9taXguY2RudHZ0ZWNoLmNvbS8zL2xpdmV0di5waHA/c2lkPTQ1M2VmNjY0MmNkMjM4MjY0NzQwNTdhJnA9dHJhY2tzLXYxYTFfcmF3Lm0zdTgmZXhwPTE3OTA0NDI2Mzcmc2lnPTA0MjVkZDllZDNjMjV3ZTFiNWVhMWE2NzJjOWYxMWJkNGRlZGI2OWM3ZGI2NjJiOTI0OGNhODRmdDM5NTA5NDg=")
+              }
+
+              for fav_clean_name, (inf_text, encrypted_url) in direct_fallbacks.items():
+                  if fav_clean_name not in seen_favorites_keys:
+                      # Если ссылка начинается на http (как для Кино 1), берем как есть, иначе декодируем Base64
+                      real_url = encrypted_url if encrypted_url.startswith("http") else base64.b64decode(encrypted_url.encode()).decode()
+                      
+                      # Быстрая проверка: добавляем только если прямая ссылка жива
+                      if is_link_working(real_url):
+                          combined_playlist.append(f"{inf_text}\n")
+                          combined_playlist.append(f"{real_url}\n")
+                          seen_favorites_keys.add(fav_clean_name)
+                          print(f" [+++] Добавлен из ПРЯМОГО источника: {fav_clean_name}")
 
               with open("playlist.m3u", "w", encoding="utf-8") as f:
                   f.writelines(combined_playlist)
               
-              print(f"\nИтоговый результат: успешно собрано каналов: {len(valid_channels)}")
+              # Считаем итоговые сохраненные каналы на основе уникальных ключей
+              print(f"\nИтоговый результат: успешно сопряжено каналов: {len(seen_favorites_keys)}")
 
           if __name__ == "__main__":
               main()
@@ -167,12 +183,6 @@ jobs:
 
       - name: Пуш обновленного плейлиста
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
-          if git diff --staged --quiet; then
-            echo "Изменений нет. Плейлист актуален."
-          else
-            git commit -m "Автоматическое обновление плейлиста [skip ci]"
-            git push
-          fi
