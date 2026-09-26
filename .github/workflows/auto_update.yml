@@ -36,7 +36,6 @@
               }
               try:
                   req = urllib.request.Request(url, headers=headers)
-                  # Открываем соединение, успешный ответ 2xx-3xx подтверждает работоспособность
                   with urllib.request.urlopen(req, timeout=4) as response:
                       if 200 <= response.status < 400:
                           return True
@@ -58,7 +57,7 @@
               sorted_favorites = sorted(FAVORITE_CHANNELS, key=len, reverse=True)
               clean_favorites = [clean_string(fav) for fav in sorted_favorites]
               
-              # Словарь для сбора кандидатов: { index_of_favorite: [(inf, url, idx)...] }
+              # Словарь для сбора кандидатов
               candidates_by_fav = {i: [] for i in range(len(sorted_favorites))}
 
               # Шаг 1: Собираем все совпадения из всех источников
@@ -91,7 +90,7 @@
               # Шаг 2: Сортировка по качеству (HD выше) и подготовка к проверке
               all_candidates = []
               for i in range(len(sorted_favorites)):
-                  # Исправлено: x[0] вместо x для обращения к строке #EXTINF внутри кортежа
+                  # ТЕПЕРЬ ТОЧНО ИСПРАВЛЕНО: проверяем x[0] (строку INF), а не весь кортеж x
                   candidates_by_fav[i].sort(key=lambda x: any(w in x[0].upper() for w in ["HD", "FHD", "50FPS", "1080"]), reverse=True)
                   all_candidates.extend(candidates_by_fav[i])
 
@@ -106,7 +105,6 @@
                       res = future.result()
                       if res:
                           fav_idx, inf, url = res
-                          # Благодаря сортировке, лучшая версия для канала запишется первой
                           if fav_idx not in valid_channels:
                               valid_channels[fav_idx] = (inf, url)
                               print(f" [+] Найден рабочий поток для: {sorted_favorites[fav_idx]}")
@@ -116,7 +114,6 @@
               for i in range(len(sorted_favorites)):
                   if i in valid_channels:
                       inf, url = valid_channels[i]
-                      # Очистка group-title
                       clean_inf_line = re.sub(r'group-title="[^"]*"', '', inf)
                       clean_inf_line = re.sub(r'\s+', ' ', clean_inf_line).strip()
                       
