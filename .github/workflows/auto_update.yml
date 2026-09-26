@@ -75,7 +75,7 @@ jobs:
 
           def get_quality_score(candidate):
               """Возвращает 1, если канал в HD качестве, и 0 для обычного качества"""
-              inf_line = candidate[0].upper()
+              inf_line = candidate.upper()
               keywords = ["HD", "FHD", "50FPS", "1080"]
               if any(word in inf_line for word in keywords):
                   return 1
@@ -185,6 +185,4 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
-          if git diff --staged --quiet; then
-            echo "Изменений нет. Плейлист актуален."
-          else
+          git diff --staged --quiet || (git commit -m "Автоматическое обновление плейлиста [skip ci]" && git push)
