@@ -74,7 +74,7 @@ jobs:
               return None
 
           def get_quality_score(candidate):
-              """Исправлено: извлекаем строку INF из первого элемента кортежа candidate"""
+              """Извлекаем строку INF из первого элемента кортежа candidate"""
               inf_line = candidate[0].upper()
               keywords = ["HD", "FHD", "50FPS", "1080"]
               if any(word in inf_line for word in keywords):
@@ -151,14 +151,13 @@ jobs:
                       combined_playlist.append(f"{url}\n")
                       seen_favorites_keys.add(clean_favorites[i])
 
-              # Шаг 4: Резервный блок ПРЯМЫХ ссылок пользователя
+              # Шаг 4: Резервный блок ПРЯМЫХ ссылок пользователя (БЕЗ устаревшей ссылки телепутешествий)
               direct_fallbacks = {
                   "discovery": ("#EXTINF:-1,Discovery Channel", "aHR0cHM6Ly9yaXZlci0zLTM4NC5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtNDA4Lm50di5ydXR1YmUucnUvMWd0Nk8zWHo1ZFFNdHFTREd4VG1nQS8xNzkxMDMzNjA2LzY0MjVkNjJmN2UxZjg3YmMzYWVjNDViNDYyY2Q4OWVhLzEwODBwX3N0cmVhbS5tM3U4"),
                   "tcl": ("#EXTINF:-1,TCL", "aHR0cHM6Ly9yaXZlci0zLTM0Ny5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtMzEzLm05LnJ1dHViZS5ydS9sLUVxOW15RTd4X1NoRWJZN0xNM2xnLzE3OTEwMzM3MDgvN2MzZDFhNGNjMGI0ZGZmMTE3NmFhMmRiYjBiOTAwMDAvMTA4MHBfc3RyZWFtLm0zdTg="),
                   "кино1": ("#EXTINF:-1,Кино 1", "aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg="),
                   "мосфильм": ("#EXTINF:-1,Мосфильм", "aHR0cHM6Ly9lZGdlMDItYWxtLmJlZXR2Lmt6L2Jway10b2tlbi80YW5AZmY0NTF1bmJ6NXB0d3ZqNHljbmxxMjV4amRqcjU1Z25mMXEwMWpkYS9icGstdHYvMDAwMDA2MzY1L3R2ZS8wMDAwMDYzNjUtYXVkaW9fODI4ODJfcnVzPTgyNDAwLXZpZGVvPTIxMzc2MDAubTN1OA=="),
-                  "мояпланета": ("#EXTINF:-1,Моя Планета", "aHR0cHM6Ly9yaXRzYXR2LnJ1L3N0cmVhbS8wMDAwMDEwNDkvdHZlL2luZGV4Lm0zdTg="),
-                  "телепутешествия": ("#EXTINF:-1,Телепутешествия", "aHR0cHM6Ly9taXguY2RudHZ0ZWNoLmNvbS8zL2xpdmV0di5waHA/c2lkPTQ1M2VmNjY0MmNkMjM4MjY0NzQwNTdhJnA9dHJhY2tzLXYxYTFfcmF3Lm0zdTgmZXhwPTE3OTA0NDI2Mzcmc2lnPTA0MjVkZDllZDNjMjV3ZTFiNWVhMWE2NzJjOWYxMWJkNGRlZGI2OWM3ZGI2NjJiOTI0OGNhODRmdDM5NTA5NDg=")
+                  "мояпланета": ("#EXTINF:-1,Моя Планета", "aHR0cHM6Ly9yaXRzYXR2LnJ1L3N0cmVhbS8wMDAwMDEwNDkvdHZlL2luZGV4Lm0zdTg=")
               }
 
               for fav_clean_name, (inf_text, encrypted_url) in direct_fallbacks.items():
