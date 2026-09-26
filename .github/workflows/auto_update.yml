@@ -36,10 +36,14 @@ jobs:
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20z",
               "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
-              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U="
+              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
+              # --- ВАШИ НОВЫЕ ТРИ ИСТОЧНИКА ---
+              "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
+              "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdU=="
           ]
 
-          # Список любимых каналов (Добавлен tcl)
+          # Список любимых каналов
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
               "индийское кино", "traveladventure", "rt doc", "viju explore", "viju history", 
@@ -148,22 +152,19 @@ jobs:
                       combined_playlist.append(f"{url}\n")
                       seen_favorites_keys.add(clean_favorites[i])
 
-              # Шаг 4: Резервный блок ПРЯМЫХ ссылок пользователя (если каналы не нашлись в базах или упали)
+              # Шаг 4: Резервный блок ПРЯМЫХ ссылок пользователя
               direct_fallbacks = {
                   "discovery": ("#EXTINF:-1,Discovery Channel", "aHR0cHM6Ly9yaXZlci0zLTM4NC5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtNDA4Lm50di5ydXR1YmUucnUvMWd0Nk8zWHo1ZFFNdHFTREd4VG1nQS8xNzkxMDMzNjA2LzY0MjVkNjJmN2UxZjg3YmMzYWVjNDViNDYyY2Q4OWVhLzEwODBwX3N0cmVhbS5tM3U4"),
                   "tcl": ("#EXTINF:-1,TCL", "aHR0cHM6Ly9yaXZlci0zLTM0Ny5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtMzEzLm05LnJ1dHViZS5ydS9sLUVxOW15RTd4X1NoRWJZN0xNM2xnLzE3OTEwMzM3MDgvN2MzZDFhNGNjMGI0ZGZmMTE3NmFhMmRiYjBiOTAwMDAvMTA4MHBfc3RyZWFtLm0zdTg="),
-                  "кино1": ("#EXTINF:-1,Кино 1", "aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg="), # Прямой текст, без base64
+                  "кино1": ("#EXTINF:-1,Кино 1", "aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg="),
                   "мосфильм": ("#EXTINF:-1,Мосфильм", "aHR0cHM6Ly9lZGdlMDItYWxtLmJlZXR2Lmt6L2Jway10b2tlbi80YW5AZmY0NTF1bmJ6NXB0d3ZqNHljbmxxMjV4amRqcjU1Z25mMXEwMWpkYS9icGstdHYvMDAwMDA2MzY1L3R2ZS8wMDAwMDYzNjUtYXVkaW9fODI4ODJfcnVzPTgyNDAwLXZpZGVvPTIxMzc2MDAubTN1OA=="),
-                  "мояпланета": ("#EXTINF:-1,Моя Планета", "aHR0cHM6Ly9yaXRzYXR2LnJ1L3N0cmVhbS8wMDAwMDEwNDkvdHZlL2luZGV4Lm0zdTg="), # Очищенная от метрики ссылка
+                  "мояпланета": ("#EXTINF:-1,Моя Планета", "aHR0cHM6Ly9yaXRzYXR2LnJ1L3N0cmVhbS8wMDAwMDEwNDkvdHZlL2luZGV4Lm0zdTg="),
                   "телепутешествия": ("#EXTINF:-1,Телепутешествия", "aHR0cHM6Ly9taXguY2RudHZ0ZWNoLmNvbS8zL2xpdmV0di5waHA/c2lkPTQ1M2VmNjY0MmNkMjM4MjY0NzQwNTdhJnA9dHJhY2tzLXYxYTFfcmF3Lm0zdTgmZXhwPTE3OTA0NDI2Mzcmc2lnPTA0MjVkZDllZDNjMjV3ZTFiNWVhMWE2NzJjOWYxMWJkNGRlZGI2OWM3ZGI2NjJiOTI0OGNhODRmdDM5NTA5NDg=")
               }
 
               for fav_clean_name, (inf_text, encrypted_url) in direct_fallbacks.items():
                   if fav_clean_name not in seen_favorites_keys:
-                      # Если ссылка начинается на http (как для Кино 1), берем как есть, иначе декодируем Base64
                       real_url = encrypted_url if encrypted_url.startswith("http") else base64.b64decode(encrypted_url.encode()).decode()
-                      
-                      # Быстрая проверка: добавляем только если прямая ссылка жива
                       if is_link_working(real_url):
                           combined_playlist.append(f"{inf_text}\n")
                           combined_playlist.append(f"{real_url}\n")
@@ -173,7 +174,6 @@ jobs:
               with open("playlist.m3u", "w", encoding="utf-8") as f:
                   f.writelines(combined_playlist)
               
-              # Считаем итоговые сохраненные каналы на основе уникальных ключей
               print(f"\nИтоговый результат: успешно сопряжено каналов: {len(seen_favorites_keys)}")
 
           if __name__ == "__main__":
@@ -186,3 +186,6 @@ jobs:
           git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
+          if git diff --staged --quiet; then
+            echo "Изменений нет. Плейлист актуален."
+          else
