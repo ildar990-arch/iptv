@@ -30,12 +30,13 @@
               return re.sub(r'[^a-zа-я0-9]', '', s.lower())
 
           def is_link_working(url):
-              """Быстрая проверка линка методом GET с чтением минимального объема данных"""
+              """Быстрая проверка линка методом GET с коротким таймаутом"""
               headers = {
                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
               }
               try:
-                  req = urllib.request.Request(url, headers={**headers, 'Range': 'bytes=0-1024'})
+                  req = urllib.request.Request(url, headers=headers)
+                  # Открываем соединение, успешный ответ 2xx-3xx подтверждает работоспособность
                   with urllib.request.urlopen(req, timeout=4) as response:
                       if 200 <= response.status < 400:
                           return True
@@ -57,7 +58,7 @@
               sorted_favorites = sorted(FAVORITE_CHANNELS, key=len, reverse=True)
               clean_favorites = [clean_string(fav) for fav in sorted_favorites]
               
-              # Словарь для сбора кандидатов: { index_of_favorite: [(inf, url), (inf, url)...] }
+              # Словарь для сбора кандидатов: { index_of_favorite: [(inf, url, idx)...] }
               candidates_by_fav = {i: [] for i in range(len(sorted_favorites))}
 
               # Шаг 1: Собираем все совпадения из всех источников
@@ -87,10 +88,10 @@
                   except Exception as e:
                       print(f"Ошибка чтения источника {url}: {e}")
 
-              # Шаг 2: Параллельная проверка кандидатов в 10 потоков
+              # Шаг 2: Сортировка по качеству (HD выше) и подготовка к проверке
               all_candidates = []
               for i in range(len(sorted_favorites)):
-                  # Сортируем кандидатов для одного канала: HD / FHD версии поднимаем наверх
+                  # Исправлено: x[0] вместо x для обращения к строке #EXTINF внутри кортежа
                   candidates_by_fav[i].sort(key=lambda x: any(w in x[0].upper() for w in ["HD", "FHD", "50FPS", "1080"]), reverse=True)
                   all_candidates.extend(candidates_by_fav[i])
 
@@ -105,8 +106,7 @@
                       res = future.result()
                       if res:
                           fav_idx, inf, url = res
-                          # Если для этого канала мы еще не сохранили рабочую ссылку — сохраняем
-                          # Благодаря предварительной сортировке, сюда первой попадет HD версия (если она рабочая)
+                          # Благодаря сортировке, лучшая версия для канала запишется первой
                           if fav_idx not in valid_channels:
                               valid_channels[fav_idx] = (inf, url)
                               print(f" [+] Найден рабочий поток для: {sorted_favorites[fav_idx]}")
