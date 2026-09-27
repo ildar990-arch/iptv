@@ -1,7 +1,7 @@
 name: Auto Update IPTV Playlist
 on:
   schedule:
-    - cron: '5 0 * * *' # Автозапуск каждую ночь в 03:05 по Московскому времени (00:05 UTC)
+    - cron: '5 0 * * *' # Автозапуск раз в неделю (каждое воскресенье в 03:05 по МСК / 00:05 UTC)
   workflow_dispatch: # Кнопка ручного запуска
 
 jobs:
@@ -39,12 +39,12 @@ jobs:
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdU=="
           ]
 
-          # Список любимых каналов (исправлена пропущенная запятая перед "Teleputeshestviya")
+          # Список любимых каналов
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
               "индийское кино", "traveladventure", "rt doc", "Travel Channel ", "viju History", 
-              "телепутешествия", "discovery", "нтв сериал", "nat geo wild", "docu box", "viju Explore ", "мосфильм",
-              "Teleputeshestviya", "kino1int","kino_1_int","moya-planeta"
+              "телепутешествия", "discovery", "нтв сериал", "nat geo wild", "docu box", "viju Explore ", "мосфильм"
+              "Teleputeshestviya", "kino1int","kino_1_int","moya-planeta",
           ]
 
           # База проверенных логотипов для каналов
@@ -169,34 +169,21 @@ jobs:
                               valid_channels[fav_idx] = (inf, url)
                               print(f" [+] Найден рабочий поток для: {sorted_favorites[fav_idx]}")
 
-              # Шаг 3: Сборка итогового плейлиста по порядку приоритета любимых каналов
-              for i, fav_name in enumerate(sorted_favorites):
+              # Шаг 3: Сборка итогового плейлиста из общих баз + внедрение логотипов
+              seen_favorites_keys = set()
+              for i in range(len(sorted_favorites)):
                   if i in valid_channels:
                       inf, url = valid_channels[i]
-                      clean_fav_name = clean_favorites[i]
-                      # Внедряем логотип, если он есть в LOGO_DATABASE
-                      updated_inf = inject_logo(inf, clean_fav_name)
-                      combined_playlist.append(f"{updated_inf}\n{url}\n")
+                      # Очищаем лишние группы, но оставляем структуру для логотипов
+                      clean_inf_line = re.sub(r'group-title="[^"]*"', '', inf)
+                      clean_inf_line = re.sub(r'\s+', ' ', clean_inf_line).strip()
+                      
+                      # Добавляем логотип
+                      clean_inf_line = inject_logo(clean_inf_line, sorted_favorites[i])
+                      
+                      combined_playlist.append(f"{clean_inf_line}\n")
+                      combined_playlist.append(f"{url}\n")
+                      seen_favorites_keys.add(clean_favorites[i])
 
-              # Сохраняем результат в файл плейлиста
-              output_file = "playlist.m3u"
-              with open(output_file, "w", encoding="utf-8") as f:
-                  f.writelines(combined_playlist)
-              print(f"\n[Успех] Плейлист сохранен в файл: {output_file}")
-
-          if __name__ == "__main__":
-              main()
-          EOF
-          python run_parser.py
-
-      - name: Пуш обновленного плейлиста в репозиторий
-        run: |
-          git config --local user.email "github-actions[bot]@://github.com"
-          git config --local user.name "github-actions[bot]"
-          git add playlist.m3u
-          if git diff --staged --quiet; then
-            echo "Изменений в плейлисте не обнаружено."
-          else
-            git commit -m "Auto update playlist: $(date -u +'%Y-%m-%d %H:%M:%S') UTC"
-            git push
-          fi
+              # Шаг 4: Резервный блок ПРЯМЫХ ссылок
+              direct_fallbacks = {
