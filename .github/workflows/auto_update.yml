@@ -29,12 +29,11 @@ jobs:
           import ssl
           from concurrent.futures import ThreadPoolExecutor, as_completed
 
-          # Отключаем строгую проверку SSL, чтобы не падать на просроченных сертификатах источников
           ctx = ssl.create_default_context()
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
 
-          # Базы данных без дубликатов (зашифрованы в Base64)
+          # Расширенная база источников (Добавлены новые крупные самообновляемые листы для стабильности)
           ENCRYPTED_SOURCES = [
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
@@ -43,15 +42,18 @@ jobs:
               "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdU=="
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1",
+              # Дополнительные проверенные базы (зашифрованы в b64):
+              "aHR0cHM6Ly9pcHR2LnhvbmUvZXBnL2VwZ19saXRlLm0zdQ==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ=="
           ]
 
-          # Список любимых каналов
+          # Список любимых каналов (Исправлено окончание для Телепутешествий)
           FAVORITE_CHANNELS = [
-              "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
+              "нтв хит", "нтв", "моя планета hd", "моя планета", "неизвестная планета", "кино 1 international", 
               "индийское кино", "traveladventure", "rt doc", "Travel Channel", "viju History", 
-              "телепутешествия", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
-              "Teleputeshestviya", "kino1int", "kino_1_int", "moya-planeta"
+              "телепутешествия", "teleputeshestviya", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
+              "kino1int", "kino_1_int", "moya-planeta hd", "moya-planeta"
           ]
 
           # Пул реальных User-Agent для обхода блокировок
@@ -69,7 +71,10 @@ jobs:
               "нтв хит": "https://githubusercontent.com",
               "нтвсериалпес": "https://githubusercontent.com",
               "нтвсериал": "https://githubusercontent.com",
-              "моя планета": "https://githubusercontent.com",
+              "мояпланета": "https://githubusercontent.com",
+              "мояпланетаhd": "https://githubusercontent.com",
+              "телепутешествия": "https://githubusercontent.com",
+              "teleputeshestviya": "https://githubusercontent.com",
               "мосфильм": "https://githubusercontent.com"
           }
 
@@ -79,7 +84,7 @@ jobs:
                   s = s.split(",")[-1]
               s = re.sub(r'\(\s*\+\d+\s*\w*\)', '', s)
               s = re.sub(r'\(\s*\d+\s*[чh]\s*\)', '', s)
-              s = re.sub(r'\b(hd|fhd|uhd|4k|sd|50fps|720p|1080p|hevc|hq|\bрезерв\b|\boriginal\b|\bевропа\b|\bазия\b)\b', '', s)
+              s = re.sub(r'\b(fhd|uhd|4k|sd|50fps|720p|1080p|hevc|hq|\bрезерв\b|\boriginal\b|\bевропа\b|\bазия\b)\b', '', s)
               s = re.sub(r'\[.*?\]|\(.*?\)', '', s)
               s = re.sub(r'[^a-zа-я0-9]', '', s)
               return s.strip()
@@ -92,10 +97,10 @@ jobs:
               }
               try:
                   req = urllib.request.Request(url, headers=headers)
-                  with urllib.request.urlopen(req, timeout=3.5, context=ctx) as response:
+                  with urllib.request.urlopen(req, timeout=4.0, context=ctx) as response:
                       if response.status == 200:
-                          content_type = response.headers.get('Content-Type', '')
-                          if "text/html" in content_type:
+                          content_type = response.headers.get('Content-Type', '').lower()
+                          if "text/html" in content_type or "text/plain" in content_type:
                               return False
                           return True
               except Exception:
@@ -130,7 +135,13 @@ jobs:
 
           def main():
               combined_playlist = ["#EXTM3U\n"]
-              sources = [base64.b64decode(url.encode()).decode() for url in ENCRYPTED_SOURCES]
+              sources = []
+              for encoded_url in ENCRYPTED_SOURCES:
+                  try:
+                      sources.append(base64.b64decode(encoded_url.encode()).decode())
+                  except Exception:
+                      pass
+              
               sorted_favorites = sorted(FAVORITE_CHANNELS, key=len, reverse=True)
               clean_favorites = [clean_string(fav) for fav in sorted_favorites]
               candidates_by_fav = {i: [] for i in range(len(sorted_favorites))}
@@ -139,7 +150,7 @@ jobs:
                   try:
                       print(f"Парсинг источника: {url}")
                       req = urllib.request.Request(url, headers={'User-Agent': random.choice(USER_AGENTS)})
-                      with urllib.request.urlopen(req, timeout=10, context=ctx) as response:
+                      with urllib.request.urlopen(req, timeout=12, context=ctx) as response:
                           content = response.read().decode('utf-8', errors='ignore')
                           lines = content.splitlines()
                       current_inf = None
@@ -164,7 +175,7 @@ jobs:
                   candidates_by_fav[i].sort(key=get_quality_score, reverse=True)
                   all_candidates.extend(candidates_by_fav[i])
 
-              print(f"\nНайдено потенциальных ссылок: {len(all_candidates)}. Запуск проверки...")
+              print(f"\nНайдено потенциальных ссылок для проверки: {len(all_candidates)}. Запуск...")
               valid_channels = {} 
               with ThreadPoolExecutor(max_workers=15) as executor:
                   futures = [executor.submit(check_candidate, c) for c in all_candidates]
@@ -181,21 +192,3 @@ jobs:
                       inf, url = valid_channels[i]
                       clean_fav = clean_favorites[i]
                       updated_inf = inject_logo(inf, clean_fav)
-                      combined_playlist.append(f"{updated_inf}\n{url}\n")
-
-              output_file = "playlist.m3u"
-              with open(output_file, "w", encoding="utf-8") as f:
-                  f.writelines(combined_playlist)
-              print(f"\nУспешно! Всего каналов добавлено: {len(valid_channels)}")
-
-          if __name__ == "__main__":
-              main()
-          EOF
-          python run_parser.py
-
-      - name: Коммит и Пуш обновленного плейлиста
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add playlist.m3u
-          git diff --cached --quiet || (git commit -m "Автоматическое обновление плейлиста" && git push)
