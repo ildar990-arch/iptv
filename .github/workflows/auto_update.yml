@@ -103,7 +103,8 @@ jobs:
               return None
 
           def get_quality_score(candidate_tuple):
-              inf_line = candidate_tuple.upper()
+              """Исправлено: берем первый элемент кортежа (строку #EXTINF)"""
+              inf_line = candidate_tuple[0].upper()
               if "4K" in inf_line or "UHD" in inf_line or "2160" in inf_line:
                   return 4
               if "FHD" in inf_line or "1080" in inf_line:
@@ -146,8 +147,7 @@ jobs:
                           elif line_strip.startswith("http") and current_inf:
                               clean_line_info = clean_string(current_inf)
                               for i, clean_fav in enumerate(clean_favorites):
-                                  # ИЗМЕНЕНО: теперь проверяется точное совпадение
-                                  if clean_fav == clean_line_info:
+                                  if clean_fav in clean_line_info:
                                       candidates_by_fav[i].append((current_inf, line_strip, i))
                                       break
                               current_inf = None
