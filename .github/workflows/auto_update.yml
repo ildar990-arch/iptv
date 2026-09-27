@@ -1,7 +1,7 @@
 name: Auto Update IPTV Playlist
 on:
   schedule:
-    - cron: '0 05 * * *' # Автозапуск каждую ночь
+    - cron: '5 0 * * *' # Автозапуск каждую ночь в 03:05 по Московскому времени (00:05 UTC)
   workflow_dispatch: # Кнопка ручного запуска
 
 jobs:
@@ -42,9 +42,29 @@ jobs:
           # Список любимых каналов
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
-              "индийское кино", "traveladventure", "rt doc",
-              "телепутешествия", "discovery", "нтв сериал", "nat geo wild", "docu box", "tcl", "мосфильм"
+              "индийское кино", "traveladventure", "rt doc", "Travel Channel ", "viju History", 
+              "телепутешествия", "discovery", "нтв сериал", "nat geo wild", "docu box", "viju Explore ", "мосфильм",
+              "Teleputeshestviya", "kino1int","kino_1_int","moya-planeta"
           ]
+
+          # База проверенных логотипов для каналов
+          LOGO_DATABASE = {
+              "нтв": "https://githubusercontent.com",
+              "нтв хит": "https://githubusercontent.com",
+              "нтв сериал": "https://githubusercontent.com",
+              "моя планета": "https://githubusercontent.com",
+              "неизвестная планета": "https://githubusercontent.com",
+              "кино 1 international": "https://githubusercontent.com",
+              "индийское кино": "https://githubusercontent.com",
+              "traveladventure": "https://githubusercontent.com",
+              "rt doc": "https://githubusercontent.com",
+              "телепутешествия": "https://githubusercontent.com",
+              "discovery": "https://githubusercontent.com",
+              "nat geo wild": "https://githubusercontent.com",
+              "docu box": "https://githubusercontent.com",
+              "tcl": "https://githubusercontent.com",
+              "мосфильм": "https://githubusercontent.com"
+          }
 
           def clean_string(s):
               return re.sub(r'[^a-zа-я0-9]', '', s.lower())
@@ -78,6 +98,20 @@ jobs:
                   return 1
               return 0
 
+          def inject_logo(inf_line, clean_fav_name):
+              """Внедряет или заменяет тег tvg-logo на основе базы данных"""
+              logo_url = LOGO_DATABASE.get(clean_fav_name)
+              if not logo_url:
+                  return inf_line
+              
+              # Если тег tvg-logo уже есть, заменяем его, иначе вставляем после #EXTINF:-1
+              if 'tvg-logo="' in inf_line:
+                  inf_line = re.sub(r'tvg-logo="[^"]*"', f'tvg-logo="{logo_url}"', inf_line)
+              else:
+                  inf_line = inf_line.replace("#EXTINF:-1", f'#EXTINF:-1 tvg-logo="{logo_url}"')
+                  inf_line = inf_line.replace("#EXTINF:0", f'#EXTINF:0 tvg-logo="{logo_url}"')
+              return inf_line
+
           def main():
               combined_playlist = ["#EXTM3U\n"]
               sources = [base64.b64decode(url.encode()).decode() for url in ENCRYPTED_SOURCES]
@@ -85,7 +119,6 @@ jobs:
               sorted_favorites = sorted(FAVORITE_CHANNELS, key=len, reverse=True)
               clean_favorites = [clean_string(fav) for fav in sorted_favorites]
               
-              # Словарь для сбора кандидатов
               candidates_by_fav = {i: [] for i in range(len(sorted_favorites))}
 
               # Шаг 1: Собираем все совпадения из всех источников
@@ -115,7 +148,7 @@ jobs:
                   except Exception as e:
                       print(f"Ошибка чтения источника {url}: {e}")
 
-              # Шаг 2: Сортировка по качеству через безопасную функцию
+              # Шаг 2: Сортировка по качеству внутри каждой группы избранного
               all_candidates = []
               for i in range(len(sorted_favorites)):
                   candidates_by_fav[i].sort(key=get_quality_score, reverse=True)
@@ -124,7 +157,7 @@ jobs:
               print(f"\nНайдено потенциальных ссылок для проверки: {len(all_candidates)}")
               print("Запуск многопоточной проверки ссылок...")
 
-              valid_channels = {} # { fav_idx: (inf, url) }
+              valid_channels = {} 
               
               with ThreadPoolExecutor(max_workers=10) as executor:
                   futures = [executor.submit(check_candidate, c) for c in all_candidates]
@@ -132,60 +165,42 @@ jobs:
                       res = future.result()
                       if res:
                           fav_idx, inf, url = res
+                          # Берем первую рабочую ссылку (она уже лучшая по качеству благодаря сортировке)
                           if fav_idx not in valid_channels:
                               valid_channels[fav_idx] = (inf, url)
                               print(f" [+] Найден рабочий поток для: {sorted_favorites[fav_idx]}")
 
-              # Шаг 3: Сборка итогового плейлиста из общих баз
-              seen_favorites_keys = set()
-              for i in range(len(sorted_favorites)):
+              # Шаг 3: Сборка итогового плейлиста в порядке приоритета из FAVORITE_CHANNELS
+              for i, fav_name in enumerate(sorted_favorites):
                   if i in valid_channels:
                       inf, url = valid_channels[i]
-                      clean_inf_line = re.sub(r'group-title="[^"]*"', '', inf)
-                      clean_inf_line = re.sub(r'\s+', ' ', clean_inf_line).strip()
+                      # Модифицируем строку с логотипом
+                      clean_fav = clean_favorites[i]
+                      updated_inf = inject_logo(inf, clean_fav)
                       
-                      combined_playlist.append(f"{clean_inf_line}\n")
-                      combined_playlist.append(f"{url}\n")
-                      seen_favorites_keys.add(clean_favorites[i])
+                      combined_playlist.append(f"{updated_inf}\n{url}\n")
 
-              # Шаг 4: Резервный блок ПРЯМЫХ ссылок пользователя
-              direct_fallbacks = {
-                  "discovery": ("#EXTINF:-1,Discovery Channel", "aHR0cHM6Ly9yaXZlci0zLTM4NC5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtNDA4Lm50di5ydXR1YmUucnUvMWd0Nk8zWHo1ZFFNdHFTREd4VG1nQS8xNzkxMDMzNjA2LzY0MjVkNjJmN2UxZjg3YmMzYWVjNDViNDYyY2Q4OWVhLzEwODBwX3N0cmVhbS5tM3U4"),
-                  "tcl": ("#EXTINF:-1,TCL", "aHR0cHM6Ly9yaXZlci0zLTM0Ny5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtMzEzLm05LnJ1dHViZS5ydS9sLUVxOW15RTd4X1NoRWJZN0xNM2xnLzE3OTEwMzM3MDgvN2MzZDFhNGNjMGI0ZGZmMTE3NmFhMmRiYjBiOTAwMDAvMTA4MHBfc3RyZWFtLm0zdTg="),
-                  "кино1": ("#EXTINF:-1,Кино 1", "aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg="),
-                  "мосфильм": ("#EXTINF:-1,Мосфильм", "aHR0cHM6Ly9lZGdlMDItYWxtLmJlZXR2Lmt6L2Jway10b2tlbi80YW5AZmY0NTF1bmJ6NXB0d3ZqNHljbmxxMjV4amRqcjU1Z25mMXEwMWpkYS9icGstdHYvMDAwMDA2MzY1L3R2ZS8wMDAwMDYzNjUtYXVkaW9fODI4ODJfcnVzPTgyN")
-              }
-
-              # Добавление резервных каналов, если они не были найдены в основных источниках
-              for target_fav, (fallback_inf, fallback_url_encoded) in direct_fallbacks.items():
-                  if target_fav not in seen_favorites_keys:
-                      try:
-                          url_decoded = base64.b64decode(fallback_url_encoded.encode()).decode()
-                          if is_link_working(url_decoded):
-                              combined_playlist.append(f"{fallback_inf}\n")
-                              combined_playlist.append(f"{url_decoded}\n")
-                              print(f" [+] Добавлен резервный рабочий линк для: {target_fav}")
-                      except Exception as e:
-                          print(f"Ошибка обработки резервного канала {target_fav}: {e}")
-
-              # Сохранение итогового файла
-              with open("playlist.m3u", "w", encoding="utf-8") as f:
+              # Запись готового файла плейлиста
+              output_file = "playlist.m3u"
+              with open(output_file, "w", encoding="utf-8") as f:
                   f.writelines(combined_playlist)
-              print("\nОбновленный плейлист успешно сохранен в playlist.m3u")
+              
+              print(f"\nПлейлист успешно сохранен в {output_file}. Всего каналов: {len(valid_channels)}")
 
           if __name__ == "__main__":
               main()
           EOF
           python run_parser.py
 
-      - name: Фиксация изменений (Commit и Push)
+      - name: Коммит и Пуш обновленного плейлиста
         run: |
           git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
           if ! git diff --cached --quiet; then
-            git commit -m "Автоматическое обновление плейлиста"
+            git commit -m "Автоматическое обновление плейлиста: $(date +'%d-%m-%Y %H:%M')"
             git push
           else
             echo "Изменений в плейлисте не обнаружено."
           fi
+
