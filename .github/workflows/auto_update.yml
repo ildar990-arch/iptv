@@ -92,7 +92,6 @@ jobs:
               }
               try:
                   req = urllib.request.Request(url, headers=headers)
-                  # Используем созданный контекст без проверки SSL
                   with urllib.request.urlopen(req, timeout=3.5, context=ctx) as response:
                       if response.status == 200:
                           content_type = response.headers.get('Content-Type', '')
@@ -110,7 +109,6 @@ jobs:
               return None
 
           def get_quality_score(candidate_tuple):
-              """ИСПРАВЛЕНО: Явно берем первый элемент кортежа (инфо-строку) перед .upper()"""
               inf_line = candidate_tuple[0].upper()
               if "4K" in inf_line or "UHD" in inf_line or "2160" in inf_line:
                   return 4
@@ -200,4 +198,4 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
-          if ! git diff --cached --quiet; then
+          git diff --cached --quiet || (git commit -m "Автоматическое обновление плейлиста" && git push)
