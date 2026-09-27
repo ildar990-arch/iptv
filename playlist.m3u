@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1 group-title="Кино и сериалы", Кино 1 International
+#EXTINF:-1 group-title="Кино и сериалы",Кино 1 International
 http://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1 group-title="Познавательные",Неизвестная Планета
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
@@ -11,20 +11,20 @@ http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxz
 http://188.113.190.12/329/index.m3u8
 #EXTINF:-1 group-title="Ott Club+Реклама",Travel Channel HD
 http://stream.mcquack.net/231/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="7",Viju History HD
-http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd9ssyKJuQoiDQFde-j43g82tigKCRX7gae-8T3jOsNYUnpPeXnDUQiu8X4vuF-7l9Y
+#EXTINF:-1 tvg-id="viasat-history" tvg-logo="http://odinson.me/storage/iptv/channels/2gOqLZ2Wmz.png" group-title="ТЕСТ",Viju History HD
+http://66.90.110.10:8080/wPDpe6yNo9/index.m3u8?token=CNVkbIWpdNQAUXGC
 #EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Viju Explore HD
-http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd8xOqu96cZkzhEgq527OdeZo8p98r2IVIVLXfzcxD13C_bQEch-D7KecH5OuMHOyvM
+#EXTINF:-1 group-title="Велком",viju Explore
+http://46.53.200.153:7777/play/a01i/index.m3u8
 #EXTINF:-1 group-title="Инет",Моя планета HD
 http://185.46.16.239:8000/Planeta_HD
 #EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="LLC G&G-Telecom",НТВ Сериал
 http://195.64.140.147:10073/73
 #EXTINF:-1 group-title="LLC G&G-Telecom",Discovery
 http://195.64.140.147:10151/151
-#EXTINF:-1 tvg-id="docubox-hd" tvg-logo="http://odinson.me/storage/iptv/channels/e9iO8bP7GR.png" group-title="ТЕСТ" timeshift="1" catchup="default" catchup-source="http://66.90.110.10:8080/YNe1YeBES6/mpegts?token=CNVkbIWpdNQAUXGC&utc=${start}" catchup-days="1",DocuBox HD
-http://66.90.110.10:8080/YNe1YeBES6/index.m3u8?token=CNVkbIWpdNQAUXGC
+#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",DocuBox HD
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VuMvZkttlgt0d97bpdEBREW0J0YKi7wDaIf_Kqbnarzs
 #EXTINF:-1 tvg-id="mosfilm-pl4" tvg-logo="https://githubusercontent.com" group-title="ТЕСТ",Мосфильм
 http://66.90.110.10:8080/caocGqNtka/index.m3u8?token=CNVkbIWpdNQAUXGC
 #EXTINF:-1 group-title="Кино" tvg-id="ntv-xit", НТВ-Хит
