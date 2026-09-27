@@ -29,7 +29,6 @@ jobs:
           import ssl
           from concurrent.futures import ThreadPoolExecutor, as_completed
 
-          # Отключаем строгую проверку SSL, чтобы не падать на просроченных сертификатах источников
           ctx = ssl.create_default_context()
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
@@ -46,12 +45,12 @@ jobs:
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdU=="
           ]
 
-          # Список любимых каналов
+          # Список любимых каналов (добавлены вариации для Моей Планеты)
           FAVORITE_CHANNELS = [
-              "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
+              "нтв хит", "нтв", "моя планета hd", "моя планета", "неизвестная планета", "кино 1 international", 
               "индийское кино", "traveladventure", "rt doc", "Travel Channel", "viju History", 
               "телепутешествия", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
-              "Teleputeshestviya", "kino1int", "kino_1_int", "moya-planeta"
+              "Teleputeshestviya", "kino1int", "kino_1_int", "moya-planeta hd", "moya-planeta"
           ]
 
           # Пул реальных User-Agent для обхода блокировок
@@ -69,7 +68,8 @@ jobs:
               "нтв хит": "https://githubusercontent.com",
               "нтвсериалпес": "https://githubusercontent.com",
               "нтвсериал": "https://githubusercontent.com",
-              "моя планета": "https://githubusercontent.com",
+              "мояпланета": "https://githubusercontent.com",
+              "мояпланетаhd": "https://githubusercontent.com",
               "мосфильм": "https://githubusercontent.com"
           }
 
@@ -79,7 +79,7 @@ jobs:
                   s = s.split(",")[-1]
               s = re.sub(r'\(\s*\+\d+\s*\w*\)', '', s)
               s = re.sub(r'\(\s*\d+\s*[чh]\s*\)', '', s)
-              s = re.sub(r'\b(hd|fhd|uhd|4k|sd|50fps|720p|1080p|hevc|hq|\bрезерв\b|\boriginal\b|\bевропа\b|\bазия\b)\b', '', s)
+              s = re.sub(r'\b(fhd|uhd|4k|sd|50fps|720p|1080p|hevc|hq|\bрезерв\b|\boriginal\b|\bевропа\b|\bазия\b)\b', '', s)
               s = re.sub(r'\[.*?\]|\(.*?\)', '', s)
               s = re.sub(r'[^a-zа-я0-9]', '', s)
               return s.strip()
@@ -92,10 +92,11 @@ jobs:
               }
               try:
                   req = urllib.request.Request(url, headers=headers)
-                  with urllib.request.urlopen(req, timeout=3.5, context=ctx) as response:
+                  with urllib.request.urlopen(req, timeout=4.0, context=ctx) as response:
                       if response.status == 200:
-                          content_type = response.headers.get('Content-Type', '')
-                          if "text/html" in content_type:
+                          # Дополнительно: если сервер вместо потока возвращает текст ошибки или html, бракуем ссылку
+                          content_type = response.headers.get('Content-Type', '').lower()
+                          if "text/html" in content_type or "text/plain" in content_type:
                               return False
                           return True
               except Exception:
@@ -195,7 +196,5 @@ jobs:
 
       - name: Коммит и Пуш обновленного плейлиста
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
-          git add playlist.m3u
-          git diff --cached --quiet || (git commit -m "Автоматическое обновление плейлиста" && git push)
