@@ -27,13 +27,10 @@ jobs:
           import base64
           from concurrent.futures import ThreadPoolExecutor, as_completed
 
-          # Базы данных (зашифрованы в Base64)
+          # Базы данных без дубликатов (зашифрованы в Base64)
           ENCRYPTED_SOURCES = [
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
-              "aHR0cHM6Ly9sb2dhbmV0LnZlcmNlbC5hcHAvTG9nYW5ldFhBbGwubTN1",
-              "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20z",
               "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
               "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
@@ -151,37 +148,44 @@ jobs:
                       combined_playlist.append(f"{url}\n")
                       seen_favorites_keys.add(clean_favorites[i])
 
-              # Шаг 4: Резервный блок ПРЯМЫХ ссылок пользователя (БЕЗ устаревшей ссылки телепутешествий)
+              # Шаг 4: Резервный блок ПРЯМЫХ ссылок пользователя
               direct_fallbacks = {
                   "discovery": ("#EXTINF:-1,Discovery Channel", "aHR0cHM6Ly9yaXZlci0zLTM4NC5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtNDA4Lm50di5ydXR1YmUucnUvMWd0Nk8zWHo1ZFFNdHFTREd4VG1nQS8xNzkxMDMzNjA2LzY0MjVkNjJmN2UxZjg3YmMzYWVjNDViNDYyY2Q4OWVhLzEwODBwX3N0cmVhbS5tM3U4"),
                   "tcl": ("#EXTINF:-1,TCL", "aHR0cHM6Ly9yaXZlci0zLTM0Ny5ydGJjZG4ucnUvc3RyZWFtL2dlbmV0dGEtMzEzLm05LnJ1dHViZS5ydS9sLUVxOW15RTd4X1NoRWJZN0xNM2xnLzE3OTEwMzM3MDgvN2MzZDFhNGNjMGI0ZGZmMTE3NmFhMmRiYjBiOTAwMDAvMTA4MHBfc3RyZWFtLm0zdTg="),
                   "кино1": ("#EXTINF:-1,Кино 1", "aHR0cHM6Ly9raW5vLTEuY2F0Y2FzdC50di9jb250ZW50LzM4NjE3L2luZGV4Lm0zdTg="),
-                  "мосфильм": ("#EXTINF:-1,Мосфильм", "aHR0cHM6Ly9lZGdlMDItYWxtLmJlZXR2Lmt6L2Jway10b2tlbi80YW5AZmY0NTF1bmJ6NXB0d3ZqNHljbmxxMjV4amRqcjU1Z25mMXEwMWpkYS9icGstdHYvMDAwMDA2MzY1L3R2ZS8wMDAwMDYzNjUtYXVkaW9fODI4ODJfcnVzPTgyNDAwLXZpZGVvPTIxMzc2MDAubTN1OA=="),
-                  "мояпланета": ("#EXTINF:-1,Моя Планета", "aHR0cHM6Ly9yaXRzYXR2LnJ1L3N0cmVhbS8wMDAwMDEwNDkvdHZlL2luZGV4Lm0zdTg=")
+                  "мосфильм": ("#EXTINF:-1,Мосфильм", "aHR0cHM6Ly9lZGdlMDItYWxtLmJlZXR2Lmt6L2Jway10b2tlbi80YW5AZmY0NTF1bmJ6NXB0d3ZqNHljbmxxMjV4amRqcjU1Z25mMXEwMWpkYS9icGstdHYvMDAwMDA2MzY1L3R2ZS8wMDAwMDYzNjUtYXVkaW9fODI4ODJfcnVzPTgyN")
               }
 
-              for fav_clean_name, (inf_text, encrypted_url) in direct_fallbacks.items():
-                  if fav_clean_name not in seen_favorites_keys:
-                      real_url = encrypted_url if encrypted_url.startswith("http") else base64.b64decode(encrypted_url.encode()).decode()
-                      if is_link_working(real_url):
-                          combined_playlist.append(f"{inf_text}\n")
-                          combined_playlist.append(f"{real_url}\n")
-                          seen_favorites_keys.add(fav_clean_name)
-                          print(f" [+++] Добавлен из ПРЯМОГО источника: {fav_clean_name}")
+              # Добавление резервных каналов, если они не были найдены в основных источниках
+              for target_fav, (fallback_inf, fallback_url_encoded) in direct_fallbacks.items():
+                  if target_fav not in seen_favorites_keys:
+                      try:
+                          url_decoded = base64.b64decode(fallback_url_encoded.encode()).decode()
+                          if is_link_working(url_decoded):
+                              combined_playlist.append(f"{fallback_inf}\n")
+                              combined_playlist.append(f"{url_decoded}\n")
+                              print(f" [+] Добавлен резервный рабочий линк для: {target_fav}")
+                      except Exception as e:
+                          print(f"Ошибка обработки резервного канала {target_fav}: {e}")
 
+              # Сохранение итогового файла
               with open("playlist.m3u", "w", encoding="utf-8") as f:
                   f.writelines(combined_playlist)
-              
-              print(f"\nИтоговый результат: успешно сопряжено каналов: {len(seen_favorites_keys)}")
+              print("\nОбновленный плейлист успешно сохранен в playlist.m3u")
 
           if __name__ == "__main__":
               main()
           EOF
           python run_parser.py
 
-      - name: Пуш обновленного плейлиста
+      - name: Фиксация изменений (Commit и Push)
         run: |
           git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
-          git diff --staged --quiet || (git commit -m "Автоматическое обновление плейлиста [skip ci]" && git push)
+          if ! git diff --cached --quiet; then
+            git commit -m "Автоматическое обновление плейлиста"
+            git push
+          else
+            echo "Изменений в плейлисте не обнаружено."
+          fi
