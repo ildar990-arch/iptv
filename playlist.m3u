@@ -1,29 +1,27 @@
 #EXTM3U
-#EXTINF:-1 group-title="Кино и сериалы",Кино 1 International
+#EXTINF:-1 group-title="Кино и сериалы", Кино 1 International
 http://kino-1.catcast.tv/content/38617/index.m3u8
-#EXTINF:-1 group-title="Познавательные",Неизвестная Планета
+#EXTINF:-1 group-title="Знания", Неизвестная планета HD
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
-#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="TEST (VPN)",Travel+Adventure HD
+#EXTINF:-1 group-title="TEST (VPN)",Travel+Adventure HD
 http://77.232.131.211/TravelAdventureHD/index.m3u8
-#EXTINF:-1 group-title="Ott Club+Реклама",Travel Channel HD
-http://stream.mcquack.net/231/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="Познавательные",Телепутешествия
+#EXTINF:-1 group-title="Познавательные",Телепутешествия
 https://stream-msk-04.ott.tricolor.tv:443/dtv/id154_MSKSG-PVR-1--Telepyt/04/plst.m3u8?drmreq=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfdHlwZSI6ImFwdHBfb3R0IiwiY2xhc3MiOiJCUk9XU0VSIiwiZHJlaWQiOiI0NTAyNTUwMDM1ODM5NSIsImV4cCI6MTc2MTY1NTM0MywiaHdpZCI6IjI4YzUzMGRkNTE5NmIwZjQ0ZjkyY2ZhN2RhODVkZDU2ZDE2ZTQ4YjRhZjU2MTA5NTk1YmExNmZkMjYyYzRmNTAiLCJsYXN0X3JlcV9kYXRlIjoxNzYxMDUwNTQzLCJzZXNzaW9uX2lkIjoiNTA2OTkxMzhmYzc4MTQ4N2U4MGNiMjkzNzQwOWM5M2QiLCJ0b2tlbl90eXBlIjoiQ29udGVudEFjY2Vzc1Rva2VuIiwidHlwZSI6Ik1PWklMTEEifQ.ALDGjcG6WclyHhPxNmEKmRBz8ttTYCQ4XIW_AnWNhcM
-#EXTINF:-1 group-title="Кино", Индийское кино
-http://188.113.190.12/329/index.m3u8
-#EXTINF:-1 group-title="Велком",viju Explore
-http://46.53.200.153:7777/play/a01i/index.m3u8
+#EXTINF:-1 group-title="LLC G&G-Telecom",Индийское Кино
+http://195.64.140.147:10049/49
+#EXTINF:-1 group-title="LLC G&G-Telecom",Travel Channel
+http://195.64.140.147:10158/158
 #EXTINF:-1 group-title="Велком",viju History
 http://46.53.200.153:7777/play/a01j/index.m3u8
-#EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
-http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 tvg-id="moya-planeta" group-title="Познавательные",Моя Планета HD
-http://stream-msk-04.ott.tricolor.tv/dtv/id623_MSKSG-PVR-1--Moya_Planeta_HD/03/plst.m3u8?drmreq=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfdHlwZSI6ImFwdHBfb3R0IiwiY2xhc3MiOiJCUk9XU0VSIiwiZHJlaWQiOiI0NTAyNTUwMDM1ODM5NSIsImV4cCI6MTc2MTY1NTM0MywiaHdpZCI6IjI4YzUzMGRkNTE5NmIwZjQ0ZjkyY2ZhN2RhODVkZDU2ZDE2ZTQ4YjRhZjU2MTA5NTk1YmExNmZkMjYyYzRmNTAiLCJsYXN0X3JlcV9kYXRlIjoxNzYxMDUwNTQzLCJzZXNzaW9uX2lkIjoiNTA2OTkxMzhmYzc4MTQ4N2U4MGNiMjkzNzQwOWM5M2QiLCJ0b2tlbl90eXBlIjoiQ29udGVudEFjY2Vzc1Rva2VuIiwidHlwZSI6Ik1PWklMTEEifQ.ALDGjcG6WclyHhPxNmEKmRBz8ttTYCQ4XIW_AnWNhcM
+#EXTINF:-1 group-title="IZONE", Nat Geo Wild
+http://46.32.176.50/natgeowild/index.m3u8
+#EXTINF:-1 group-title="Велком",viju Explore
+http://46.53.200.153:7777/play/a01i/index.m3u8
 #EXTINF:-1 group-title="Инет",Моя планета HD
 http://185.46.16.239:8000/Planeta_HD
-#EXTINF:-1 group-title="TEST (VPN)" tvg-logo="https://cdn2-static.ntv.ru/home/schedule/2025/20250926/pes_live_vert.jpg",НТВ Сериалы Пёс
-https://cdn-dvr.ntv.ru/Pes/tracks-v1a1/rewind-240.ts.m3u8
-#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="TEST (VPN)", Discovery Channel HD
+#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="Кино" tvg-id="ntv-serial", НТВ-Сериал
+http://cdn.ntv.ru/th_serial/tracks-v1a1/mono.m3u8
+#EXTINF:-1 group-title="TEST (VPN)", Discovery Channel HD
 http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
 #EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="LLC G&G-Telecom",Мосфильм. Золотая коллекция
 http://195.64.140.147:10078/78
