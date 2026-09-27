@@ -38,15 +38,12 @@ jobs:
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdU=="
-          ]
-
-          # Список любимых каналов
           FAVORITE_CHANNELS = [
-              "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
-              "индийское кино", "traveladventure", "rt doc", "Travel Channel", "viju History", 
-              "телепутешествия", "discovery", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
-              "Teleputeshestviya", "kino1int", "kino_1_int", "moya-planeta"
-          ]
+    "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
+    "индийское кино", "traveladventure", "rt doc", "Travel Channel", "viju History", 
+    "телепутешествия", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
+    "Teleputeshestviya", "kino1int", "kino_1_int", "moya-planeta"
+]
 
           # Пул реальных User-Agent для обхода блокировок
           USER_AGENTS = [
