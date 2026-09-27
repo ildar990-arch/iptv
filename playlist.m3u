@@ -1,7 +1,7 @@
 #EXTM3U
 #EXTINF:-1 , Кино 1 International
 http://kino-1.catcast.tv/content/38617/index.m3u8
-#EXTINF:-1 , Неизвестная планета HD
+#EXTINF:-1 ,Неизвестная Планета
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 #EXTINF:-1 ,Travel+Adventure HD
 http://77.232.131.211/TravelAdventureHD/index.m3u8
@@ -25,7 +25,7 @@ http://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
 http://195.26.83.96:7017/play/a00t/index.m3u8
 #EXTINF:-1 , НТВ HD
 http://cdn.ntv.ru/ntv0_hd/tracks-v1a1/rewind-7150.m3u8
-#EXTINF:-1 ,Приключения HD
-http://stream.mcquack.net/198/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 ,National Geographic HD
+http://stream.mcquack.net/116/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1,Кино 1
 https://kino-1.catcast.tv/content/38617/index.m3u8
