@@ -56,12 +56,13 @@ jobs:
 
           # База проверенных логотипов
           LOGO_DATABASE = {
-              "нтв": "https://githubusercontent.com",
-              "нтв хит": "https://githubusercontent.com",
-              "нтв сериал": "https://githubusercontent.com",
-              "моя планета": "https://githubusercontent.com",
-              "мосфильм": "https://githubusercontent.com"
-          }
+    "нтв": "https://githubusercontent.com",
+    "нтв хит": "https://githubusercontent.com",
+    "нтвсериалпес": "https://githubusercontent.com",
+    "нтвсериал": "https://githubusercontent.com",
+    "моя планета": "https://githubusercontent.com",
+    "мосфильм": "https://githubusercontent.com"
+}
 
           def clean_string(s):
               """1. Нормализация названий: глубокая очистка от технического мусора плейлистов"""
