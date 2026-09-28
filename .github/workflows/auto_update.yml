@@ -33,16 +33,23 @@ jobs:
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
 
-          # Рабочая и очищенная база стабильных источников
+          # Исключительно ваши новые источники, зашифрованные в Base64
           ENCRYPTED_SOURCES = [
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
-              "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9jb3VudHJpZXMvcnUubTN1"
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvcmVmcy9oZWFkcy9EaW1vbm92aWNoL0ZSRUUvVFY=",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",
+              "aHR0cHM6Ly9sb2dhbmV0LnZlcmNlbC5hcHAvTG9nYW5ldFhBbGwubTN1",
+              "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20z",
+              "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
+              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U="
           ]
 
-          # Оптимизированный список любимых каналов без ложных дубликатов
+          # Список любимых каналов
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
               "кино 1", "кино1", "индийское кино", "travel adventure", "rt doc", "travel channel", 
@@ -110,8 +117,7 @@ jobs:
               return None
 
           def get_quality_score(candidate_tuple):
-              # Исправлено: извлекаем строку заголовка из кортежа кандидатов
-              inf_line = candidate_tuple[0].upper()
+              inf_line = candidate_tuple.upper()
               if any(q in inf_line for q in ["4K", "UHD", "2160"]): return 4
               if any(q in inf_line for q in ["FHD", "1080"]): return 3
               if any(q in inf_line for q in ["HD", "720", "50FPS"]): return 2
@@ -158,7 +164,6 @@ jobs:
                           elif line_strip.startswith("http") and current_inf:
                               clean_line_info = clean_string(current_inf)
                               
-                              # Поиск по подстроке вместо строгого равенства
                               for i, clean_fav in enumerate(clean_favorites):
                                   if clean_fav in clean_line_info:
                                       candidates_by_fav[i].append((current_inf, line_strip, i))
@@ -186,7 +191,7 @@ jobs:
                   candidates = working_by_fav[i]
                   if candidates:
                       candidates.sort(key=get_quality_score, reverse=True)
-                      best_inf, best_url = candidates[0]
+                      best_inf, best_url = candidates
                       
                       clean_fav = clean_favorites[i]
                       final_inf = inject_logo(best_inf, clean_fav)
@@ -198,7 +203,6 @@ jobs:
 
               with open("playlist.m3u", "w", encoding="utf-8") as f:
                   f.writelines(combined_playlist)
-              print("Плейлист успешно сформирован и сохранен.")
 
           if __name__ == "__main__":
               main()
@@ -208,11 +212,3 @@ jobs:
       - name: Фиксация и отправка изменений
         run: |
           git config --local user.email "github-actions[bot]@://github.com"
-          git config --local user.name "github-actions[bot]"
-          git add playlist.m3u
-          if ! git diff --staged --quiet; then
-            git commit -m "Автоматическое обновление плейлиста: $(date +'%d-%m-%Y %H:%M')"
-            git push
-          else
-            echo "Изменений в плейлисте нет."
-          fi
