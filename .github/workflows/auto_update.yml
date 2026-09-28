@@ -49,9 +49,8 @@ jobs:
           # Список любимых каналов
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
-              "индийское кино", "travel adventure", "traveladventure", "rt doc", "travel channel", "viju history", 
-              "телепутешествия", "teleputeshestviya", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju explore", "мосфильм",
-              "kino1int", "kino_1_int", "moya-planeta"
+              "индийское кино", "travel adventure", "rt doc", "travel channel", "viju history", 
+              "телепутешествия", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju explore", "мосфильм"
           ]
 
           USER_AGENTS = [
