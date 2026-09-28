@@ -33,7 +33,7 @@ jobs:
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
 
-          # Расширенная база источников (Добавлены новые крупные самообновляемые листы для стабильности)
+         # Расширенная база источников
           ENCRYPTED_SOURCES = [
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
@@ -43,9 +43,9 @@ jobs:
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1",
-              # Дополнительные проверенные базы (зашифрованы в b64):
               "aHR0cHM6Ly9pcHR2LnhvbmUvZXBnL2VwZ19saXRlLm0zdQ==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ=="
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ==",
+              "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9jb3VudHJpZXMvcnUubTN1"
           ]
 
           # Список любимых каналов (Исправлено окончание для Телепутешествий)
