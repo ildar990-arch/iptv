@@ -21,8 +21,8 @@ FAVORITE_CHANNELS = [
     "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international",
     "кино 1", "кино1", "кино 1 int", "индийское кино", "travel adventure", "rt doc",
     "travel channel", "viju history", "Телепутешествия", "discovery", 
-    "нтвсериал", "nat geo wild", "docu box", "viju explore", "мосфильм", "mosfilm",
-    "мосфильм золотая коллекция", "mosfilm gold", "домашний",
+    "нтв сериал", "nat geo wild", "docu box", "viju explore", "мосфильм", "mosfilm",
+    "мосфильм золотая коллекция", "mosfilm gold", "домашний", "нтв hd",
 ]
 
 def decode_url(encoded_str):
