@@ -33,22 +33,16 @@ jobs:
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
 
-          # Расширенная база источников
+          # Актуальная база работающих источников (Неработающие и битые ссылки удалены)
           ENCRYPTED_SOURCES = [
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
-              "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
-              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1",
-              "aHR0cHM6Ly9pcHR2LnhvbmUvZXBnL2VwZ19saXRlLm0zdQ==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ==",
               "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9jb3VudHJpZXMvcnUubTN1"
           ]
 
-          # Список любимых каналов с оптимизированным поиском кино-каналов
+          # Список любимых каналов с оптимизированным поиском
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
               "кино 1", "кино1", "индийское кино", "travel adventure", "rt doc", "travel channel", 
@@ -91,7 +85,6 @@ jobs:
               try:
                   req = urllib.request.Request(url, headers=headers, method='HEAD')
                   with urllib.request.urlopen(req, timeout=3.5, context=ctx) as response:
-                      # Проверка через прямое сравнение кодов во избежание сбоев рендеринга
                       if response.status == 200 or response.status == 201:
                           content_type = response.headers.get('Content-Type', '').lower()
                           if "text/html" in content_type:
@@ -117,7 +110,8 @@ jobs:
               return None
 
           def get_quality_score(candidate_tuple):
-              inf_line = candidate_tuple.upper()
+              # Исправлено: candidate_tuple содержит (inf_line, url), берем первый элемент
+              inf_line = candidate_tuple[0].upper()
               if any(q in inf_line for q in ["4K", "UHD", "2160"]): return 4
               if any(q in inf_line for q in ["FHD", "1080"]): return 3
               if any(q in inf_line for q in ["HD", "720", "50FPS"]): return 2
@@ -191,7 +185,7 @@ jobs:
                   candidates = working_by_fav[i]
                   if candidates:
                       candidates.sort(key=get_quality_score, reverse=True)
-                      best_inf, best_url = candidates
+                      best_inf, best_url = candidates[0]
                       
                       clean_fav = clean_favorites[i]
                       final_inf = inject_logo(best_inf, clean_fav)
@@ -211,4 +205,12 @@ jobs:
 
       - name: Фиксация и отправка изменений
         run: |
-          git config --local user.email "github-actions[bot]@://github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add playlist.m3u
+          if ! git diff --staged --quiet; then
+            git commit -m "Автоматическое обновление плейлиста: $(date +'%d-%m-%Y %H:%M')"
+            git push
+          else
+            echo "Изменений в плейлисте нет."
+          fi
