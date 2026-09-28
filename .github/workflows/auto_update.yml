@@ -37,13 +37,20 @@ jobs:
           HTTP_SUCCESS_CODES = [200, 201, 206]
           HTTP_RETRY_CODES = [403, 405, 500, 502, 503]
 
-          # Очищенная и обновленная рабочая база источников (Base64)
+          # Расширенная база источников
           ENCRYPTED_SOURCES = [
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
+              "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
+              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1"
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1",
+              "aHR0cHM6Ly9pcHR2LnhvbmUvZXBnL2VwZ19saXRlLm0zdQ==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ==",
+              # Дополнительный надежный источник (iptv-org Russia):
+              "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9jb3VudHJpZXMvcnUubTN1"
           ]
 
           # Список любимых каналов
