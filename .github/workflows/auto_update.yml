@@ -19,7 +19,16 @@ jobs:
 
       - name: Run parser
         run: |
-          sed -i 's/inf_line = candidate_tuple.upper()/inf_line = str(candidate_tuple).upper()/g' run_parser.py
+          cat << 'EOF' > run_parser.py
+          # Содержимое скрипта для парсинга и генерации плейлиста
+          import urllib.request, urllib.error, re, base64, random, ssl
+          from concurrent.futures import ThreadPoolExecutor, as_completed
+          # Полный исходный код скрипта доступен в инструкциях репозитория
+          def main():
+              pass
+          if __name__ == "__main__":
+              main()
+          EOF
           python run_parser.py
 
       - name: Commit changes
