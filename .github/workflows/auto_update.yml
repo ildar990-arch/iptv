@@ -1,8 +1,10 @@
 name: update
 
+name: update
+
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 0 * * 2,5'
   workflow_dispatch:
 
 jobs:
