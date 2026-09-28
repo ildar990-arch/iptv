@@ -33,35 +33,48 @@ jobs:
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
 
-          # Актуальная база работающих источников (Неработающие и битые ссылки удалены)
+          # Расширенная база источников (Добавлены новые крупные самообновляемые листы для стабильности)
           ENCRYPTED_SOURCES = [
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
+              "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
+              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
-              "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9jb3VudHJpZXMvcnUubTN1"
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1",
+              # Дополнительные проверенные базы (зашифрованы в b64):
+              "aHR0cHM6Ly9pcHR2LnhvbmUvZXBnL2VwZ19saXRlLm0zdQ==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ=="
           ]
 
-          # Список любимых каналов с оптимизированным поиском
+          # Список любимых каналов (Исправлено окончание для Телепутешествий)
           FAVORITE_CHANNELS = [
-              "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
-              "кино 1", "кино1", "индийское кино", "travel adventure", "rt doc", "travel channel", 
-              "viju history", "телепутешествия", "discovery", "нтв сериал пес", "нтв сериал", 
-              "nat geo wild", "docu box", "viju explore", "мосфильм", "mosfilm"
+              "нтв хит", "нтв", "моя планета hd", "моя планета", "неизвестная планета", "кино 1 international", 
+              "индийское кино", "traveladventure", "rt doc", "Travel Channel", "viju History", 
+              "телепутешествия", "teleputeshestviya", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
+              "kino1int", "kino_1_int", "moya-planeta hd", "moya-planeta"
           ]
 
+          # Пул реальных User-Agent для обхода блокировок
           USER_AGENTS = [
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15"
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+              "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36",
+              "Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Mobile/15E148 Safari/605.1.15"
           ]
 
+          # База проверенных логотипов
           LOGO_DATABASE = {
               "нтв": "https://githubusercontent.com",
               "нтв хит": "https://githubusercontent.com",
               "нтвсериалпес": "https://githubusercontent.com",
               "нтвсериал": "https://githubusercontent.com",
               "мояпланета": "https://githubusercontent.com",
+              "мояпланетаhd": "https://githubusercontent.com",
               "телепутешествия": "https://githubusercontent.com",
+              "teleputeshestviya": "https://githubusercontent.com",
               "мосфильм": "https://githubusercontent.com"
           }
 
@@ -71,7 +84,7 @@ jobs:
                   s = s.split(",")[-1]
               s = re.sub(r'\(\s*\+\d+\s*\w*\)', '', s)
               s = re.sub(r'\(\s*\d+\s*[чh]\s*\)', '', s)
-              s = re.sub(r'\b(fhd|uhd|4k|sd|50fps|720p|1080p|hevc|hq|hd|\bрезерв\b|\boriginal\b)\b', '', s)
+              s = re.sub(r'\b(fhd|uhd|4k|sd|50fps|720p|1080p|hevc|hq|\bрезерв\b|\boriginal\b|\bевропа\b|\bазия\b)\b', '', s)
               s = re.sub(r'\[.*?\]|\(.*?\)', '', s)
               s = re.sub(r'[^a-zа-я0-9]', '', s)
               return s.strip()
@@ -83,22 +96,13 @@ jobs:
                   'Connection': 'keep-alive'
               }
               try:
-                  req = urllib.request.Request(url, headers=headers, method='HEAD')
-                  with urllib.request.urlopen(req, timeout=3.5, context=ctx) as response:
-                      if response.status == 200 or response.status == 201:
+                  req = urllib.request.Request(url, headers=headers)
+                  with urllib.request.urlopen(req, timeout=4.0, context=ctx) as response:
+                      if response.status == 200:
                           content_type = response.headers.get('Content-Type', '').lower()
-                          if "text/html" in content_type:
+                          if "text/html" in content_type or "text/plain" in content_type:
                               return False
                           return True
-              except urllib.error.HTTPError as e:
-                  if e.code == 403 or e.code == 405 or e.code == 501:
-                      try:
-                          req = urllib.request.Request(url, headers=headers, method='GET')
-                          with urllib.request.urlopen(req, timeout=3.5, context=ctx) as res:
-                              if res.status == 200:
-                                  return "text/html" not in res.headers.get('Content-Type', '').lower()
-                      except Exception:
-                          pass
               except Exception:
                   pass
               return False
@@ -110,11 +114,13 @@ jobs:
               return None
 
           def get_quality_score(candidate_tuple):
-              # Исправлено: candidate_tuple содержит (inf_line, url), берем первый элемент
               inf_line = candidate_tuple[0].upper()
-              if any(q in inf_line for q in ["4K", "UHD", "2160"]): return 4
-              if any(q in inf_line for q in ["FHD", "1080"]): return 3
-              if any(q in inf_line for q in ["HD", "720", "50FPS"]): return 2
+              if "4K" in inf_line or "UHD" in inf_line or "2160" in inf_line:
+                  return 4
+              if "FHD" in inf_line or "1080" in inf_line:
+                  return 3
+              if "HD" in inf_line or "720" in inf_line or "50FPS" in inf_line:
+                  return 2
               return 1
 
           def inject_logo(inf_line, clean_fav_name):
@@ -144,10 +150,9 @@ jobs:
                   try:
                       print(f"Парсинг источника: {url}")
                       req = urllib.request.Request(url, headers={'User-Agent': random.choice(USER_AGENTS)})
-                      with urllib.request.urlopen(req, timeout=10, context=ctx) as response:
+                      with urllib.request.urlopen(req, timeout=12, context=ctx) as response:
                           content = response.read().decode('utf-8', errors='ignore')
                           lines = content.splitlines()
-                      
                       current_inf = None
                       for line in lines:
                           line_strip = line.strip()
@@ -157,60 +162,33 @@ jobs:
                               current_inf = line_strip
                           elif line_strip.startswith("http") and current_inf:
                               clean_line_info = clean_string(current_inf)
-                              
                               for i, clean_fav in enumerate(clean_favorites):
-                                  if clean_fav in clean_line_info:
+                                  if clean_fav == clean_line_info:
                                       candidates_by_fav[i].append((current_inf, line_strip, i))
                                       break
                               current_inf = None
                   except Exception as e:
-                      print(f"Ошибка источника {url}: {e}")
+                      print(f"Ошибка чтения источника {url}: {e}")
 
-              flat_candidates = []
-              for fav_idx, candidates in candidates_by_fav.items():
-                  flat_candidates.extend(candidates)
+              all_candidates = []
+              for i in range(len(sorted_favorites)):
+                  candidates_by_fav[i].sort(key=get_quality_score, reverse=True)
+                  all_candidates.extend(candidates_by_fav[i])
 
-              print(f"Найдено ссылок: {len(flat_candidates)}. Валидация...")
-              working_by_fav = {i: [] for i in range(len(sorted_favorites))}
-              
+              print(f"\nНайдено потенциальных ссылок для проверки: {len(all_candidates)}. Запуск...")
+              valid_channels = {} 
               with ThreadPoolExecutor(max_workers=15) as executor:
-                  futures = [executor.submit(check_candidate, c) for c in flat_candidates]
+                  futures = [executor.submit(check_candidate, c) for c in all_candidates]
                   for future in as_completed(futures):
                       res = future.result()
                       if res:
                           fav_idx, inf, url = res
-                          working_by_fav[fav_idx].append((inf, url))
+                          if fav_idx not in valid_channels:
+                              valid_channels[fav_idx] = (inf, url)
+                              print(f" [+] Рабочий поток: {sorted_favorites[fav_idx]}")
 
               for i, fav_name in enumerate(sorted_favorites):
-                  candidates = working_by_fav[i]
-                  if candidates:
-                      candidates.sort(key=get_quality_score, reverse=True)
-                      best_inf, best_url = candidates[0]
-                      
+                  if i in valid_channels:
+                      inf, url = valid_channels[i]
                       clean_fav = clean_favorites[i]
-                      final_inf = inject_logo(best_inf, clean_fav)
-                      
-                      combined_playlist.append(f"{final_inf}\n{best_url}\n")
-                      print(f"[+ (Запуск)] {fav_name} -> {best_url}")
-                  else:
-                      print(f"[-] Пропущен: {fav_name}")
-
-              with open("playlist.m3u", "w", encoding="utf-8") as f:
-                  f.writelines(combined_playlist)
-
-          if __name__ == "__main__":
-              main()
-          EOF
-          python run_parser.py
-
-      - name: Фиксация и отправка изменений
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add playlist.m3u
-          if ! git diff --staged --quiet; then
-            git commit -m "Автоматическое обновление плейлиста: $(date +'%d-%m-%Y %H:%M')"
-            git push
-          else
-            echo "Изменений в плейлисте нет."
-          fi
+                      updated_inf = inject_logo(inf, clean_fav)
