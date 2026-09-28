@@ -7,8 +7,8 @@ http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 http://77.232.131.211/TravelAdventureHD/index.m3u8
 #EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Телепутешествия orig
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56V6iwiazyAAPTqH7C0BJ4Jp9vv5GCQZl6WVBRfDzvs_5g
-#EXTINF:-1 group-title="Кино", Индийское кино
-http://188.113.190.12/329/index.m3u8
+#EXTINF:-1 group-title="IZONE", Индийское Кино
+http://46.32.176.50/indiskoekino/index.m3u8
 #EXTINF:-1 group-title="Ott Club+Реклама",Travel Channel HD
 http://stream.mcquack.net/231/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="7",Viju History HD
@@ -27,8 +27,8 @@ http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxz
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VuMvZkttlgt0d97bpdEBREW0J0YKi7wDaIf_Kqbnarzs
 #EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="0",Мосфильм. Золотая коллекция +4 HD
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-NZXVzxn-5nG-V_i8HN8fOBmG1BeniaO5AuLfXb4DtY5MWzMB7vHBrPc4G20fK2uU
-#EXTINF:-1 group-title="LLC G&G-Telecom",НТВ Хит
-http://195.64.140.147:10074/74
+#EXTINF:-1 group-title="Кино" tvg-id="ntv-xit", НТВ-Хит
+http://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
 #EXTINF:-1 group-title="Агронет",RT DOC HD
 http://195.26.83.96:7017/play/a00t/index.m3u8
 #EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="Общие", НТВ HD
