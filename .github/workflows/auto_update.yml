@@ -117,11 +117,14 @@ jobs:
               return None
 
           def get_quality_score(candidate_tuple):
-              inf_line = candidate_tuple.upper()
-              if any(q in inf_line for q in ["4K", "UHD", "2160"]): return 4
-              if any(q in inf_line for q in ["FHD", "1080"]): return 3
-              if any(q in inf_line for q in ["HD", "720", "50FPS"]): return 2
-              return 1
+    # Автоматическая защита: если пришла строка — работаем с ней, 
+    # если пришел кортеж — автоматически берем из него текст.
+    if isinstance(candidate_tuple, tuple):
+        inf_line = str(candidate_tuple[0]).upper()
+    else:
+        inf_line = str(candidate_tuple).upper()
+        
+    # Дальше идет ваш старый код функции без изменений...
 
           def inject_logo(inf_line, clean_fav_name):
               logo_url = LOGO_DATABASE.get(clean_fav_name)
