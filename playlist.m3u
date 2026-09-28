@@ -1,20 +1,20 @@
 #EXTM3U
-#EXTINF:-1 group-title="Кино и сериалы" tvg-logo="http://epg.it999.ru/img/2041.png",НТВ Хит
-https://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
-#EXTINF:-1 group-title="Федеральные" tvg-logo="http://epg.it999.ru/img/2001.png",НТВ HD
+#EXTINF:-1 group-title="IZONE", НТВ
+http://46.32.176.50/ntvplus/index.m3u8
+#EXTINF:-1 group-title="С сайтов (VPN)" ,НТВ HD
 https://cdn.ntv.ru/ntv-msk_hd/tracks-v1a1/playlist.m3u8
 #EXTINF:-1 group-title="Инет",Моя планета HD
 http://185.46.16.239:8000/Planeta_HD
 #EXTINF:-1 group-title="Знания", Неизвестная планета HD
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
-#EXTINF:-1 group-title="Кино и сериалы",Кино 1 International
-http://kino-1.catcast.tv/content/38617/index.m3u8
-#EXTINF:-1 group-title="Кино и сериалы",Кино 1 International
-http://kino-1.catcast.tv/content/38617/index.m3u8
-#EXTINF:-1 group-title="Кино и сериалы",Кино 1 International
-http://kino-1.catcast.tv/content/38617/index.m3u8
-#EXTINF:-1 group-title="Кино и сериалы",Кино 1 International
-http://kino-1.catcast.tv/content/38617/index.m3u8
+#EXTINF:-1 group-title="LLC G&G-Telecom",О!
+http://195.64.140.147:10124/124
+#EXTINF:-1 group-title="LLC G&G-Telecom",О!
+http://195.64.140.147:10124/124
+#EXTINF:-1 group-title="LLC G&G-Telecom",О!
+http://195.64.140.147:10124/124
+#EXTINF:-1 group-title="LLC G&G-Telecom",О!
+http://195.64.140.147:10124/124
 #EXTINF:-1 group-title="IZONE", Индийское Кино
 http://46.32.176.50/indiskoekino/index.m3u8
 #EXTINF:-1 group-title="TEST (VPN)",Travel+Adventure HD
@@ -25,10 +25,12 @@ http://195.26.83.96:7017/play/a00t/index.m3u8
 http://stream.mcquack.net/231/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="Велком",viju History
 http://46.53.200.153:7777/play/a01j/index.m3u8
-#EXTINF:-1 group-title="Познавательные",Discovery HD
-http://mfe02.cliptv.az/dash/Discovery_Channel_HDqwer456y.ism/playlist.mpd
-#EXTINF:-1 group-title="Кино и сериалы" tvg-logo="http://epg.it999.ru/img/1754.png",НТВ Сериал
-https://cdn.ntv.ru/th_serial/tracks-v1a1/playlist.m3u8
+#EXTINF:-1 group-title="Wink (VPN 🇷🇺)" catchup="append" catchup-days="3" catchup-source="?offset=-${offset}&utcstart=${timestamp}" tvg-id="stv-sevastopol",СТВ
+https://zabava-htlive.cdn.ngenix.net/hls/CH_STVHD/variant.m3u8
+#EXTINF:-1 group-title="TEST (VPN)", Discovery Channel HD
+http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
+#EXTINF:-1 group-title="TEST (VPN)" tvg-logo="https://cdn2-static.ntv.ru/home/schedule/2025/20250926/sp_vert_live8.jpg",НТВ Сериалы Скорая помощь
+https://cdn-dvr.ntv.ru/Skoraja_pomosh/tracks-v1a1/rewind-240.ts.m3u8
 #EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="Велком",viju Explore
