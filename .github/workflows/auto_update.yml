@@ -42,7 +42,7 @@ jobs:
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international",
               "кино 1", "кино1", "кино 1 int", "индийское кино", "travel adventure", "rt doc",
-              "travel channel", "viju history", "телепутешествия", "discovery", "нтв сериал пес",
+              "travel channel", "viju history", "телепутешествия", "discovery", 
               "нтв сериал", "nat geo wild", "docu box", "viju explore", "мосфильм", "mosfilm",
               "мосфильм золотая коллекция", "mosfilm gold"
           ]
