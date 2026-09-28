@@ -25,8 +25,8 @@ https://cdn-dvr.ntv.ru/Nevskiy/tracks-v1a1/rewind-240.ts.m3u8
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VuhZODu3fTyW9cevmXTKeVFjzcDg4vFA7Fmsg3jmuICU
 #EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",DocuBox HD
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VuMvZkttlgt0d97bpdEBREW0J0YKi7wDaIf_Kqbnarzs
-#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="0",Мосфильм. Золотая коллекция +4 HD
-http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-NZXVzxn-5nG-V_i8HN8fOBmG1BeniaO5AuLfXb4DtY5MWzMB7vHBrPc4G20fK2uU
+#EXTINF:-1 tvg-id="MosfilmZolotayaKollekciya.ru" tvg-logo="https://githubusercontent.com" group-title="Кино",Мосфильм. Золотая коллекция HD
+https://bonus-tv.ru
 #EXTINF:-1 group-title="Кино" tvg-id="ntv-xit", НТВ-Хит
 http://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
 #EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="0",Tviksel Кино 1 HD
