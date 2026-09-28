@@ -52,7 +52,7 @@ jobs:
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета hd", "моя планета", "неизвестная планета", "кино 1 international", 
               "индийское кино", "traveladventure", "rt doc", "Travel Channel", "viju History", 
-              "телепутешествия", "teleputeshestviya", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
+              "телепутешествия", "teleputeshestviya", "discovery", "нтв сериал", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
               "kino1int", "kino_1_int", "moya-planeta hd", "moya-planeta"
           ]
 
@@ -70,7 +70,7 @@ jobs:
               "нтв": "https://githubusercontent.com",
               "нтв хит": "https://githubusercontent.com",
               "нтвсериалпес": "https://githubusercontent.com",
-              "нтвсериал": "https://githubusercontent.com",
+              "нтв сериал": "https://githubusercontent.com",
               "мояпланета": "https://githubusercontent.com",
               "мояпланетаhd": "https://githubusercontent.com",
               "телепутешествия": "https://githubusercontent.com",
