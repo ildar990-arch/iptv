@@ -163,32 +163,41 @@ jobs:
                           elif line_strip.startswith("http") and current_inf:
                               clean_line_info = clean_string(current_inf)
                               for i, clean_fav in enumerate(clean_favorites):
-                                  if clean_fav == clean_line_info:
+                                  if clean_fav in clean_line_info:
                                       candidates_by_fav[i].append((current_inf, line_strip, i))
                                       break
                               current_inf = None
                   except Exception as e:
-                      print(f"Ошибка чтения источника {url}: {e}")
+                      print(f"Ошибка при обработке источника {url}: {e}")
 
-              all_candidates = []
-              for i in range(len(sorted_favorites)):
-                  candidates_by_fav[i].sort(key=get_quality_score, reverse=True)
-                  all_candidates.extend(candidates_by_fav[i])
+              # Формируем плоский список кандидатов для многопоточной проверки
+              flat_candidates = []
+              for fav_idx, candidates in candidates_by_fav.items():
+                  flat_candidates.extend(candidates)
 
-              print(f"\nНайдено потенциальных ссылок для проверки: {len(all_candidates)}. Запуск...")
-              valid_channels = {} 
-              with ThreadPoolExecutor(max_workers=15) as executor:
-                  futures = [executor.submit(check_candidate, c) for c in all_candidates]
+              print(f"Найдено потенциальных ссылок: {len(flat_candidates)}. Начинаем валидацию...")
+              
+              working_by_fav = {i: [] for i in range(len(sorted_favorites))}
+              
+              # Многопоточная проверка рабочих ссылок (до 20 потоков)
+              with ThreadPoolExecutor(max_workers=20) as executor:
+                  futures = [executor.submit(check_candidate, c) for c in flat_candidates]
                   for future in as_completed(futures):
                       res = future.result()
                       if res:
                           fav_idx, inf, url = res
-                          if fav_idx not in valid_channels:
-                              valid_channels[fav_idx] = (inf, url)
-                              print(f" [+] Рабочий поток: {sorted_favorites[fav_idx]}")
+                          working_by_fav[fav_idx].append((inf, url))
 
+              # Выбираем по одной лучшей ссылке для каждого канала на основе качества
               for i, fav_name in enumerate(sorted_favorites):
-                  if i in valid_channels:
-                      inf, url = valid_channels[i]
+                  candidates = working_by_fav[i]
+                  if candidates:
+                      # Сортируем по качеству (от лучшего к худшему)
+                      candidates.sort(key=get_quality_score, reverse=True)
+                      best_inf, best_url = candidates[0]
+                      
+                      # Добавляем логотип, если он есть в базе
                       clean_fav = clean_favorites[i]
-                      updated_inf = inject_logo(inf, clean_fav)
+                      final_inf = inject_logo(best_inf, clean_fav)
+                      
+                      combined_playlist.append(f"{final_inf}\n{best_url}\n")
