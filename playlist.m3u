@@ -1,1 +1,35 @@
-
+#EXTM3U
+#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="0", Кино 1 International
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-NZXVzxn-5nG-V_i8HN8fO3H5--826gnv9EGRhjDWqGn5okYO5oqQXwUFpoKLN9jI
+#EXTINF:-1 group-title="Знания", Неизвестная планета HD
+http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
+#EXTINF:-1 tvg-id="TravelPlusAdventure.ru@HD" tvg-logo="https://i.imgur.com/AlpdXC4.png" group-title="Travel",Travel+Adventure HD (1080p)
+http://stream.mcquack.net/206/index.m3u8
+#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Телепутешествия orig
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56V6iwiazyAAPTqH7C0BJ4Jp9vv5GCQZl6WVBRfDzvs_5g
+#EXTINF:-1 group-title="IZONE", Индийское Кино
+http://46.32.176.50/indiskoekino/index.m3u8
+#EXTINF:-1 group-title="Ott Club+Реклама",Travel Channel HD
+http://stream.mcquack.net/231/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="7",Viju History HD
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd9ssyKJuQoiDQFde-j43g82tigKCRX7gae-8T3jOsNYUnpPeXnDUQiu8X4vuF-7l9Y
+#EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
+http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Viju Explore HD
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd8xOqu96cZkzhEgq527OdeZo8p98r2IVIVLXfzcxD13C_bQEch-D7KecH5OuMHOyvM
+#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="Инет",Моя планета HD
+http://185.46.16.239:8000/Planeta_HD
+#EXTINF:-1 group-title="TEST (VPN)" tvg-logo="https://githubusercontent.com",НТВ Сериалы Скорая помощь
+https://cdn-dvr.ntv.ru/Skoraja_pomosh/tracks-v1a1/rewind-240.ts.m3u8
+#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Investigation Discovery FHD orig
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VuhZODu3fTyW9cevmXTKeVFjzcDg4vFA7Fmsg3jmuICU
+#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",DocuBox HD
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VuMvZkttlgt0d97bpdEBREW0J0YKi7wDaIf_Kqbnarzs
+#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="0",Мосфильм. Золотая коллекция +4 HD
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-NZXVzxn-5nG-V_i8HN8fOBmG1BeniaO5AuLfXb4DtY5MWzMB7vHBrPc4G20fK2uU
+#EXTINF:-1 group-title="Кино" tvg-id="ntv-xit", НТВ-Хит
+http://cdn.ntv.ru/th_hit/tracks-v1a1/playlist.m3u8
+#EXTINF:-1 tvg-id="RTDocumentary.ru@Russian" tvg-logo="https://i.imgur.com/aeu5zIC.png" group-title="Documentary",RT Documentary Russian (1080p)
+https://rt-doc.rttv.com/dvr/rtdru/playlist.m3u8
+#EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="Общие", НТВ HD
+http://cdn.ntv.ru/ntv0_hd/tracks-v1a1/rewind-7150.m3u8
