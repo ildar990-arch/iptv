@@ -1,203 +1,190 @@
-name: Auto Update IPTV Playlist
-on:
-  schedule:
-    - cron: '5 0 * * 0' # Автозапуск каждое воскресенье в 03:05 по Московскому времени (00:05 UTC)
-  workflow_dispatch: # Кнопка ручного запуска
+import urllib.request
+import urllib.error
+import re
+import base64
+import random
+import ssl
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Проверка репозитория
-        uses: actions/checkout@v4
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
-      - name: Настройка Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
+# Расширенная база источников (Добавлены стабильные зеркала)
+ENCRYPTED_SOURCES = [
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
+    "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
+    "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
+    "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
+    "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1",
+    "aHR0cHM6Ly9pcHR2LnhvbmUvZXBnL2VwZ19saXRlLm0zdQ==",
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ=="
+]
 
-      - name: Запуск объединенного скрипта обновления
-        run: |
-          cat << 'EOF' > run_parser.py
-          import urllib.request
-          import urllib.error
-          import re
-          import base64
-          import random
-          import ssl
-          from concurrent.futures import ThreadPoolExecutor, as_completed
+# Список любимых каналов (Упрощены названия для лучшего поиска)
+FAVORITE_CHANNELS = [
+    "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
+    "индийское кино", "travel adventure", "traveladventure", "rt doc", "travel channel", "viju history", 
+    "телепутешествия", "teleputeshestviya", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju explore", "мосфильм",
+    "kino1int", "kino_1_int", "moya-planeta"
+]
 
-          ctx = ssl.create_default_context()
-          ctx.check_hostname = False
-          ctx.verify_mode = ssl.CERT_NONE
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15"
+]
 
-          # Расширенная база источников (Добавлены новые крупные самообновляемые листы для стабильности)
-          ENCRYPTED_SOURCES = [
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
-              "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
-              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
-              "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
-              "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1",
-              # Дополнительные проверенные базы (зашифрованы в b64):
-              "aHR0cHM6Ly9pcHR2LnhvbmUvZXBnL2VwZ19saXRlLm0zdQ==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ=="
-          ]
+LOGO_DATABASE = {
+    "нтв": "https://githubusercontent.com",
+    "нтв хит": "https://githubusercontent.com",
+    "нтвсериалпес": "https://githubusercontent.com",
+    "нтвсериал": "https://githubusercontent.com",
+    "мояпланета": "https://githubusercontent.com",
+    "телепутешествия": "https://githubusercontent.com",
+    "мосфильм": "https://githubusercontent.com"
+}
 
-          # Список любимых каналов (Исправлено окончание для Телепутешествий)
-          FAVORITE_CHANNELS = [
-              "нтв хит", "нтв", "моя планета hd", "моя планета", "неизвестная планета", "кино 1 international", 
-              "индийское кино", "traveladventure", "rt doc", "Travel Channel", "viju History", 
-              "телепутешествия", "teleputeshestviya", "discovery", "нтв сериал пес", "нтв сериал", "nat geo wild", "docu box", "viju Explore", "мосфильм",
-              "kino1int", "kino_1_int", "moya-planeta hd", "moya-planeta"
-          ]
+def clean_string(s):
+    s = s.lower()
+    # Если это строка EXTINF, берем только часть после последней запятой (имя канала)
+    if "," in s:
+        s = s.split(",")[-1]
+    # Удаляем таймшифты (+3), качество, лишние пробелы и спецсимволы
+    s = re.sub(r'\(\s*\+\d+\s*\w*\)', '', s)
+    s = re.sub(r'\(\s*\d+\s*[чh]\s*\)', '', s)
+    s = re.sub(r'\b(fhd|uhd|4k|sd|50fps|720p|1080p|hevc|hq|hd|\bрезерв\b|\boriginal\b)\b', '', s)
+    s = re.sub(r'\[.*?\]|\(.*?\)', '', s)
+    s = re.sub(r'[^a-zа-я0-9]', '', s) # Оставляем только буквы и цифры
+    return s.strip()
 
-          # Пул реальных User-Agent для обхода блокировок
-          USER_AGENTS = [
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15",
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
-              "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36",
-              "Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Mobile/15E148 Safari/605.1.15"
-          ]
+def is_link_working(url):
+    headers = {
+        'User-Agent': random.choice(USER_AGENTS),
+        'Accept': '*/*',
+        'Connection': 'keep-alive'
+    }
+    try:
+        # Используем HEAD-запрос вместо GET, чтобы не скачивать весь поток и экономить время/лимиты
+        req = urllib.request.Request(url, headers=headers, method='HEAD')
+        with urllib.request.urlopen(req, timeout=3.5, context=ctx) as response:
+            if response.status in:
+                content_type = response.headers.get('Content-Type', '').lower()
+                # Если ссылка возвращает HTML-страницу вместо потока — это заглушка/блокировка
+                if "text/html" in content_type:
+                    return False
+                return True
+    except urllib.error.HTTPError as e:
+        # Некоторые сервера запрещают HEAD-запросы (403/405), для них пробуем короткий GET
+        if e.code in:
+            try:
+                req = urllib.request.Request(url, headers=headers, method='GET')
+                with urllib.request.urlopen(req, timeout=3.5, context=ctx) as res:
+                    if res.status in:
+                        return "text/html" not in res.headers.get('Content-Type', '').lower()
+            except Exception:
+                pass
+    except Exception:
+        pass
+    return False
 
-          # База проверенных логотипов
-          LOGO_DATABASE = {
-              "нтв": "https://githubusercontent.com",
-              "нтв хит": "https://githubusercontent.com",
-              "нтвсериалпес": "https://githubusercontent.com",
-              "нтвсериал": "https://githubusercontent.com",
-              "мояпланета": "https://githubusercontent.com",
-              "мояпланетаhd": "https://githubusercontent.com",
-              "телепутешествия": "https://githubusercontent.com",
-              "teleputeshestviya": "https://githubusercontent.com",
-              "мосфильм": "https://githubusercontent.com"
-          }
+def check_candidate(candidate):
+    inf, url, fav_idx = candidate
+    if is_link_working(url):
+        return (fav_idx, inf, url)
+    return None
 
-          def clean_string(s):
-              s = s.lower()
-              if "," in s:
-                  s = s.split(",")[-1]
-              s = re.sub(r'\(\s*\+\d+\s*\w*\)', '', s)
-              s = re.sub(r'\(\s*\d+\s*[чh]\s*\)', '', s)
-              s = re.sub(r'\b(fhd|uhd|4k|sd|50fps|720p|1080p|hevc|hq|\bрезерв\b|\boriginal\b|\bевропа\b|\bазия\b)\b', '', s)
-              s = re.sub(r'\[.*?\]|\(.*?\)', '', s)
-              s = re.sub(r'[^a-zа-я0-9]', '', s)
-              return s.strip()
+def get_quality_score(candidate_tuple):
+    inf_line = candidate_tuple[0].upper()
+    if any(q in inf_line for q in ["4K", "UHD", "2160"]): return 4
+    if any(q in inf_line for q in ["FHD", "1080"]): return 3
+    if any(q in inf_line for q in ["HD", "720", "50FPS"]): return 2
+    return 1
 
-          def is_link_working(url):
-              headers = {
-                  'User-Agent': random.choice(USER_AGENTS),
-                  'Accept': '*/*',
-                  'Connection': 'keep-alive'
-              }
-              try:
-                  req = urllib.request.Request(url, headers=headers)
-                  with urllib.request.urlopen(req, timeout=4.0, context=ctx) as response:
-                      if response.status == 200:
-                          content_type = response.headers.get('Content-Type', '').lower()
-                          if "text/html" in content_type or "text/plain" in content_type:
-                              return False
-                          return True
-              except Exception:
-                  pass
-              return False
+def inject_logo(inf_line, clean_fav_name):
+    logo_url = LOGO_DATABASE.get(clean_fav_name)
+    if not logo_url:
+        return inf_line
+    if 'tvg-logo="' in inf_line:
+        inf_line = re.sub(r'tvg-logo="[^"]*"', f'tvg-logo="{logo_url}"', inf_line)
+    else:
+        inf_line = re.sub(r'(#EXTINF:-?\d+)', r'\1 tvg-logo="' + logo_url + '"', inf_line)
+    return inf_line
 
-          def check_candidate(candidate):
-              inf, url, fav_idx = candidate
-              if is_link_working(url):
-                  return (fav_idx, inf, url)
-              return None
+def main():
+    combined_playlist = ["#EXTM3U\n"]
+    sources = []
+    for encoded_url in ENCRYPTED_SOURCES:
+        try:
+            sources.append(base64.b64decode(encoded_url.encode()).decode())
+        except Exception:
+            pass
+    
+    sorted_favorites = sorted(FAVORITE_CHANNELS, key=len, reverse=True)
+    clean_favorites = [clean_string(fav) for fav in sorted_favorites]
+    candidates_by_fav = {i: [] for i in range(len(sorted_favorites))}
 
-          def get_quality_score(candidate_tuple):
-              inf_line = candidate_tuple[0].upper()
-              if "4K" in inf_line or "UHD" in inf_line or "2160" in inf_line:
-                  return 4
-              if "FHD" in inf_line or "1080" in inf_line:
-                  return 3
-              if "HD" in inf_line or "720" in inf_line or "50FPS" in inf_line:
-                  return 2
-              return 1
+    for url in sources:
+        try:
+            print(f"Парсинг источника: {url}")
+            req = urllib.request.Request(url, headers={'User-Agent': random.choice(USER_AGENTS)})
+            with urllib.request.urlopen(req, timeout=10, context=ctx) as response:
+                content = response.read().decode('utf-8', errors='ignore')
+                lines = content.splitlines()
+            
+            current_inf = None
+            for line in lines:
+                line_strip = line.strip()
+                if not line_strip:
+                    continue
+                if line_strip.startswith("#EXTINF"):
+                    current_inf = line_strip
+                elif line_strip.startswith("http") and current_inf:
+                    clean_line_info = clean_string(current_inf)
+                    
+                    # Проверяем совпадение: очищенное имя из поиска должно быть внутри очищенной строки плейлиста
+                    for i, clean_fav in enumerate(clean_favorites):
+                        if clean_fav in clean_line_info:
+                            candidates_by_fav[i].append((current_inf, line_strip, i))
+                            break
+                    current_inf = None
+        except Exception as e:
+            print(f"Ошибка источника {url}: {e}")
 
-          def inject_logo(inf_line, clean_fav_name):
-              logo_url = LOGO_DATABASE.get(clean_fav_name)
-              if not logo_url:
-                  return inf_line
-              if 'tvg-logo="' in inf_line:
-                  inf_line = re.sub(r'tvg-logo="[^"]*"', f'tvg-logo="{logo_url}"', inf_line)
-              else:
-                  inf_line = re.sub(r'(#EXTINF:-?\d+)', r'\1 tvg-logo="' + logo_url + '"', inf_line)
-              return inf_line
+    flat_candidates = []
+    for fav_idx, candidates in candidates_by_fav.items():
+        flat_candidates.extend(candidates)
 
-          def main():
-              combined_playlist = ["#EXTM3U\n"]
-              sources = []
-              for encoded_url in ENCRYPTED_SOURCES:
-                  try:
-                      sources.append(base64.b64decode(encoded_url.encode()).decode())
-                  except Exception:
-                      pass
-              
-              sorted_favorites = sorted(FAVORITE_CHANNELS, key=len, reverse=True)
-              clean_favorites = [clean_string(fav) for fav in sorted_favorites]
-              candidates_by_fav = {i: [] for i in range(len(sorted_favorites))}
+    print(f"Найдено ссылок: {len(flat_candidates)}. Валидация...")
+    working_by_fav = {i: [] for i in range(len(sorted_favorites))}
+    
+    # Снизили пул до 15, чтобы сервера-источники не банили GitHub Actions за спам-запросы
+    with ThreadPoolExecutor(max_workers=15) as executor:
+        futures = [executor.submit(check_candidate, c) for c in flat_candidates]
+        for future in as_completed(futures):
+            res = future.result()
+            if res:
+                fav_idx, inf, url = res
+                working_by_fav[fav_idx].append((inf, url))
 
-              for url in sources:
-                  try:
-                      print(f"Парсинг источника: {url}")
-                      req = urllib.request.Request(url, headers={'User-Agent': random.choice(USER_AGENTS)})
-                      with urllib.request.urlopen(req, timeout=12, context=ctx) as response:
-                          content = response.read().decode('utf-8', errors='ignore')
-                          lines = content.splitlines()
-                      current_inf = None
-                      for line in lines:
-                          line_strip = line.strip()
-                          if not line_strip:
-                              continue
-                          if line_strip.startswith("#EXTINF"):
-                              current_inf = line_strip
-                          elif line_strip.startswith("http") and current_inf:
-                              clean_line_info = clean_string(current_inf)
-                              for i, clean_fav in enumerate(clean_favorites):
-                                  if clean_fav in clean_line_info:
-                                      candidates_by_fav[i].append((current_inf, line_strip, i))
-                                      break
-                              current_inf = None
-                  except Exception as e:
-                      print(f"Ошибка при обработке источника {url}: {e}")
+    for i, fav_name in enumerate(sorted_favorites):
+        candidates = working_by_fav[i]
+        if candidates:
+            candidates.sort(key=get_quality_score, reverse=True)
+            best_inf, best_url = candidates[0] # Берем первый (лучший) элемент списка
+            
+            clean_fav = clean_favorites[i]
+            final_inf = inject_logo(best_inf, clean_fav)
+            
+            combined_playlist.append(f"{final_inf}\n{best_url}\n")
+            print(f"[+ (Запуск)] {fav_name} -> {best_url}")
+        else:
+            print(f"[-] Пропущен: {fav_name}")
 
-              # Формируем плоский список кандидатов для многопоточной проверки
-              flat_candidates = []
-              for fav_idx, candidates in candidates_by_fav.items():
-                  flat_candidates.extend(candidates)
+    with open("playlist.m3u", "w", encoding="utf-8") as f:
+        f.writelines(combined_playlist)
 
-              print(f"Найдено потенциальных ссылок: {len(flat_candidates)}. Начинаем валидацию...")
-              
-              working_by_fav = {i: [] for i in range(len(sorted_favorites))}
-              
-              # Многопоточная проверка рабочих ссылок (до 20 потоков)
-              with ThreadPoolExecutor(max_workers=20) as executor:
-                  futures = [executor.submit(check_candidate, c) for c in flat_candidates]
-                  for future in as_completed(futures):
-                      res = future.result()
-                      if res:
-                          fav_idx, inf, url = res
-                          working_by_fav[fav_idx].append((inf, url))
-
-              # Выбираем по одной лучшей ссылке для каждого канала на основе качества
-              for i, fav_name in enumerate(sorted_favorites):
-                  candidates = working_by_fav[i]
-                  if candidates:
-                      # Сортируем по качеству (от лучшего к худшему)
-                      candidates.sort(key=get_quality_score, reverse=True)
-                      best_inf, best_url = candidates[0]
-                      
-                      # Добавляем логотип, если он есть в базе
-                      clean_fav = clean_favorites[i]
-                      final_inf = inject_logo(best_inf, clean_fav)
-                      
-                      combined_playlist.append(f"{final_inf}\n{best_url}\n")
+if __name__ == "__main__":
+    main()
