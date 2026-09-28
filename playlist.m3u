@@ -7,16 +7,16 @@ http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 http://77.232.131.211/TravelAdventureHD/index.m3u8
 #EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Телепутешествия orig
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56V6iwiazyAAPTqH7C0BJ4Jp9vv5GCQZl6WVBRfDzvs_5g
-#EXTINF:-1 group-title="IZONE", Индийское Кино
-http://46.32.176.50/indiskoekino/index.m3u8
+#EXTINF:-1 group-title="Кино", Индийское кино
+http://188.113.190.12/329/index.m3u8
 #EXTINF:-1 group-title="Ott Club+Реклама",Travel Channel HD
 http://stream.mcquack.net/231/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="7",Viju History HD
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd9ssyKJuQoiDQFde-j43g82tigKCRX7gae-8T3jOsNYUnpPeXnDUQiu8X4vuF-7l9Y
 #EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Viju Explore HD orig
-http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VSkFRR-JTijvKt10iSNzQNxDU2JNaCiXmruvwyolAorY
+#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Viju Explore HD
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd8xOqu96cZkzhEgq527OdeZo8p98r2IVIVLXfzcxD13C_bQEch-D7KecH5OuMHOyvM
 #EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="Инет",Моя планета HD
 http://185.46.16.239:8000/Planeta_HD
 #EXTINF:-1 tvg-logo="https://githubusercontent.com" group-title="Кино" tvg-id="ntv-serial", НТВ-Сериал
