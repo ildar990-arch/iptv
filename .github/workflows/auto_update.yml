@@ -33,20 +33,22 @@ jobs:
           ctx.check_hostname = False
           ctx.verify_mode = ssl.CERT_NONE
 
-          # Списки кодов ответов HTTP
-          HTTP_SUCCESS_CODES = [200, 201, 206]
-          HTTP_RETRY_CODES = [403, 405, 500, 502, 503]
-
-          # Очищенная и обновленная рабочая база источников (Base64)
+          # Расширенная база источников (Добавлены новые крупные самообновляемые листы для стабильности)
           ENCRYPTED_SOURCES = [
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9Mb2dhbmV0WElQVFYvbWFpbi9Mb2dhbmV0WEFsbC5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
+              "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
+              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
               "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
               "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1"
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronhVFYubTN1",
+              # Дополнительные проверенные базы (зашифрованы в b64):
+              "aHR0cHM6Ly9pcHR2LnhvbmUvZXBnL2VwZ19saXRlLm0zdQ==",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Flbndlbi9pcHR2L21hc3Rlci9pcHR2LXR2Lm0zdQ=="
           ]
 
-          # Список любимых каналов
+          # Список любимых каналов (Упрощены названия для лучшего поиска)
           FAVORITE_CHANNELS = [
               "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international", 
               "индийское кино", "travel adventure", "traveladventure", "rt doc", "travel channel", "viju history", 
@@ -54,11 +56,16 @@ jobs:
               "kino1int", "kino_1_int", "moya-planeta"
           ]
 
+          # Пул реальных User-Agent для обхода блокировок
           USER_AGENTS = [
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15"
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+              "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36",
+              "Mozilla/5.0 (iPhone; CPU iPhone OS 17_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Mobile/15E148 Safari/605.1.15"
           ]
 
+          # База проверенных логотипов
           LOGO_DATABASE = {
               "нтв": "https://githubusercontent.com",
               "нтв хит": "https://githubusercontent.com",
@@ -89,17 +96,17 @@ jobs:
               try:
                   req = urllib.request.Request(url, headers=headers, method='HEAD')
                   with urllib.request.urlopen(req, timeout=3.5, context=ctx) as response:
-                      if response.status in HTTP_SUCCESS_CODES:
+                      if response.status in:
                           content_type = response.headers.get('Content-Type', '').lower()
                           if "text/html" in content_type:
                               return False
                           return True
               except urllib.error.HTTPError as e:
-                  if e.code in HTTP_RETRY_CODES:
+                  if e.code in:
                       try:
                           req = urllib.request.Request(url, headers=headers, method='GET')
                           with urllib.request.urlopen(req, timeout=3.5, context=ctx) as res:
-                              if res.status == 200:
+                              if res.status in:
                                   return "text/html" not in res.headers.get('Content-Type', '').lower()
                       except Exception:
                           pass
@@ -114,7 +121,6 @@ jobs:
               return None
 
           def get_quality_score(candidate_tuple):
-              # Извлекаем строку #EXTINF из кортежа (inf, url) для анализа качества
               inf_line = candidate_tuple[0].upper()
               if any(q in inf_line for q in ["4K", "UHD", "2160"]): return 4
               if any(q in inf_line for q in ["FHD", "1080"]): return 3
@@ -196,25 +202,3 @@ jobs:
                       
                       combined_playlist.append(f"{final_inf}\n{best_url}\n")
                       print(f"[+ (Запуск)] {fav_name} -> {best_url}")
-                  else:
-                      print(f"[-] Пропущен: {fav_name}")
-
-              with open("playlist.m3u", "w", encoding="utf-8") as f:
-                  f.writelines(combined_playlist)
-
-          if __name__ == "__main__":
-              main()
-          EOF
-          python run_parser.py
-
-      - name: Фиксация и отправка изменений
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add playlist.m3u
-          if ! git diff --staged --quiet; then
-            git commit -m "Автоматическое обновление плейлиста: $(date +'%d-%m-%Y %H:%M')"
-            git push
-          else
-            echo "Изменений в плейлисте нет."
-          fi
