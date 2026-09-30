@@ -52,7 +52,7 @@ jobs:
               "viju explore",
               "discovery",
               "нтв хит"
-          ]
+          ]   "моя планета",
 
           def decode_url(encoded_str):
               try:
