@@ -31,6 +31,7 @@ FAVORITE_CHANNELS = [
     "travel adventure",
     "индийское кино",
     "телепутешествия",
+    "teleputeshestviya",
     "нтв сериал",
     "nat geo wild",
     "viju explore",
