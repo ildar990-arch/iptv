@@ -30,7 +30,7 @@ jobs:
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvbWFpbi9WZXJvbmFTSEFSRUQubTN1",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMj6ubTN1",
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",
               "aHR0cHM6Ly9sb2dhbmV0LnZlcmNlbC5hcHAvTG9nYW5ldFhBbGwubTN1",
               "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20zdQ==",
@@ -39,15 +39,15 @@ jobs:
               "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U="
           ]
 
-          # НАШ ОБНОВЛЕННЫЙ СПИСОК КАНАЛОВ:
+          # НАШ ИСПРАВЛЕННЫЙ СПИСОК ИЗБРАННОГО:
           FAVORITE_CHANNELS = [
-              "нтв сериал скорая помощь",
               "кино 1 international",
               "мосфильм золотая коллекция",
               "неизвестная планета",
               "travel adventure",
               "индийское кино",
               "телепутешествия",
+              "нтв сериал",  # Вернули чистый НТВ Сериал
               "nat geo wild",
               "viju explore",
               "discovery",
