@@ -31,7 +31,7 @@ FAVORITE_CHANNELS = [
     "travel adventure",
     "индийское кино",
     "телепутешествия",
-   
+   "Мосфильм. Золотая коллекция",
     "нтв сериал",
     "nat geo wild",
     "viju explore",
