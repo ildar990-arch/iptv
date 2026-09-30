@@ -8,30 +8,29 @@ ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==",
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvbWFpbi9WZXJvbmFTSEFSRUQubTN1",
-    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMj6ubTN1",
     "aHR0cHM6Ly9sb2dhbmV0LnZlcmNlbC5hcHAvTG9nYW5ldFhBbGwubTN1",
     "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1",
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20zdQ==",
-    "aHR0cHM6Ly9tcDNwLnVwLmxpL2lwdHYvYmFzZS5tM3U=",  # Обновленный рабочий источник вместо нерабочего famzon
+    "aHR0cHM6Ly9tcDNwLnVwLmxpL2lwdHYvYmFzZS5tM3U=",
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
     "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U="
 ]
 
-# Строго твой список избранного (длинные названия вверху для точного поиска)
+# НАШ ОБНОВЛЕННЫЙ СПИСОК КАНАЛОВ:
 FAVORITE_CHANNELS = [
+    "нтв сериал скорая помощь",
     "кино 1 international",
     "мосфильм золотая коллекция",
     "неизвестная планета",
     "travel adventure",
     "индийское кино",
     "телепутешествия",
-    "нтв сериал",
     "nat geo wild",
     "viju explore",
     "discovery",
     "нтв хит"
-    "моя планета"
-]   
+]
 
 def decode_url(encoded_str):
     try:
@@ -43,7 +42,7 @@ def clean_string(s):
     return re.sub(r'[^a-zA-Z0-9а-яёА-ЯЁ]', '', s.lower())
 
 def get_quality_score(candidate_tuple):
-    inf_line = str(candidate_tuple[0]).upper()
+    inf_line = str(candidate_tuple).upper()
     score = 0
     if "HD" in inf_line: score += 10
     if "50FPS" in inf_line: score += 5
@@ -105,13 +104,12 @@ def main():
             cleaned_name = clean_string(ch_name)
             
             for i, fav in enumerate(fav_cleaned):
-                # Исправленная безопасная логика: совпадение один в один или твой fav внутри названия из интернета
                 if fav == cleaned_name or fav in cleaned_name:
                     standard_name = FAVORITE_CHANNELS[i]
                     if standard_name not in matched:
                         matched[standard_name] = []
                     matched[standard_name].append((inf, url))
-                    break # Нашли совпадение, выходим к следующей ссылке
+                    break
     
     print(f"Найдено ссылок: {len(all_parsed)}. Валидация...")
     
