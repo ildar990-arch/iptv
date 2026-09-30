@@ -132,6 +132,10 @@ jobs:
                           if fav == "нтвсериал":
                               if cleaned_name == "нтвсериал" or cleaned_name == "нтвсериалы":
                                   is_match = True
+                          elif fav == "телепутешествия":
+                              # Специальное мягкое правило для Телепутешествий, чтобы ловить HD и orig версии
+                              if fav in cleaned_name:
+                                  is_match = True
                           else:
                               if fav == cleaned_name or fav in cleaned_name:
                                   is_match = True
