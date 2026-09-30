@@ -29,7 +29,7 @@ FAVORITE_CHANNELS = [
     "nat geo wild",
     "viju explore",
     "discovery",
-    "нтв хит",
+    "нтв хит"
     "моя планета"
 ]   
 
