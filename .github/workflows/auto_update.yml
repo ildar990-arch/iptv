@@ -38,7 +38,11 @@ jobs:
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
               "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Ntb2xucC9JUFRWcnUvbWFpbi9JUFRWcnUubTN1OA==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9JUFRWUGxheS9tYWluL2NoYW5uZWxzLm0zdQ=="
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9JUFRWUGxheS9tYWluL2NoYW5uZWxzLm0zdQ==",
+              # НОВЫЕ АРХИВЫ:
+              "aHR0cHM6Ly9pcHR2cnUyMDI2LmdpdGh1Yi5pby9JUFRWTUlSL3NpdGUv", # База проекта DropTV 2026 года
+              "aHR0cHM6Ly9zbW9sbnAuZ2l0aHViLmlvL0lQVFZydS9JUFRWcnUubTN1", # Стабильное зеркало архива IPTVru
+              "aHR0cHM6Ly9pcHR2LXJ1cy5jb20vcGxheWxpc3RzL3Bvem5hdmF0ZWxuaWUubTN1" # Сборник познавательных каналов
           ]
 
           FAVORITE_CHANNELS = [
@@ -56,7 +60,6 @@ jobs:
               "нтв хит"
           ]
 
-          # Твоя личная резервная ссылка на Мою Планету
           MY_PLANETA_RESERVE = "https://beetv.kz"
 
           def decode_url(encoded_str):
