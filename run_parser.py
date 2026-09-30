@@ -14,7 +14,10 @@ ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20zdQ==",
     "aHR0cHM6Ly9tcDNwLnVwLmxpL2lwdHYvYmFzZS5tM3U=",
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
-    "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U="
+    "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
+    # --- НОВЫЕ СТАБИЛЬНЫЕ РУССКОЯЗЫЧНЫЕ ИСТОЧНИКИ ДЛЯ РЕЗЕРВА ---
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Ntb2xucC9JUFRWcnUvbWFpbi9JUFRWcnUubTN1OA==",
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9JUFRWUGxheS9tYWluL2NoYW5uZWxzLm0zdQ=="
 ]
 
 FAVORITE_CHANNELS = [
@@ -111,8 +114,8 @@ def main():
                     if cleaned_name == "нтвсериал" or cleaned_name == "нтвсериалы":
                         is_match = True
                 elif fav == "телепутешествия":
-                    # Строгая проверка: имя совпадает полностью, либо это Телепутешествия HD/orig
-                    if cleaned_name == "телепутешествия" or cleaned_name == "телепутешествияhd" or cleaned_name == "телепутешествияorig":
+                    # Ищем точное совпадение или любые вариации HD / FHD / 4K / orig
+                    if fav in cleaned_name and not any(x in cleaned_name for x in ["hd2", "world", "международный"]):
                         is_match = True
                 else:
                     if fav == cleaned_name or fav in cleaned_name:
@@ -122,7 +125,6 @@ def main():
                     standard_name = FAVORITE_CHANNELS[i]
                     if standard_name not in matched:
                         matched[standard_name] = []
-                    # Сохраняем имя из источника для отладки
                     matched[standard_name].append((inf, url))
                     break
     
