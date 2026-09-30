@@ -133,8 +133,8 @@ jobs:
                               if cleaned_name == "нтвсериал" or cleaned_name == "нтвсериалы":
                                   is_match = True
                           elif fav == "телепутешествия":
-                              # Специальное мягкое правило для Телепутешествий, чтобы ловить HD и orig версии
-                              if fav in cleaned_name:
+                              # Строгая проверка: имя совпадает полностью, либо это Телепутешествия HD/orig
+                              if cleaned_name == "телепутешествия" or cleaned_name == "телепутешествияhd" or cleaned_name == "телепутешествияorig":
                                   is_match = True
                           else:
                               if fav == cleaned_name or fav in cleaned_name:
@@ -144,6 +144,7 @@ jobs:
                               standard_name = FAVORITE_CHANNELS[i]
                               if standard_name not in matched:
                                   matched[standard_name] = []
+                              # Сохраняем имя из источника для отладки
                               matched[standard_name].append((inf, url))
                               break
               
