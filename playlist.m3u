@@ -21,7 +21,7 @@ http://185.195.184.30:8000/play/a0kc/index.m3u8
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="Велком",viju Explore
 http://46.53.200.153:7777/play/a01i/index.m3u8
-#EXTINF:-1 group-title="Ott Club+Реклама",Discovery Channel HD
-http://stream.mcquack.net/177/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1 group-title="TEST (VPN)", Discovery Channel HD
+http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
 #EXTINF:-1 group-title="HARTUM TV SRL",НТВ-ХИТ
 http://185.195.184.30:8000/play/a0k2/index.m3u8
