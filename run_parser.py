@@ -17,7 +17,6 @@ ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U="
 ]
 
-# НАШ ИСПРАВЛЕННЫЙ СПИСОК ИЗБРАННОГО:
 FAVORITE_CHANNELS = [
     "кино 1 international",
     "мосфильм золотая коллекция",
@@ -25,7 +24,7 @@ FAVORITE_CHANNELS = [
     "travel adventure",
     "индийское кино",
     "телепутешествия",
-    "нтв сериал",  # Вернули чистый НТВ Сериал
+    "нтв сериал",
     "nat geo wild",
     "viju explore",
     "discovery",
@@ -103,8 +102,19 @@ def main():
             ch_name = match.group(1).strip()
             cleaned_name = clean_string(ch_name)
             
+            if "скораяпомощь" in cleaned_name:
+                continue
+
             for i, fav in enumerate(fav_cleaned):
-                if fav == cleaned_name or fav in cleaned_name:
+                is_match = False
+                if fav == "нтвсериал":
+                    if cleaned_name == "нтвсериал" or cleaned_name == "нтвсериалы":
+                        is_match = True
+                else:
+                    if fav == cleaned_name or fav in cleaned_name:
+                        is_match = True
+
+                if is_match:
                     standard_name = FAVORITE_CHANNELS[i]
                     if standard_name not in matched:
                         matched[standard_name] = []
