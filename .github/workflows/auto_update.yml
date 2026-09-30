@@ -2,7 +2,7 @@ name: update
 
 on:
   schedule:
-    - cron: '0 0 * * 2,5'
+    - cron: '0 0 * * *'  # Запуск каждый день в 00:00 UTC (03:00 по МСК)
   workflow_dispatch:
 
 jobs:
@@ -34,17 +34,24 @@ jobs:
               "aHR0cHM6Ly9sb2dhbmV0LnZlcmNlbC5hcHAvTG9nYW5ldFhBbGwubTN1",
               "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20zdQ==",
-              "aHR0cHM6Ly9pcHR2LmZhbXpvbi5sdS9pcHR2LnR4dA==",
+              "aHR0cHM6Ly9tcDNwLnVwLmxpL2lwdHYvYmFzZS5tM3U=",  # Обновленный рабочий источник вместо нерабочего famzon
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
               "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U="
           ]
 
+          # Строго твой список избранного (длинные названия вверху для точного поиска)
           FAVORITE_CHANNELS = [
-              "нтв хит", "нтв", "моя планета", "неизвестная планета", "кино 1 international",
-              "кино 1", "кино1", "кино 1 int", "индийское кино", "travel adventure", "rt doc",
-              "travel channel", "viju history", "Телепутешествия", "discovery", 
-              "нтв сериал", "nat geo wild", "docu box", "viju explore", "мосфильм", "mosfilm",
-              "мосфильм золотая коллекция", "mosfilm gold", "домашний", "нтв hd",
+              "кино 1 international",
+              "мосфильм золотая коллекция",
+              "неизвестная планета",
+              "travel adventure",
+              "индийское кино",
+              "телепутешествия",
+              "нтв сериал",
+              "nat geo wild",
+              "viju explore",
+              "discovery",
+              "нтв хит"
           ]
 
           def decode_url(encoded_str):
@@ -57,10 +64,7 @@ jobs:
               return re.sub(r'[^a-zA-Z0-9а-яёА-ЯЁ]', '', s.lower())
 
           def get_quality_score(candidate_tuple):
-              if isinstance(candidate_tuple, tuple):
-                  inf_line = str(candidate_tuple[0]).upper()
-              else:
-                  inf_line = str(candidate_tuple).upper()
+              inf_line = str(candidate_tuple[0]).upper()
               score = 0
               if "HD" in inf_line: score += 10
               if "50FPS" in inf_line: score += 5
@@ -120,12 +124,15 @@ jobs:
                   if match:
                       ch_name = match.group(1).strip()
                       cleaned_name = clean_string(ch_name)
+                      
                       for i, fav in enumerate(fav_cleaned):
-                          if fav in cleaned_name or cleaned_name in fav:
+                          # Исправленная безопасная логика: совпадение один в один или твой fav внутри названия из интернета
+                          if fav == cleaned_name or fav in cleaned_name:
                               standard_name = FAVORITE_CHANNELS[i]
                               if standard_name not in matched:
                                   matched[standard_name] = []
                               matched[standard_name].append((inf, url))
+                              break # Нашли совпадение, выходим к следующей ссылке
               
               print(f"Найдено ссылок: {len(all_parsed)}. Валидация...")
               
