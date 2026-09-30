@@ -19,7 +19,6 @@ ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9JUFRWUGxheS9tYWluL2NoYW5uZWxzLm0zdQ=="
 ]
 
-# Твой обновленный список (Добавили Мою Планету в начало)
 FAVORITE_CHANNELS = [
     "моя планета",
     "кино 1 international",
@@ -34,6 +33,9 @@ FAVORITE_CHANNELS = [
     "discovery",
     "нтв хит"
 ]
+
+# Твоя личная резервная ссылка на Мою Планету
+MY_PLANETA_RESERVE = "https://beetv.kz"
 
 def decode_url(encoded_str):
     try:
@@ -132,6 +134,23 @@ def main():
     
     final_playlist = ["#EXTM3U\n"]
     for ch_name in FAVORITE_CHANNELS:
+        if ch_name == "моя планета":
+            found_working = False
+            if ch_name in matched:
+                candidates = matched[ch_name]
+                candidates.sort(key=get_quality_score, reverse=True)
+                for inf, url in candidates:
+                    if check_url(url):
+                        final_playlist.append(f"{inf}\n{url}\n")
+                        print(f"[+] Добавлен: {ch_name} (из баз)")
+                        found_working = True
+                        break
+            
+            if not found_working:
+                final_playlist.append(f'#EXTINF:-1,Моя Планета\n{MY_PLANETA_RESERVE}\n')
+                print(f"[+] Добавлен: {ch_name} (прямая ссылка)")
+            continue
+
         if ch_name in matched:
             candidates = matched[ch_name]
             candidates.sort(key=get_quality_score, reverse=True)
