@@ -51,8 +51,9 @@ jobs:
               "nat geo wild",
               "viju explore",
               "discovery",
-              "нтв хит"
-          ]   "моя планета",
+              "нтв хит",
+              "моя планета"
+          ]   
 
           def decode_url(encoded_str):
               try:
