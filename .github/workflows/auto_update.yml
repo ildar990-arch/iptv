@@ -37,12 +37,13 @@ jobs:
               "aHR0cHM6Ly9tcDNwLnVwLmxpL2lwdHYvYmFzZS5tM3U=",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
               "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
-              # --- НОВЫЕ СТАБИЛЬНЫЕ РУССКОЯЗЫЧНЫЕ ИСТОЧНИКИ ДЛЯ РЕЗЕРВА ---
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Ntb2xucC9JUFRWcnUvbWFpbi9JUFRWcnUubTN1OA==",
               "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9JUFRWUGxheS9tYWluL2NoYW5uZWxzLm0zdQ=="
           ]
 
+          # Твой обновленный список (Добавили Мою Планету в начало)
           FAVORITE_CHANNELS = [
+              "моя планета",
               "кино 1 international",
               "мосфильм золотая коллекция",
               "неизвестная планета",
@@ -136,7 +137,6 @@ jobs:
                               if cleaned_name == "нтвсериал" or cleaned_name == "нтвсериалы":
                                   is_match = True
                           elif fav == "телепутешествия":
-                              # Ищем точное совпадение или любые вариации HD / FHD / 4K / orig
                               if fav in cleaned_name and not any(x in cleaned_name for x in ["hd2", "world", "международный"]):
                                   is_match = True
                           else:
