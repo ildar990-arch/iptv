@@ -19,13 +19,14 @@ FAVORITE_CHANNELS = [
     "дом кино", "родное кино", "любимое кино"
 ]
 
+# Идеальная база HLS-ссылок (.m3u8), которые открываются на любых телевизорах и приставках
 RESERVE_LINKS = {
     "моя планета": {
-        "url": "https://beetv.kz", 
+        "url": "https://t-media.su", 
         "tag": '#EXTINF:-1 tvg-id="Moya Planeta" tvg-logo="https://githubusercontent.com",Моя Планета'
     },
     "мосфильм золотая коллекция": {
-        "url": "http://mcquack.net", 
+        "url": "https://t-media.su", 
         "tag": '#EXTINF:-1 tvg-id="Mosfilm Zolotaya Kollektsiya" tvg-logo="https://githubusercontent.com",Мосфильм. Золотая коллекция'
     },
     "телепутешествия": {
@@ -33,51 +34,51 @@ RESERVE_LINKS = {
         "tag": '#EXTINF:-1 tvg-id="Teleputeshestviya" tvg-logo="https://teletravel.tv",Телепутешествия'
     },
     "discovery": {
-        "url": "http://185.156.43", 
+        "url": "https://t-media.su", 
         "tag": '#EXTINF:-1 tvg-id="Discovery Channel" tvg-logo="https://githubusercontent.com",Discovery Channel'
     },
     "nat geo wild": {
-        "url": "http://185.156.43", 
+        "url": "https://t-media.su", 
         "tag": '#EXTINF:-1 tvg-id="Nat Geo Wild" tvg-logo="https://githubusercontent.com",Nat Geo Wild'
     },
     "viju explore": {
-        "url": "http://185.156.43", 
+        "url": "https://t-media.su", 
         "tag": '#EXTINF:-1 tvg-id="Viju Explore" tvg-logo="https://githubusercontent.com",Viju Explore'
     },
     "Travel Channel": {
-        "url": "http://185.156.43", 
+        "url": "https://t-media.su", 
         "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
     },
     "моя стихия": {
-        "url": "http://130.193.73",
+        "url": "https://t-media.su",
         "tag": '#EXTINF:-1 tvg-id="Morskoy" tvg-logo="https://iptvx.one",Моя стихия'
     },
     "vf мосфильм": {
-        "url": "http://185.156.43",
+        "url": "https://t-media.su",
         "tag": '#EXTINF:-1 tvg-id="vf-mosfilm" tvg-logo="https://githubusercontent.com",VF Мосфильм'
     },
     "живая планета": {
-        "url": "http://185.156.43",
+        "url": "https://t-media.su",
         "tag": '#EXTINF:-1 tvg-id="Zhivaya Planeta" tvg-logo="https://githubusercontent.com",Живая планета'
     },
     "наука": {
-        "url": "http://185.156.43",
+        "url": "https://t-media.su",
         "tag": '#EXTINF:-1 tvg-id="Nauka" tvg-logo="https://githubusercontent.com",Наука'
     },
     "диалоги о рыбалке": {
-        "url": "http://178.212.71",
+        "url": "https://t-media.su",
         "tag": '#EXTINF:-1 tvg-id="Dialogi o rybalke" tvg-logo="https://iptvx.one",Диалоги о рыбалке'
     },
     "дом кино": {
-        "url": "http://185.156.43",
+        "url": "https://t-media.su",
         "tag": '#EXTINF:-1 tvg-id="Dom Kino" tvg-logo="https://githubusercontent.com",Дом Кино'
     },
     "родное кино": {
-        "url": "http://185.156.43",
+        "url": "https://t-media.su",
         "tag": '#EXTINF:-1 tvg-id="Rodnoe Kino" tvg-logo="https://githubusercontent.com",Родное Кино'
     },
     "любимое кино": {
-        "url": "http://185.156.43",
+        "url": "https://t-media.su",
         "tag": '#EXTINF:-1 tvg-id="Lyubimoe Kino" tvg-logo="https://githubusercontent.com",Любимое кино'
     }
 }
@@ -90,7 +91,6 @@ def clean_string(s):
     return re.sub(r"[^a-zA-Z0-9а-яёА-ЯЁ]", "", s.lower())
 
 def clean_group_title(tag_line):
-    # Удаляет из строки #EXTINF параметр group-title="..." любого вида
     return re.sub(r'\s*group-title="[^"]*"', '', tag_line)
 
 def get_quality_score(c): 
@@ -166,7 +166,8 @@ def main():
             for inf, url in matched[ch]:
                 if url in added: 
                     continue
-                if check_url(url): 
+                # Телевизору нужны ТОЛЬКО ссылки .m3u8, отсекаем сырые TS порты из баз
+                if ".m3u8" in url.lower() and check_url(url): 
                     clean_inf = clean_group_title(inf)
                     final.append(f"{clean_inf}\n{url}\n")
                     added.add(url)
