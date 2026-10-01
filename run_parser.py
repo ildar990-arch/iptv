@@ -15,11 +15,10 @@ FAVORITE_CHANNELS = [
     "моя планета", "кино 1 international", "мосфильм золотая коллекция", "неизвестная планета", 
     "travel adventure", "индийское кино", "Travel Channel", "телепутешествия", "моя стихия", 
     "vf мосфильм", "нтв сериал", "nat geo wild", "viju explore", "discovery", "нтв хит",
-    "глазами туриста", "animal planet", "national geographic",
+    "живая планета", "наука", "диалоги о рыбалке", "глазами туриста", "animal planet", "national geographic",
     "дом кино", "родное кино", "любимое кино"
 ]
 
-# Идеальная база HLS-ссылок (.m3u8), которые открываются на любых телевизорах и приставках
 RESERVE_LINKS = {
     "моя планета": {
         "url": "https://t-media.su", 
@@ -123,6 +122,15 @@ def parse_source(enc_url):
         pass
     return res
 
+def is_strict_match(fav_clean, cand_clean):
+    # Разрешаем точное совпадение названий ИЛИ точное совпадение + технические приписки качества
+    if fav_clean == cand_clean:
+        return True
+    for suffix in ["hd", "fhd", "50fps", "orig"]:
+        if cand_clean == fav_clean + suffix:
+            return True
+    return False
+
 def main():
     ssl._create_default_https_context = ssl._create_unverified_context
     all_p = []
@@ -146,12 +154,14 @@ def main():
                     ok = True
                 elif fav == "телепутешествия" and fav in c_name and not any(x in c_name for x in ["hd2", "world", "международный"]): 
                     ok = True
-                elif fav == "discovery" and fav in c_name and "science" not in c_name: 
+                elif fav == "discovery" and fav in c_name and "science" not in c_name and "world" not in c_name: 
                     ok = True
-                elif fav == "моя стихия" and ("моястихия" in c_name or "морской" in c_name):
+                elif fav == "моя стихия" and ("моястихия" in c_name or is_strict_match("морской", c_name)):
                     ok = True
-                elif fav not in ["нтвсериал", "телепутешествия", "discovery", "моя стихия"] and (fav == c_name or fav in c_name): 
-                    ok = True
+                # Для остальных каналов применяем строгую проверку без лишних примесей
+                elif fav not in ["нтвсериал", "телепутешествия", "discovery", "моя стихия"]:
+                    ok = is_strict_match(fav, c_name)
+                    
                 if ok:
                     std = FAVORITE_CHANNELS[i]
                     if std not in matched: matched[std] = []
@@ -166,7 +176,6 @@ def main():
             for inf, url in matched[ch]:
                 if url in added: 
                     continue
-                # Телевизору нужны ТОЛЬКО ссылки .m3u8, отсекаем сырые TS порты из баз
                 if ".m3u8" in url.lower() and check_url(url): 
                     clean_inf = clean_group_title(inf)
                     final.append(f"{clean_inf}\n{url}\n")
