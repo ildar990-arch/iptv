@@ -15,7 +15,7 @@ FAVORITE_CHANNELS = [
     "моя планета", "кино 1 international", "мосфильм золотая коллекция", "неизвестная планета", 
     "travel adventure", "индийское кино", "Travel Channel", "телепутешествия", "моя стихия", 
     "vf мосфильм", "нтв сериал", "nat geo wild", "viju explore", "discovery", "нтв хит",
-    "живая планета", "наука", "диалоги о рыбалке", "глазами туриста", "animal planet", "national geographic",
+    "живая планета", "диалоги о рыбалке", "глазами туриста", "animal planet", "national geographic",
     "дом кино", "родное кино", "любимое кино"
 ]
 
