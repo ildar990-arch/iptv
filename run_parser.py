@@ -49,8 +49,8 @@ RESERVE_LINKS = {
         "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
     },
     "моя стихия": {
-        "url": "http://130.193.73.10:8937/play/a02f",
-        "tag": '#EXTINF:-1 tvg-id="Morskoy" tvg-logo="https://iptvx.one/picons/morskoy.png",Моя стихия'
+        "url": "http://130.193.73",
+        "tag": '#EXTINF:-1 tvg-id="Morskoy" tvg-logo="https://iptvx.one",Моя стихия'
     },
     "vf мосфильм": {
         "url": "http://185.156.43",
@@ -88,6 +88,10 @@ def decode_url(s):
 
 def clean_string(s): 
     return re.sub(r"[^a-zA-Z0-9а-яёА-ЯЁ]", "", s.lower())
+
+def clean_group_title(tag_line):
+    # Удаляет из строки #EXTINF параметр group-title="..." любого вида
+    return re.sub(r'\s*group-title="[^"]*"', '', tag_line)
 
 def get_quality_score(c): 
     return 10 if "HD" in str(c).upper() else 0
@@ -144,7 +148,6 @@ def main():
                     ok = True
                 elif fav == "discovery" and fav in c_name and "science" not in c_name: 
                     ok = True
-                # Умный поиск: ищем канал «Моя стихия» также по старому названию «Морской»
                 elif fav == "моя стихия" and ("моястихия" in c_name or "морской" in c_name):
                     ok = True
                 elif fav not in ["нтвсериал", "телепутешествия", "discovery", "моя стихия"] and (fav == c_name or fav in c_name): 
@@ -164,14 +167,16 @@ def main():
                 if url in added: 
                     continue
                 if check_url(url): 
-                    final.append(f"{inf}\n{url}\n")
+                    clean_inf = clean_group_title(inf)
+                    final.append(f"{clean_inf}\n{url}\n")
                     added.add(url)
                     done = True
                     break
         if not done and ch in RESERVE_LINKS:
             r = RESERVE_LINKS[ch]
             if r["url"] not in added: 
-                final.append(f"{r['tag']}\n{r['url']}\n")
+                clean_tag = clean_group_title(r["tag"])
+                final.append(f"{clean_tag}\n{r['url']}\n")
                 added.add(r["url"])
                 
     with open("playlist.m3u", "w", encoding="utf-8") as f: 
@@ -179,6 +184,5 @@ def main():
 
 if __name__ == "__main__": 
     main()
-
 
 
