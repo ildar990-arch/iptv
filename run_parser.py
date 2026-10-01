@@ -47,11 +47,11 @@ RESERVE_LINKS = {
         "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
     },
     "советское кино": {
-        "url": "https://icntv.xyz",
+        "url": "https://cdnvideo.ru",
         "tag": '#EXTINF:-1 tvg-id="Sovetskoe Kino" tvg-logo="https://githubusercontent.com",Советское кино'
     },
     "ретро тв": {
-        "url": "https://icntv.xyz",
+        "url": "https://cdnvideo.ru",
         "tag": '#EXTINF:-1 tvg-id="Retro TV" tvg-logo="https://githubusercontent.com",Ретро ТВ'
     }
 }
@@ -150,5 +150,4 @@ def main():
 
 if __name__ == "__main__": 
     main()
-
 
