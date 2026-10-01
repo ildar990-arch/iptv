@@ -13,8 +13,8 @@ ENCRYPTED_SOURCES = [
 
 FAVORITE_CHANNELS = [
     "моя планета", "кино 1 international", "мосфильм золотая коллекция", "неизвестная планета", 
-    "travel adventure", "индийское кино", "Travel Channel", "телепутешествия", "советское кино", 
-    "ретро тв", "нтв сериал", "nat geo wild", "viju explore", "discovery", "нтв хит"
+    "travel adventure", "индийское кино", "Travel Channel", "телепутешествия", "моя стихия", 
+    "vf мосфильм", "нтв сериал", "nat geo wild", "viju explore", "discovery", "нтв хит"
 ]
 
 RESERVE_LINKS = {
@@ -46,13 +46,13 @@ RESERVE_LINKS = {
         "url": "http://185.156.43", 
         "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
     },
-    "советское кино": {
-        "url": "https://yandex.ru",
-        "tag": '#EXTINF:-1 tvg-id="Sovetskoe Kino" tvg-logo="https://githubusercontent.com",Советское кино'
+    "моя стихия": {
+        "url": "http://178.212.71.253:8002/play/a00o/index.m3u8",
+        "tag": '#EXTINF:-1 tvg-id="Moya stihiya" tvg-logo="https://iptvx.one/picons/morskoy.png",Моя стихия'
     },
-    "ретро тв": {
-        "url": "http://185.46.16",
-        "tag": '#EXTINF:-1 tvg-id="Retro TV" tvg-logo="https://githubusercontent.com",Ретро ТВ'
+    "vf мосфильм": {
+        "url": "http://185.156.43",
+        "tag": '#EXTINF:-1 tvg-id="vf-mosfilm" tvg-logo="https://githubusercontent.com",VF Мосфильм'
     }
 }
 
@@ -150,4 +150,5 @@ def main():
 
 if __name__ == "__main__": 
     main()
+
 
