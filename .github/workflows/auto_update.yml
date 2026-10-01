@@ -49,8 +49,6 @@ jobs:
               "телепутешествия",
               "советское кино",
               "ретро тв",
-              "Мосфильм золотая колекция",
-              "мосфильм vf",
               "нтв сериал",
               "nat geo wild",
               "viju explore",
@@ -143,7 +141,6 @@ jobs:
               ssl._create_default_https_context = lambda: context
               
               all_parsed = []
-              # Увеличиваем число воркеров, так как iptv-org может обрабатываться чуть дольше
               with ThreadPoolExecutor(max_workers=7) as executor:
                   futures = [executor.submit(parse_source, src) for src in ENCRYPTED_SOURCES]
                   for fut in as_completed(futures):
@@ -168,10 +165,14 @@ jobs:
                       for i, fav in enumerate(fav_cleaned):
                           is_match = False
                           if fav == "нтвсериал":
-                              if cleaned_name == "нтвсериал" or cleaned_name == "нтвсериалы":
+                              if cleaned_name in ["нтвсериал", "нтвсериалы"]:
                                   is_match = True
                           elif fav == "телепутешествия":
                               if fav in cleaned_name and not any(x in cleaned_name for x in ["hd2", "world", "международный"]):
+                                  is_match = True
+                          elif fav == "discovery":
+                              # Исключение: отсекаем Discovery Science от основного Discovery
+                              if fav in cleaned_name and "science" not in cleaned_name:
                                   is_match = True
                           else:
                               if fav == cleaned_name or fav in cleaned_name:
@@ -187,30 +188,25 @@ jobs:
               print(f"Найдено ссылок: {len(all_parsed)}. Валидация...")
               
               final_playlist = ["#EXTM3U\n"]
+              added_urls = set()  # Защита от добавления одинаковых ссылок на разные каналы
+              
               for ch_name in FAVORITE_CHANNELS:
                   found_working = False
                   if ch_name in matched:
                       candidates = matched[ch_name]
                       candidates.sort(key=get_quality_score, reverse=True)
                       for inf, url in candidates:
+                          if url in added_urls:
+                              continue
                           if check_url(url):
                               final_playlist.append(f"{inf}\n{url}\n")
+                              added_urls.add(url)
                               print(f"[+] Добавлен: {ch_name} (из баз)")
                               found_working = True
                               break
                   
-                  # Если канал из баз не ответил, ищем его в нашей таблице резерва
                   if not found_working and ch_name in RESERVE_LINKS:
                       res_info = RESERVE_LINKS[ch_name]
-                      final_playlist.append(f"{res_info['tag']}\n{res_info['url']}\n")
-                      print(f"[+] Добавлен: {ch_name} (резервная ссылка)")
-                      
-              with open("playlist.m3u", "w", encoding="utf-8") as f:
-                  f.writelines(final_playlist)
-              print("Плейлист успешно сформирован в памяти.")
-
-          if __name__ == "__main__":
-              main()
-          EOF
-          python run_parser.py
-
+                      if res_info['url'] not in added_urls:
+                          final_playlist.append(f"{res_info['tag']}\n{res_info['url']}\n")
+                          added_urls.add(res_info['url'])
