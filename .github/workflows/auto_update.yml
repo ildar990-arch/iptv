@@ -186,13 +186,13 @@ jobs:
       # ШАГ АВТОЗАПИСИ: Настраиваем бота и пушим созданный файл в репозиторий
       - name: Commit and Push changes
         run: |
-          git config --local user.email "github-actions[bot]@://github.com"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
           if ! git diff --cached --quiet; then
             git commit -m "Автоматическое обновление плейлиста [$(date +'%d.%m.%Y %H:%M')]"
             git push
-            print("Изменения успешно записаны в репозиторий!")
+            echo "Изменения успешно записаны в репозиторий!"
           else
-            print("Изменений нет, плейлист остался прежним.")
+            echo "Изменений нет, плейлист остался прежним."
           fi
