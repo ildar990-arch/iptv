@@ -8,6 +8,11 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    
+    # Даем права роботу на запись изменений в ваш репозиторий
+    permissions:
+      contents: write
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,25 +29,11 @@ jobs:
           from concurrent.futures import ThreadPoolExecutor, as_completed
 
           ENCRYPTED_SOURCES = [
-              "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",
-              "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGNfX19fX19fX19fXw==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvcmVmcy9oZWFkcy9EaW1vbm92aWNoL0ZSRUUvVFY=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvbWFpbi9WZXJvbmFTSEFSRUQubTN1",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",
-              "aHR0cHM6Ly9sb2dhbmV0LnZlcmNlbC5hcHAvTG9nYW5ldFhBbGwubTN1",
-              "aHR0cHM6Ly9sb2dhbmV0dHYudmVyY2VsLmFwcC9hbGwubTN1",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RWP20zdQ==",
-              "aHR0cHM6Ly9tcDNwLnVwLmxpL2lwdHYvYmFzZS5tM3U=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3BwZ2VvL2lwdHYtbWNjL21hc3Rlci9wbGF5bGlzdC5tM3U=",
-              "aHR0cHM6Ly9pbi1kZXgucnUvZnJlZS5tM3U=",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3Ntb2xucC9JUFRWcnUvbWFpbi9JUFRWcnUubTN1OA==",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JsYWNrYmlyZHN0dWRpb3J1cy9JUFRWUGxheS9tYWluL2NoYW5uZWxzLm0zdQ==",
-              # НОВЫЕ АРХИВЫ:
-              "aHR0cHM6Ly9pcHR2cnUyMDI2LmdpdGh1Yi5pby9JUFRWTUlSL3NpdGUv", # База проекта DropTV 2026 года
-              "aHR0cHM6Ly9zbW9sbnAuZ2l0aHViLmlvL0lQVFZydS9JUFRWcnUubTN1", # Стабильное зеркало архива IPTVru
-              "aHR0cHM6Ly9pcHR2LXJ1cy5jb20vcGxheWxpc3RzL3Bvem5hdmF0ZWxuaWUubTN1" # Сборник познавательных каналов
+              "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",                                                # satexpresstv.ru
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",       # Dimonovich FREE TV
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQVFZTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==", # VeronaTV
+              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",     # iptv126.m3u
+              "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM="                                                            # gclnk.com
           ]
 
           FAVORITE_CHANNELS = [
@@ -56,7 +47,7 @@ jobs:
               "телепутешествия",
               "Teleputeshestviya",
               "mosfilm",
-             "мосфильм",
+              "мосфильм",
               "нтв сериал",
               "nat geo wild",
               "viju explore",
@@ -65,6 +56,7 @@ jobs:
           ]
 
           MY_PLANETA_RESERVE = "https://beetv.kz"
+          MOSFILM_RESERVE = "http://mcquack.net"
 
           def decode_url(encoded_str):
               try:
@@ -163,52 +155,44 @@ jobs:
               
               final_playlist = ["#EXTM3U\n"]
               for ch_name in FAVORITE_CHANNELS:
-                  if ch_name == "моя планета":
-                      found_working = False
-                      if ch_name in matched:
-                          candidates = matched[ch_name]
-                          candidates.sort(key=get_quality_score, reverse=True)
-                          for inf, url in candidates:
-                              if check_url(url):
-                                  final_playlist.append(f"{inf}\n{url}\n")
-                                  print(f"[+] Добавлен: {ch_name} (из баз)")
-                                  found_working = True
-                                  break
-                      
-                      if not found_working:
-                          final_playlist.append(f'#EXTINF:-1,Моя Планета\n{MY_PLANETA_RESERVE}\n')
-                          print(f"[+] Добавлен: {ch_name} (прямая ссылка)")
-                      continue
-
+                  found_working = False
                   if ch_name in matched:
                       candidates = matched[ch_name]
                       candidates.sort(key=get_quality_score, reverse=True)
-                      
-                      found_working = False
                       for inf, url in candidates:
                           if check_url(url):
                               final_playlist.append(f"{inf}\n{url}\n")
-                              print(f"[+] Добавлен: {ch_name}")
+                              print(f"[+] Добавлен: {ch_name} (из баз)")
                               found_working = True
                               break
-                      if not found_working:
-                          print(f"[-] Пропущен (нет рабочих ссылок): {ch_name}")
-                  else:
-                      print(f"[-] Пропущен (не найден в источниках): {ch_name}")
+                  
+                  if not found_working:
+                      if ch_name == "моя планета":
+                          final_playlist.append(f'#EXTINF:-1,Моя Планета\n{MY_PLANETA_RESERVE}\n')
+                          print(f"[+] Добавлен: {ch_name} (резервная ссылка)")
+                      elif ch_name == "мосфильм золотая коллекция":
+                          final_playlist.append(f'#EXTINF:-1,Мосфильм. Золотая коллекция\n{MOSFILM_RESERVE}\n')
+                          print(f"[+] Добавлен: {ch_name} (резервная ссылка mcquack)")
                       
               with open("playlist.m3u", "w", encoding="utf-8") as f:
                   f.writelines(final_playlist)
-              print("Плейлист успешно обновлен!")
+              print("Плейлист успешно сформирован в памяти.")
 
           if __name__ == "__main__":
               main()
           EOF
           python run_parser.py
 
-      - name: Commit changes
+      # ШАГ АВТОЗАПИСИ: Настраиваем бота и пушим созданный файл в репозиторий
+      - name: Commit and Push changes
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add -A
-          git diff-index --quiet HEAD || git commit -m "Auto update playlist"
-          git push
+          git config --local user.email "github-actions[bot]@://github.com"
+          git config --local user.name "github-actions[bot]"
+          git add playlist.m3u
+          if ! git diff --cached --quiet; then
+            git commit -m "Автоматическое обновление плейлиста [$(date +'%d.%m.%Y %H:%M')]"
+            git push
+            print("Изменения успешно записаны в репозиторий!")
+          else
+            print("Изменений нет, плейлист остался прежним.")
+          fi
