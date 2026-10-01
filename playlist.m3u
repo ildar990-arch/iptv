@@ -1,16 +1,16 @@
 #EXTM3U
 #EXTINF:-1 group-title="Инет",Моя планета HD
 http://185.46.16.239:8000/Planeta_HD
-#EXTINF:-1 group-title="Кино и сериалы",Кино 1 International
-http://kino-1.catcast.tv/content/38617/index.m3u8
+#EXTINF:-1 group-title="Catcast TV 🐈 Not 24/7" tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
+https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1 tvg-id="mosfilm" tvg-logo="https://iptvx.one/picons/mosfilm.png" group-title="Кино и сериалы", Мосфильм. Золотая коллекция HD
-http://stream.mcquack.net/369/index.m3u8
+http://sgw.ott.tricolor.tv/streamingGateway/GetLivePlayList?source=Mosfilm_HD.m3u8&serviceArea=MSK-SA-1&drmreq=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfdHlwZSI6ImFwdHBfb3R0IiwiY2xhc3MiOiJCUk9XU0VSIiwiZHJlaWQiOiI0NTAyNTUwMDM1ODM5NSIsImV4cCI6MTc2MTY1NTM0MywiaHdpZCI6IjI4YzUzMGRkNTE5NmIwZjQ0ZjkyY2ZhN2RhODVkZDU2ZDE2ZTQ4YjRhZjU2MTA5NTk1YmExNmZkMjYyYzRmNTAiLCJsYXN0X3JlcV9kYXRlIjoxNzYxMDUwNTQzLCJzZXNzaW9uX2lkIjoiNTA2OTkxMzhmYzc4MTQ4N2U4MGNiMjkzNzQwOWM5M2QiLCJ0b2tlbl90eXBlIjoiQ29udGVudEFjY2Vzc1Rva2VuIiwidHlwZSI6Ik1PWklMTEEifQ.ALDGjcG6WclyHhPxNmEKmRBz8ttTYCQ4XIW_AnWNhcM
 #EXTINF:-1 group-title="Познавательные",Неизвестная Планета
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
-#EXTINF:-1,Travel+Adventure HD
+#EXTINF:-1 group-title="TEST (VPN)",Travel+Adventure HD
 http://77.232.131.211/TravelAdventureHD/index.m3u8
-#EXTINF:-1  tvg-id="indiyskoe-kino" ,Индийское кино
-https://s03.watcher.uz/52/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
+#EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Индийское Кино orig
+http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VSGCLn9tj8RPuXn5Bds_J6kO9nmteaWyi-Vw21k-XwFY
 #EXTINF:-1 group-title="Ott Club+Реклама",Travel Channel HD
 http://stream.mcquack.net/231/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="Познавательные",Телепутешествия
@@ -19,13 +19,13 @@ https://stream-msk-04.ott.tricolor.tv:443/dtv/id154_MSKSG-PVR-1--Telepyt/04/plst
 http://5.9.11.197:57419/chu-139/mpegts
 #EXTINF:-1 tvg-id="retro-tv" group-title="Кино и сериалы", Ретро ТВ
 http://vod.splay.uz/live_splay/original/Retro/index.m3u8
-#EXTINF:-1,НТВ Сериал
-http://cdn.ntv.ru/th_serial/mono.m3u8
+#EXTINF:-1 group-title="HARTUM TV SRL",НТВ Сериал
+http://185.195.184.30:8000/play/a0kc/index.m3u8
 #EXTINF:-1 group-title="Ott Club+Реклама",Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",Viju Explore HD
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd8xOqu96cZkzhEgq527OdeZo8p98r2IVIVLXfzcxD13C_bQEch-D7KecH5OuMHOyvM
-#EXTINF:-1,RU| DISCOVERY SCIENCE HD
-http://line.iptvhunt.com:80/play/live.php?mac=00:1A:79:0A:AC:C0&stream=132451&extension=ts&play_token=yLEOsznkDL
+#EXTINF:-1 group-title="TEST (VPN)", Discovery Channel HD
+http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
 #EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",НТВ Хит orig
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VFAAOD1b5rY4gcQb5iuxMmvqTlMoGHEgv93nb3eWJvK4
