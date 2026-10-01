@@ -22,191 +22,109 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run parser
+      # БЕЗОПАСНАЯ ЗАПИСЬ СКРИПТА
+      - name: Create Python Script
         run: |
-          cat << 'EOF' > run_parser.py
-          import urllib.request, urllib.error, re, base64, random, ssl
-          from concurrent.futures import ThreadPoolExecutor, as_completed
+          echo 'import urllib.request, urllib.error, re, base64, random, ssl' > run_parser.py
+          echo 'from concurrent.futures import ThreadPoolExecutor, as_completed' >> run_parser.py
+          echo '' >> run_parser.py
+          echo 'ENCRYPTED_SOURCES = [' >> run_parser.py
+          echo '    "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",' >> run_parser.py
+          echo '    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",' >> run_parser.py
+          echo '    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQWTFTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==",' >> run_parser.py
+          echo '    "aHR0cDovL3N0cmVhbS5tY3F1YWNrLm5ldC8zNjkvaW5kZXgubTN1OA",' >> run_parser.py
+          echo '    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",' >> run_parser.py
+          echo '    "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",' >> run_parser.py
+          echo '    "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9pbmRleC5tM3U="' >> run_parser.py
+          echo ']' >> run_parser.py
+          echo '' >> run_parser.py
+          echo 'FAVORITE_CHANNELS = ["моя планета", "кино 1 international", "мосфильм золотая коллекция", "неизвестная планета", "travel adventure", "индийское кино", "Travel Channel", "телепутешествия", "советское кино", "ретро тв", "нтв сериал", "nat geo wild", "viju explore", "discovery", "нтв хит"]' >> run_parser.py
+          echo '' >> run_parser.py
+          echo 'RESERVE_LINKS = {' >> run_parser.py
+          echo '    "моя планета": {"url": "https://beetv.kz", "tag": '\''#EXTINF:-1 tvg-id="Moya Planeta" tvg-logo="https://githubusercontent.com",Моя Планета'\''},' >> run_parser.py
+          echo '    "мосфильм золотая коллекция": {"url": "http://mcquack.net", "tag": '\''#EXTINF:-1 tvg-id="Mosfilm Zolotaya Kollektsiya" tvg-logo="https://githubusercontent.com",Мосфильм. Золотая коллекция'\''},' >> run_parser.py
+          echo '    "телепутешествия": {"url": "https://teletravel.tv", "tag": '\''#EXTINF:-1 tvg-id="Teleputeshestviya" tvg-logo="https://teletravel.tv",Телепутешествия'\''},' >> run_parser.py
+          echo '    "discovery": {"url": "http://185.156.43", "tag": '\''#EXTINF:-1 tvg-id="Discovery Channel" tvg-logo="https://githubusercontent.com",Discovery Channel'\''},' >> run_parser.py
+          echo '    "nat geo wild": {"url": "http://185.156.43", "tag": '\''#EXTINF:-1 tvg-id="Nat Geo Wild" tvg-logo="https://githubusercontent.com",Nat Geo Wild'\''},' >> run_parser.py
+          echo '    "viju explore": {"url": "http://185.156.43", "tag": '\''#EXTINF:-1 tvg-id="Viju Explore" tvg-logo="https://githubusercontent.com",Viju Explore'\''},' >> run_parser.py
+          echo '    "Travel Channel": {"url": "http://185.156.43", "tag": '\''#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'\''}' >> run_parser.py
+          echo '}' >> run_parser.py
+          echo '' >> run_parser.py
+          echo 'def decode_url(s):' >> run_parser.py
+          echo '    try: return base64.b64decode(s.encode("utf-8")).decode("utf-8")' >> run_parser.py
+          echo '    except: return ""' >> run_parser.py
+          echo '' >> run_parser.py
+          echo 'def clean_string(s): return re.sub(r"[^a-zA-Z0-9а-яёА-ЯЁ]", "", s.lower())' >> run_parser.py
+          echo 'def get_quality_score(c): return 10 if "HD" in str(c).upper() else 0' >> run_parser.py
+          echo '' >> run_parser.py
+          echo 'def check_url(url):' >> run_parser.py
+          echo '    try:' >> run_parser.py
+          echo '        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})' >> run_parser.py
+          echo '        with urllib.request.urlopen(req, timeout=4) as r: return r.status == 200' >> run_parser.py
+          echo '    except: return False' >> run_parser.py
+          echo '' >> run_parser.py
+          echo 'def parse_source(enc_url):' >> run_parser.py
+          echo '    url = decode_url(enc_url)' >> run_parser.py
+          echo '    if not url: return []' >> run_parser.py
+          echo '    res = []' >> run_parser.py
+          echo '    try:' >> run_parser.py
+          echo '        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})' >> run_parser.py
+          echo '        with urllib.request.urlopen(req, timeout=8) as r:' >> run_parser.py
+          echo '            lines = r.read().decode("utf-8", errors="ignore").splitlines()' >> run_parser.py
+          echo '            cur = ""' >> run_parser.py
+          echo '            for l in lines:' >> run_parser.py
+          echo '                l = l.strip()' >> run_parser.py
+          echo '                if l.startswith("#EXTINF"): cur = l' >> run_parser.py
+          echo '                elif l.startswith("http") and cur: res.append((cur, l)); cur = ""' >> run_parser.py
+          echo '    except: pass' >> run_parser.py
+          echo '    return res' >> run_parser.py
+          echo '' >> run_parser.py
+          echo 'def main():' >> run_parser.py
+          echo '    ssl._create_default_https_context = ssl._create_unverified_context' >> run_parser.py
+          echo '    all_p = []' >> run_parser.py
+          echo '    with ThreadPoolExecutor(max_workers=7) as ex:' >> run_parser.py
+          echo '        futures = [ex.submit(parse_source, s) for s in ENCRYPTED_SOURCES]' >> run_parser.py
+          echo '        for f in as_completed(futures): all_p.extend(f.result())' >> run_parser.py
+          echo '    matched = {}' >> run_parser.py
+          echo '    fav_c = [clean_string(ch) for ch in FAVORITE_CHANNELS]' >> run_parser.py
+          echo '    for inf, url in all_p:' >> run_parser.py
+          echo '        m = re.search(r",([^,\n\r]+)$", inf)' >> run_parser.py
+          echo '        if m:' >> run_parser.py
+          echo '            name = m.group(1).strip(); c_name = clean_string(name)' >> run_parser.py
+          echo '            if "скораяпомощь" in c_name: continue' >> run_parser.py
+          echo '            for i, fav in enumerate(fav_c):' >> run_parser.py
+          echo '                ok = False' >> run_parser.py
+          echo '                if fav == "нтвсериал" and c_name in ["нтвсериал", "нтвсериалы"]: ok = True' >> run_parser.py
+          echo '                elif fav == "телепутешествия" and fav in c_name and not any(x in c_name for x in ["hd2", "world", "международный"]): ok = True' >> run_parser.py
+          echo '                elif fav == "discovery" and fav in c_name and "science" not in c_name: ok = True' >> run_parser.py
+          echo '                elif fav != "нтвсериал" and fav != "телепутешествия" and fav != "discovery" and (fav == c_name or fav in c_name): ok = True' >> run_parser.py
+          echo '                if ok:' >> run_parser.py
+          echo '                    std = FAVORITE_CHANNELS[i]' >> run_parser.py
+          echo '                    if std not in matched: matched[std] = []' >> run_parser.py
+          echo '                    matched[std].append((inf, url)); break' >> run_parser.py
+          echo '    final = ["#EXTM3U\n"]' >> run_parser.py
+          echo '    added = set()' >> run_parser.py
+          echo '    for ch in FAVORITE_CHANNELS:' >> run_parser.py
+          echo '        done = False' >> run_parser.py
+          echo '        if ch in matched:' >> run_parser.py
+          echo '            matched[ch].sort(key=get_quality_score, reverse=True)' >> run_parser.py
+          echo '            for inf, url in matched[ch]:' >> run_parser.py
+          echo '                if url in added: continue' >> run_parser.py
+          echo '                if check_url(url): final.append(f"{inf}\n{url}\n"); added.add(url); done = True; break' >> run_parser.py
+          echo '        if not done and ch in RESERVE_LINKS:' >> run_parser.py
+          echo '            r = RESERVE_LINKS[ch]' >> run_parser.py
+          echo '            if r["url"] not in added: final.append(f"{r['\''tag'\'']}\n{r["url"]}\n"); added.add(r["url"])' >> run_parser.py
+          echo '    with open("playlist.m3u", "w", encoding="utf-8") as f: f.writelines(final)' >> run_parser.py
+          echo 'if __name__ == "__main__": main()' >> run_parser.py
 
-          ENCRYPTED_SOURCES = [
-              "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",                                                # satexpresstv.ru
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",       # Dimonovich FREE TV
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQWTFTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==", # VeronaTV
-              "aHR0cDovL3N0cmVhbS5tY3F1YWNrLm5ldC8zNjkvaW5kZXgubTN1OA",
-              "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",     # iptv126.m3u
-              "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",                                                           # gclnk.com
-              "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9pbmRleC5tM3U="                                        # iptv-org index.m3u
-          ]
+      # ЗАПУСК СКРИПТА
+      - name: Run parser
+        run: python run_parser.py
 
-          FAVORITE_CHANNELS = [
-              "моя планета",
-              "кино 1 international",
-              "мосфильм золотая коллекция",
-              "неизвестная планета",
-              "travel adventure",
-              "индийское кино",
-              "Travel Channel",
-              "телепутешествия",
-              "советское кино",
-              "ретро тв",
-              "нтв сериал",
-              "nat geo wild",
-              "viju explore",
-              "discovery",
-              "нтв хит"
-          ]
-
-          # Глобальная база гарантированных резервных ссылок (включая EPG ID и логотипы для плееров)
-          RESERVE_LINKS = {
-              "моя планета": {
-                  "url": "https://beetv.kz",
-                  "tag": '#EXTINF:-1 tvg-id="Moya Planeta" tvg-logo="https://githubusercontent.com",Моя Планета'
-              },
-              "мосфильм золотая коллекция": {
-                  "url": "http://mcquack.net",
-                  "tag": '#EXTINF:-1 tvg-id="Mosfilm Zolotaya Kollektsiya" tvg-logo="https://githubusercontent.com",Мосфильм. Золотая коллекция'
-              },
-              "телепутешествия": {
-                  "url": "https://teletravel.tv",
-                  "tag": '#EXTINF:-1 tvg-id="Teleputeshestviya" tvg-logo="https://teletravel.tv",Телепутешествия'
-              },
-              "discovery": {
-                  "url": "http://185.156.43",
-                  "tag": '#EXTINF:-1 tvg-id="Discovery Channel" tvg-logo="https://githubusercontent.com",Discovery Channel'
-              },
-              "nat geo wild": {
-                  "url": "http://185.156.43",
-                  "tag": '#EXTINF:-1 tvg-id="Nat Geo Wild" tvg-logo="https://githubusercontent.com",Nat Geo Wild'
-              },
-              "viju explore": {
-                  "url": "http://185.156.43",
-                  "tag": '#EXTINF:-1 tvg-id="Viju Explore" tvg-logo="https://githubusercontent.com",Viju Explore'
-              },
-              "Travel Channel": {
-                  "url": "http://185.156.43",
-                  "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
-              }
-          }
-
-          def decode_url(encoded_str):
-              try:
-                  return base64.b64decode(encoded_str.encode('utf-8')).decode('utf-8')
-              except Exception:
-                  return ""
-
-          def clean_string(s):
-              return re.sub(r'[^a-zA-Z0-9а-яёА-ЯЁ]', '', s.lower())
-
-          def get_quality_score(candidate_tuple):
-              inf_line = str(candidate_tuple).upper()
-              score = 0
-              if "HD" in inf_line: score += 10
-              if "50FPS" in inf_line: score += 5
-              return score
-
-          def check_url(url, timeout=4):
-              try:
-                  req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-                  with urllib.request.urlopen(req, timeout=timeout) as response:
-                      if response.status == 200:
-                          return True
-              except Exception:
-                  pass
-              return False
-
-          def parse_source(encoded_url):
-              url = decode_url(encoded_url)
-              if not url: return []
-              print(f"Парсинг источника: {url}")
-              channels = []
-              try:
-                  req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-                  with urllib.request.urlopen(req, timeout=8) as response:
-                      content = response.read().decode('utf-8', errors='ignore')
-                      lines = content.splitlines()
-                      current_inf = ""
-                      for line in lines:
-                          line = line.strip()
-                          if line.startswith("#EXTINF"):
-                              current_inf = line
-                          elif line.startswith("http") and current_inf:
-                              channels.append((current_inf, line))
-                              current_inf = ""
-              except Exception as e:
-                  print(f"Ошибка источника {url}: {e}")
-              return channels
-
-          def main():
-              context = ssl._create_unverified_context()
-              ssl._create_default_https_context = lambda: context
-              
-              all_parsed = []
-              with ThreadPoolExecutor(max_workers=7) as executor:
-                  futures = [executor.submit(parse_source, src) for src in ENCRYPTED_SOURCES]
-                  for fut in as_completed(futures):
-                      all_parsed.extend(fut.result())
-              
-              if not all_parsed:
-                  print("Каналы не найдены.")
-                  return
-
-              matched = {}
-              fav_cleaned = [clean_string(ch) for ch in FAVORITE_CHANNELS]
-              
-              for inf, url in all_parsed:
-                  match = re.search(r',([^,\n\r]+)$', inf)
-                  if match:
-                      ch_name = match.group(1).strip()
-                      cleaned_name = clean_string(ch_name)
-                      
-                      if "скораяпомощь" in cleaned_name:
-                          continue
-
-                      for i, fav in enumerate(fav_cleaned):
-                          is_match = False
-                          if fav == "нтвсериал":
-                              if cleaned_name in ["нтвсериал", "нтвсериалы"]:
-                                  is_match = True
-                          elif fav == "телепутешествия":
-                              if fav in cleaned_name and not any(x in cleaned_name for x in ["hd2", "world", "международный"]):
-                                  is_match = True
-                          elif fav == "discovery":
-                              # Исключение: отсекаем Discovery Science от основного Discovery
-                              if fav in cleaned_name and "science" not in cleaned_name:
-                                  is_match = True
-                          else:
-                              if fav == cleaned_name or fav in cleaned_name:
-                                  is_match = True
-
-                          if is_match:
-                              standard_name = FAVORITE_CHANNELS[i]
-                              if standard_name not in matched:
-                                  matched[standard_name] = []
-                              matched[standard_name].append((inf, url))
-                              break
-              
-              print(f"Найдено ссылок: {len(all_parsed)}. Валидация...")
-              
-              final_playlist = ["#EXTM3U\n"]
-              added_urls = set()  # Защита от добавления одинаковых ссылок на разные каналы
-              
-              for ch_name in FAVORITE_CHANNELS:
-                  found_working = False
-                  if ch_name in matched:
-                      candidates = matched[ch_name]
-                      candidates.sort(key=get_quality_score, reverse=True)
-                      for inf, url in candidates:
-                          if url in added_urls:
-                              continue
-                          if check_url(url):
-                              final_playlist.append(f"{inf}\n{url}\n")
-                              added_urls.add(url)
-                              print(f"[+] Добавлен: {ch_name} (из баз)")
-                              found_working = True
-                              break
-                  
-                  if not found_working and ch_name in RESERVE_LINKS:
-                      res_info = RESERVE_LINKS[ch_name]
-                      if res_info['url'] not in added_urls:
-                          final_playlist.append(f"{res_info['tag']}\n{res_info['url']}\n")
-                          added_urls.add(res_info['url'])
+      # АВТОЗАПИСЬ РЕЗУЛЬТАТА В ВАШ РЕПОЗИТОРИЙ
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add playlist.m3u
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Автоматическое обновление плейлиста" && git push)
