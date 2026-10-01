@@ -21,20 +21,26 @@ https://t-media.su
 http://cdn.ntv.ru/th_serial/mono.m3u8
 #EXTINF:-1,Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 tvg-id="vijuExplore.ru@SD" tvg-logo="https://i.imgur.com/EGIpLPu.png",viju Explore (576p)
-http://stream.mcquack.net/239/index.m3u8
+#EXTINF:-1,viju Explore
+http://46.53.200.153:7777/play/a01i/index.m3u8
 #EXTINF:-1, Discovery Channel HD
 http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
 #EXTINF:-1,НТВ Хит
 http://cdn.ntv.ru/th_hit/mono.m3u8
+#EXTINF:-1,Живая Планета
+https://stream-msk-05.ott.tricolor.tv:443/dtv/id267_MSKSG-PVR-1--Zhivaya_Planeta/04/plst.m3u8?drmreq=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfdHlwZSI6ImFwdHBfb3R0IiwiY2xhc3MiOiJCUk9XU0VSIiwiZHJlaWQiOiI0NTAyNTUwMDM1ODM5NSIsImV4cCI6MTc2MTY1NTM0MywiaHdpZCI6IjI4YzUzMGRkNTE5NmIwZjQ0ZjkyY2ZhN2RhODVkZDU2ZDE2ZTQ4YjRhZjU2MTA5NTk1YmExNmZkMjYyYzRmNTAiLCJsYXN0X3JlcV9kYXRlIjoxNzYxMDUwNTQzLCJzZXNzaW9uX2lkIjoiNTA2OTkxMzhmYzc4MTQ4N2U4MGNiMjkzNzQwOWM5M2QiLCJ0b2tlbl90eXBlIjoiQ29udGVudEFjY2Vzc1Rva2VuIiwidHlwZSI6Ik1PWklMTEEifQ.ALDGjcG6WclyHhPxNmEKmRBz8ttTYCQ4XIW_AnWNhcM
+#EXTINF:-1,Наука
+http://vod.tuva.ru/nauka2/index.m3u8
+#EXTINF:-1,Диалоги о рыбалке
+http://185.195.184.30:8000/play/a0kr/index.m3u8
 #EXTINF:-1 tvg-logo="http://rafail1982.uz/logo/Глазами туриста HD.png" audio-track="rus",Глазами туриста HD
 https://stream8.cinerama.uz/1423/tracks-v1a1/mono.m3u8
 #EXTINF:-1,Animal Planet HD
 http://stream.mcquack.net/114/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1 tvg-id="NationalGeographic.in@HD" tvg-logo="https://dtil.tmsimg.com/assets/s143574_ld_h15_aa.png?lock=720x540",National Geographic (India) HD (1080p)
-http://51.75.127.199:3141/natgeohd/index.m3u8
-#EXTINF:-1,Дом Кино Премиум HD
-http://185.195.184.30:8000/play/a0em/index.m3u8
+#EXTINF:-1,National Geographic HD
+http://stream.mcquack.net/116/tracks-v1a1/mono.ts.m3u8
+#EXTINF:-1,Дом Кино
+http://stream-msk-13.ott.tricolor.tv/dtv/id176_MSKSG-PVR-1--D_Kino/03/plst.m3u8?drmreq=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfdHlwZSI6ImFwdHBfb3R0IiwiY2xhc3MiOiJCUk9XU0VSIiwiZHJlaWQiOiI0NTAyNTUwMDM1ODM5NSIsImV4cCI6MTc2MTY1NTM0MywiaHdpZCI6IjI4YzUzMGRkNTE5NmIwZjQ0ZjkyY2ZhN2RhODVkZDU2ZDE2ZTQ4YjRhZjU2MTA5NTk1YmExNmZkMjYyYzRmNTAiLCJsYXN0X3JlcV9kYXRlIjoxNzYxMDUwNTQzLCJzZXNzaW9uX2lkIjoiNTA2OTkxMzhmYzc4MTQ4N2U4MGNiMjkzNzQwOWM5M2QiLCJ0b2tlbl90eXBlIjoiQ29udGVudEFjY2Vzc1Rva2VuIiwidHlwZSI6Ik1PWklMTEEifQ.ALDGjcG6WclyHhPxNmEKmRBz8ttTYCQ4XIW_AnWNhcM
 #EXTINF:-1, Родное кино
 http://176.118.197.101/RodnoeKino/index.m3u8
 #EXTINF:-1,Любимое Кино HD
