@@ -47,8 +47,8 @@ RESERVE_LINKS = {
         "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
     },
     "моя стихия": {
-        "url": "http://178.212.71.253:8002/play/a00o/index.m3u8",
-        "tag": '#EXTINF:-1 tvg-id="Moya stihiya" tvg-logo="https://iptvx.one/picons/morskoy.png",Моя стихия'
+        "url": "https://cdnvideo.ru",
+        "tag": '#EXTINF:-1 tvg-id="Morskoy" tvg-logo="https://iptvx.one",Моя стихия'
     },
     "vf мосфильм": {
         "url": "http://185.156.43",
@@ -150,5 +150,6 @@ def main():
 
 if __name__ == "__main__": 
     main()
+
 
 
