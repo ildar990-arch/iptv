@@ -29,3 +29,7 @@ http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxz
 http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
 #EXTINF:-1 group-title="ЧЕБУРАШ ТЕСТ" tvg-rec="3",НТВ Хит orig
 http://185.221.213.254/live/stream112.php?q=h0c5Eyuek0CppzJQmzPiyBmI9DfhNnGVuNxzdYNOfd-EeeZuSIwEhDAlo0Tul56VFAAOD1b5rY4gcQb5iuxMmvqTlMoGHEgv93nb3eWJvK4
+#EXTINF:-1 group-title="Мои каналы",Мосфильм. Золотая коллекция
+http://212.15.51.20:8000/play/a024/index.m3u8
+#EXTINF:-1 group-title="Мои каналы",Мосфильм. Золотая коллекция (резерв 2)
+http://185.195.184.30:8000/play/a1af/index.m3u8
