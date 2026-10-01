@@ -59,6 +59,7 @@ jobs:
 
           MY_PLANETA_RESERVE = "https://beetv.kz"
           MOSFILM_RESERVE = "http://mcquack.net"
+          TELETRAVEL_RESERVE = "https://teletravel.tv"
 
           def decode_url(encoded_str):
               try:
@@ -175,6 +176,9 @@ jobs:
                       elif ch_name == "мосфильм золотая коллекция":
                           final_playlist.append(f'#EXTINF:-1,Мосфильм. Золотая коллекция\n{MOSFILM_RESERVE}\n')
                           print(f"[+] Добавлен: {ch_name} (резервная ссылка mcquack)")
+                      elif ch_name == "телепутешествия":
+                          final_playlist.append(f'#EXTINF:-1 tvg-id="Teleputeshestviya" tvg-name="Телепутешествия" tvg-logo="https://teletravel.tv",Телепутешествия\n{TELETRAVEL_RESERVE}\n')
+                          print(f"[+] Добавлен: {ch_name} (резервная ссылка Телепутешествия)")
                       
               with open("playlist.m3u", "w", encoding="utf-8") as f:
                   f.writelines(final_playlist)
@@ -185,16 +189,10 @@ jobs:
           EOF
           python run_parser.py
 
-      # ШАГ АВТОЗАПИСИ: Настраиваем бота и пушим созданный файл в репозиторий
+      # ШАГ АВТОЗАПИСИ: Настраиваем бота, комитим изменения и пушим файл в репозиторий
       - name: Commit and Push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
-          if ! git diff --cached --quiet; then
-            git commit -m "Автоматическое обновление плейлиста [$(date +'%d.%m.%Y %H:%M')]"
-            git push
-            echo "Изменения успешно записаны в репозиторий!"
-          else
-            echo "Изменений нет, плейлист остался прежним."
-          fi
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Автоматическое обновление плейлиста" && git push)
