@@ -49,8 +49,8 @@ RESERVE_LINKS = {
         "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
     },
     "моя стихия": {
-        "url": "https://cdnvideo.ru",
-        "tag": '#EXTINF:-1 tvg-id="Morskoy" tvg-logo="https://iptvx.one",Моя стихия'
+        "url": "http://130.193.73.10:8937/play/a02f",
+        "tag": '#EXTINF:-1 tvg-id="Morskoy" tvg-logo="https://iptvx.one/picons/morskoy.png",Моя стихия'
     },
     "vf мосфильм": {
         "url": "http://185.156.43",
@@ -144,7 +144,10 @@ def main():
                     ok = True
                 elif fav == "discovery" and fav in c_name and "science" not in c_name: 
                     ok = True
-                elif fav not in ["нтвсериал", "телепутешествия", "discovery"] and (fav == c_name or fav in c_name): 
+                # Умный поиск: ищем канал «Моя стихия» также по старому названию «Морской»
+                elif fav == "моя стихия" and ("моястихия" in c_name or "морской" in c_name):
+                    ok = True
+                elif fav not in ["нтвсериал", "телепутешествия", "discovery", "моя стихия"] and (fav == c_name or fav in c_name): 
                     ok = True
                 if ok:
                     std = FAVORITE_CHANNELS[i]
