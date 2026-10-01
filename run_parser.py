@@ -45,6 +45,14 @@ RESERVE_LINKS = {
     "Travel Channel": {
         "url": "http://185.156.43", 
         "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
+    },
+    "советское кино": {
+        "url": "http://5.9.11",
+        "tag": '#EXTINF:-1 tvg-id="Sovetskoe Kino" tvg-logo="https://githubusercontent.com",Советское кино'
+    },
+    "ретро тв": {
+        "url": "http://splay.uz",
+        "tag": '#EXTINF:-1 tvg-id="Retro TV" tvg-logo="https://githubusercontent.com",Ретро ТВ'
     }
 }
 
@@ -115,8 +123,7 @@ def main():
                 if ok:
                     std = FAVORITE_CHANNELS[i]
                     if std not in matched: matched[std] = []
-                    matched[std].append((inf, url))
-                    break
+                    matched[std].append((inf, url)); break
                     
     final = ["#EXTM3U\n"]
     added = set()
