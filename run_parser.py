@@ -47,11 +47,11 @@ RESERVE_LINKS = {
         "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
     },
     "советское кино": {
-        "url": "https://cdnvideo.ru",
+        "url": "https://yandex.ru",
         "tag": '#EXTINF:-1 tvg-id="Sovetskoe Kino" tvg-logo="https://githubusercontent.com",Советское кино'
     },
     "ретро тв": {
-        "url": "https://cdnvideo.ru",
+        "url": "http://185.46.16",
         "tag": '#EXTINF:-1 tvg-id="Retro TV" tvg-logo="https://githubusercontent.com",Ретро ТВ'
     }
 }
