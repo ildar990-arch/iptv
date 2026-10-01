@@ -14,7 +14,9 @@ ENCRYPTED_SOURCES = [
 FAVORITE_CHANNELS = [
     "моя планета", "кино 1 international", "мосфильм золотая коллекция", "неизвестная планета", 
     "travel adventure", "индийское кино", "Travel Channel", "телепутешествия", "моя стихия", 
-    "vf мосфильм", "нтв сериал", "nat geo wild", "viju explore", "discovery", "нтв хит"
+    "vf мосфильм", "нтв сериал", "nat geo wild", "viju explore", "discovery", "нтв хит",
+    "живая планета", "наука", "диалоги о рыбалке", "глазами туриста", "animal planet", "national geographic",
+    "дом кино", "родное кино", "любимое кино"
 ]
 
 RESERVE_LINKS = {
@@ -53,6 +55,30 @@ RESERVE_LINKS = {
     "vf мосфильм": {
         "url": "http://185.156.43",
         "tag": '#EXTINF:-1 tvg-id="vf-mosfilm" tvg-logo="https://githubusercontent.com",VF Мосфильм'
+    },
+    "живая планета": {
+        "url": "http://185.156.43",
+        "tag": '#EXTINF:-1 tvg-id="Zhivaya Planeta" tvg-logo="https://githubusercontent.com",Живая планета'
+    },
+    "наука": {
+        "url": "http://185.156.43",
+        "tag": '#EXTINF:-1 tvg-id="Nauka" tvg-logo="https://githubusercontent.com",Наука'
+    },
+    "диалоги о рыбалке": {
+        "url": "http://178.212.71",
+        "tag": '#EXTINF:-1 tvg-id="Dialogi o rybalke" tvg-logo="https://iptvx.one",Диалоги о рыбалке'
+    },
+    "дом кино": {
+        "url": "http://185.156.43",
+        "tag": '#EXTINF:-1 tvg-id="Dom Kino" tvg-logo="https://githubusercontent.com",Дом Кино'
+    },
+    "родное кино": {
+        "url": "http://185.156.43",
+        "tag": '#EXTINF:-1 tvg-id="Rodnoe Kino" tvg-logo="https://githubusercontent.com",Родное Кино'
+    },
+    "любимое кино": {
+        "url": "http://185.156.43",
+        "tag": '#EXTINF:-1 tvg-id="Lyubimoe Kino" tvg-logo="https://githubusercontent.com",Любимое кино'
     }
 }
 
