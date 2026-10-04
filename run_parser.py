@@ -8,7 +8,11 @@ ENCRYPTED_SOURCES = [
     "aHR0cDovL3N0cmVhbS5tY3F1YWNrLm5ldC8zNjkvaW5kZXgubTN1OA",
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",     # iptv126.m3u
     "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",                                                           # gclnk.com
-    "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9pbmRleC5tM3U="                                        # iptv-org index.m3u
+    "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9pbmRleC5tM3U=",                                       # iptv-org index.m3u
+    # --- НОВЫЕ СТАБИЛЬНЫЕ ИСТОЧНИКИ ---
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWUtaXB0di9pcHR2L21hc3Rlci9jYW5hbHMvcnUubTN1",    # free-iptv russia
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0xhbmVpay9pcHR2L21hc3Rlci9pcHR2Lm0zdQ==",            # Laneik iptv list
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tLzFtcGgvaXB0di9tYWluL2JpZy1pcHR2Lm0zdQ=="             # big-iptv aggregator
 ]
 
 FAVORITE_CHANNELS = [
@@ -123,7 +127,6 @@ def parse_source(enc_url):
     return res
 
 def is_strict_match(fav_clean, cand_clean):
-    # Разрешаем точное совпадение названий ИЛИ точное совпадение + технические приписки качества
     if fav_clean == cand_clean:
         return True
     for suffix in ["hd", "fhd", "50fps", "orig"]:
@@ -134,7 +137,7 @@ def is_strict_match(fav_clean, cand_clean):
 def main():
     ssl._create_default_https_context = ssl._create_unverified_context
     all_p = []
-    with ThreadPoolExecutor(max_workers=7) as ex:
+    with ThreadPoolExecutor(max_workers=10) as ex: # Увеличено число воркеров до 10
         futures = [ex.submit(parse_source, s) for s in ENCRYPTED_SOURCES]
         for f in as_completed(futures): 
             all_p.extend(f.result())
@@ -158,7 +161,6 @@ def main():
                     ok = True
                 elif fav == "моя стихия" and ("моястихия" in c_name or is_strict_match("морской", c_name)):
                     ok = True
-                # Для остальных каналов применяем строгую проверку без лишних примесей
                 elif fav not in ["нтвсериал", "телепутешествия", "discovery", "моя стихия"]:
                     ok = is_strict_match(fav, c_name)
                     
@@ -192,7 +194,8 @@ def main():
     with open("playlist.m3u", "w", encoding="utf-8") as f: 
         f.writelines(final)
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     main()
+
 
 
