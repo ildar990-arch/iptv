@@ -18,15 +18,15 @@ https://stream-msk-16.ott.tricolor.tv/dtv/id930_MSKSG-PVR-1--MyStihiya/02/plst.m
 #EXTINF:-1 tvg-id="vf-mosfilm" tvg-logo="https://githubusercontent.com",VF Мосфильм
 https://t-media.su
 #EXTINF:-1,НТВ Сериал
-http://185.195.184.30:8000/play/a0kc/index.m3u8
+http://cdn.ntv.ru/th_serial/mono.m3u8
 #EXTINF:-1,Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1,viju Explore
 http://46.53.200.153:7777/play/a01i/index.m3u8
 #EXTINF:-1, Discovery Channel HD
 http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
-#EXTINF:-1,НТВ-ХИТ
-http://185.195.184.30:8000/play/a0k2/index.m3u8
+#EXTINF:-1,НТВ Хит
+http://cdn.ntv.ru/th_hit/mono.m3u8
 #EXTINF:-1,Живая Планета
 https://stream-msk-05.ott.tricolor.tv:443/dtv/id267_MSKSG-PVR-1--Zhivaya_Planeta/04/plst.m3u8?drmreq=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfdHlwZSI6ImFwdHBfb3R0IiwiY2xhc3MiOiJCUk9XU0VSIiwiZHJlaWQiOiI0NTAyNTUwMDM1ODM5NSIsImV4cCI6MTc2MTY1NTM0MywiaHdpZCI6IjI4YzUzMGRkNTE5NmIwZjQ0ZjkyY2ZhN2RhODVkZDU2ZDE2ZTQ4YjRhZjU2MTA5NTk1YmExNmZkMjYyYzRmNTAiLCJsYXN0X3JlcV9kYXRlIjoxNzYxMDUwNTQzLCJzZXNzaW9uX2lkIjoiNTA2OTkxMzhmYzc4MTQ4N2U4MGNiMjkzNzQwOWM5M2QiLCJ0b2tlbl90eXBlIjoiQ29udGVudEFjY2Vzc1Rva2VuIiwidHlwZSI6Ik1PWklMTEEifQ.ALDGjcG6WclyHhPxNmEKmRBz8ttTYCQ4XIW_AnWNhcM
 #EXTINF:-1,Диалоги о рыбалке
