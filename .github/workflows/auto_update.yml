@@ -2,12 +2,13 @@ name: update
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Запуск каждую ночь в 03:00 по МСК
+    - cron: '0 0 * * *'  # Запуск каждую ночь в 03:00 по МСК (00:00 UTC)
   workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 15 # Защита: даем скрипту до 15 минут на тщательную проверку всех потоков
     
     permissions:
       contents: write
@@ -21,13 +22,15 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Теперь мы просто запускаем уже существующий файл
+      # Запускаем наш умный парсер с проверкой битрейта
       - name: Run parser
         run: python run_parser.py
 
       - name: Commit and Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
           git add playlist.m3u
           git diff --quiet && git diff --staged --quiet || (git commit -m "Automated playlist update" && git push)
