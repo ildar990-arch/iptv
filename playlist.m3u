@@ -37,9 +37,9 @@ https://stream8.cinerama.uz/1423/tracks-v1a1/mono.m3u8
 http://stream.mcquack.net/114/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1,National Geographic HD
 http://stream.mcquack.net/116/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1,Дом кино
-http://95.181.17.18/dvr01/sd2/domkino/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTAvNC8yMDI2IDc6MDc6MTggQU0maGFzaF92YWx1ZT1aSFc1M3E1UzRRSWtxaHdPNGlnVmFBPT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
+#EXTINF:-1,Дом Кино
+http://stream-msk-13.ott.tricolor.tv/dtv/id176_MSKSG-PVR-1--D_Kino/03/plst.m3u8?drmreq=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfdHlwZSI6ImFwdHBfb3R0IiwiY2xhc3MiOiJCUk9XU0VSIiwiZHJlaWQiOiI0NTAyNTUwMDM1ODM5NSIsImV4cCI6MTc2MTY1NTM0MywiaHdpZCI6IjI4YzUzMGRkNTE5NmIwZjQ0ZjkyY2ZhN2RhODVkZDU2ZDE2ZTQ4YjRhZjU2MTA5NTk1YmExNmZkMjYyYzRmNTAiLCJsYXN0X3JlcV9kYXRlIjoxNzYxMDUwNTQzLCJzZXNzaW9uX2lkIjoiNTA2OTkxMzhmYzc4MTQ4N2U4MGNiMjkzNzQwOWM5M2QiLCJ0b2tlbl90eXBlIjoiQ29udGVudEFjY2Vzc1Rva2VuIiwidHlwZSI6Ik1PWklMTEEifQ.ALDGjcG6WclyHhPxNmEKmRBz8ttTYCQ4XIW_AnWNhcM
 #EXTINF:-1, Родное кино
 http://176.118.197.101/RodnoeKino/index.m3u8
-#EXTINF:-1,Любимое Кино HD
-http://212.15.51.20:8000/play/a04v/index.m3u8
+#EXTINF:-1, Любимое кино
+http://176.118.197.101/LubimoeKino/index.m3u8
