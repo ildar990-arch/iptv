@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",                                                # satexpresstv.ru
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",       # Dimonovich FREE TV
-    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQWTFTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==", # VeronaTV
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQWTFTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronYVRWLm0zdQ==", # VeronaTV
     "aHR0cDovL3N0cmVhbS5tY3F1YWNrLm5ldC8zNjkvaW5kZXgubTN1OA",
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",     # iptv126.m3u
     "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",                                                           # gclnk.com
@@ -16,15 +16,16 @@ ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9zbW9sbnAuZ2l0aHViLmlvL0lQVFZydS9JUFRWcnUubTN1"                                         # IPTVru Main Mirror
 ]
 
+# ИСПРАВЛЕННЫЙ СПИСОК КАНАЛОВ (УДАЛЕНЫ ДИАЛОГИ О РЫБАЛКЕ И ДОМ КИНО, ДОБАВЛЕН VF МОСФИЛЬМ)
 FAVORITE_CHANNELS = [
     "моя планета", "кино 1 international", "мосфильм золотая коллекция", "неизвестная планета", 
     "travel adventure", "индийское кино", "Travel Channel", "телепутешествия", "моя стихия", 
     "vf мосфильм", "нтв сериал", "nat geo wild", "viju explore", "discovery", "нтв хит",
-    "живая планета", "диалоги о рыбалке", "глазами туриста", "animal planet", "national geographic",
-    "дом кино", "родное кино", "любимое кино"
+    "живая планета", "глазами туриста", "animal planet", "national geographic",
+    "родное кино", "любимое кино"
 ]
 
-# ПРЯМЫЕ СТРИМЫ БЕЗ ОГРАНИЧЕНИЙ ПРОВАЙДЕРОВ
+# ОБНОВЛЕННЫЕ РЕЗЕРВНЫЕ CDN СТРИМЫ
 RESERVE_LINKS = {
     "моя планета": {
         "url": "https://viju.su", 
@@ -34,6 +35,10 @@ RESERVE_LINKS = {
         "url": "https://footprint.net", 
         "tag": '#EXTINF:-1 tvg-id="Mosfilm Zolotaya Kollektsiya" tvg-logo="https://githubusercontent.com",Мосфильм. Золотая коллекция'
     },
+    "vf мосфильм": {
+        "url": "https://footprint.net", 
+        "tag": '#EXTINF:-1 tvg-id="vf-mosfilm" tvg-logo="https://githubusercontent.com",VF Мосфильм'
+    },
     "телепутешествия": {
         "url": "https://pctv.ru", 
         "tag": '#EXTINF:-1 tvg-id="Teleputeshestviya" tvg-logo="https://teletravel.tv",Телепутешествия'
@@ -41,10 +46,6 @@ RESERVE_LINKS = {
     "живая планета": {
         "url": "https://viju.su", 
         "tag": '#EXTINF:-1 tvg-id="Zhivaya Planeta" tvg-logo="https://githubusercontent.com",Живая планета'
-    },
-    "дом кино": {
-        "url": "https://cdnvideo.ru", 
-        "tag": '#EXTINF:-1 tvg-id="Dom Kino" tvg-logo="https://githubusercontent.com",Дом Кино'
     },
     "родное кино": {
         "url": "https://cdnvideo.ru", 
@@ -65,10 +66,8 @@ def clean_group_title(tag_line):
 def get_quality_score(c): 
     return 10 if "HD" in str(c).upper() else 0
 
-# УМНЫЙ ФИЛЬТР ЗАГЛУШЕК И ЗАБЛОКИРОВАННЫХ ПОТОКОВ
 def is_blocked_stream(url):
     url_lower = url.lower()
-    # Отсекаем известные пулы взломанных ресиверов Триколор/НТВ+, которые выдают заглушки
     blocked_patterns = [
         "tricolor", "cinerama", "36e", "56e", "dre", "scrambled", 
         "92.243.", "85.203.", "test-stream", "dummy"
@@ -156,7 +155,6 @@ def main():
     for ch in FAVORITE_CHANNELS:
         done = False
         
-        # Если для канала прописан железный и чистый CDN-резерв, берем сначала его
         if ch in RESERVE_LINKS:
             r = RESERVE_LINKS[ch]
             if r["url"] not in added and check_url(r["url"]):
@@ -164,7 +162,6 @@ def main():
                 added.add(r["url"])
                 done = True
                 
-        # Если резерва нет или он подвел, ищем в общих базах с жестким отсевом заглушек
         if not done and ch in matched:
             matched[ch].sort(key=get_quality_score, reverse=True)
             for inf, url in matched[ch]:
@@ -179,7 +176,7 @@ def main():
 
     with open("playlist.m3u", "w", encoding="utf-8") as f:
         f.writelines(final)
-    print(f"Плейлист пересобран без заглушек! Всего чистых каналов: {len(added)}")
+    print(f"Плейлист пересобран! «Диалоги о рыбалке» и «Дом Кино» удалены. Добавлен «VF Мосфильм». Всего каналов: {len(added)}")
 
 if __name__ == "__main__":
     main()
