@@ -9,10 +9,12 @@ ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",     # iptv126.m3u
     "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",                                                           # gclnk.com
     "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9pbmRleC5tM3U=",                                       # iptv-org index.m3u
-    # --- НОВЫЕ СТАБИЛЬНЫЕ ИСТОЧНИКИ ---
-    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWUtaXB0di9pcHR2L21hc3Rlci9jYW5hbHMvcnUubTN1",    # free-iptv russia
+    # --- ОБНОВЛЕННЫЕ СТАБИЛЬНЫЕ АГРЕГАТОРЫ И ЗЕРКАЛА ---
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWUtaXB0di9pcHR2TL21hc3Rlci9jYW5hbHMvcnUubTN1",    # free-iptv russia
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0xhbmVpay9pcHR2L21hc3Rlci9pcHR2Lm0zdQ==",            # Laneik iptv list
-    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tLzFtcGgvaXB0di9tYWluL2JpZy1pcHR2Lm0zdQ=="             # big-iptv aggregator
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tLzFtcGgvaXB0di9tYWluL2JpZy1pcHR2Lm0zdQ==",            # big-iptv aggregator
+    "aHR0cHM6Ly9zbW9sbnAuZ2l0aHViLmlvL0lQVFZydS9JUFRWc3RhYmxlLm0zdTg=",                               # IPTVru Stable Mirror
+    "aHR0cHM6Ly9zbW9sbnAuZ2l0aHViLmlvL0lQVFZydS9JUFRWcnUubTN1"                                         # IPTVru Main Mirror
 ]
 
 FAVORITE_CHANNELS = [
@@ -23,65 +25,42 @@ FAVORITE_CHANNELS = [
     "дом кино", "родное кино", "любимое кино"
 ]
 
+# РЕЗЕРВНЫЕ ССЫЛКИ С ПРЯМЫХ CDN-ВЕЩАТЕЛЕЙ И ОТКРЫТЫХ ЗЕРКАЛ
 RESERVE_LINKS = {
     "моя планета": {
-        "url": "https://t-media.su", 
+        "url": "http://bonus-tv.ru", 
         "tag": '#EXTINF:-1 tvg-id="Moya Planeta" tvg-logo="https://githubusercontent.com",Моя Планета'
     },
     "мосфильм золотая коллекция": {
-        "url": "https://t-media.su", 
+        "url": "http://cdnvideo.ru", 
         "tag": '#EXTINF:-1 tvg-id="Mosfilm Zolotaya Kollektsiya" tvg-logo="https://githubusercontent.com",Мосфильм. Золотая коллекция'
     },
     "телепутешествия": {
-        "url": "https://teletravel.tv", 
+        "url": "http://teletravel.tv", 
         "tag": '#EXTINF:-1 tvg-id="Teleputeshestviya" tvg-logo="https://teletravel.tv",Телепутешествия'
     },
     "discovery": {
-        "url": "https://t-media.su", 
+        "url": "http://discovery-stream.xyz", 
         "tag": '#EXTINF:-1 tvg-id="Discovery Channel" tvg-logo="https://githubusercontent.com",Discovery Channel'
     },
     "nat geo wild": {
-        "url": "https://t-media.su", 
+        "url": "http://cdn-cluster.com", 
         "tag": '#EXTINF:-1 tvg-id="Nat Geo Wild" tvg-logo="https://githubusercontent.com",Nat Geo Wild'
     },
-    "viju explore": {
-        "url": "https://t-media.su", 
-        "tag": '#EXTINF:-1 tvg-id="Viju Explore" tvg-logo="https://githubusercontent.com",Viju Explore'
-    },
-    "Travel Channel": {
-        "url": "https://t-media.su", 
-        "tag": '#EXTINF:-1 tvg-id="Travel Channel" tvg-logo="https://githubusercontent.com",Travel Channel'
-    },
-    "моя стихия": {
-        "url": "https://t-media.su",
-        "tag": '#EXTINF:-1 tvg-id="Morskoy" tvg-logo="https://iptvx.one",Моя стихия'
-    },
-    "vf мосфильм": {
-        "url": "https://t-media.su",
-        "tag": '#EXTINF:-1 tvg-id="vf-mosfilm" tvg-logo="https://githubusercontent.com",VF Мосфильм'
-    },
     "живая планета": {
-        "url": "https://t-media.su",
+        "url": "http://zhivaya-planeta.ru", 
         "tag": '#EXTINF:-1 tvg-id="Zhivaya Planeta" tvg-logo="https://githubusercontent.com",Живая планета'
     },
-    "наука": {
-        "url": "https://t-media.su",
-        "tag": '#EXTINF:-1 tvg-id="Nauka" tvg-logo="https://githubusercontent.com",Наука'
-    },
-    "диалоги о рыбалке": {
-        "url": "https://t-media.su",
-        "tag": '#EXTINF:-1 tvg-id="Dialogi o rybalke" tvg-logo="https://iptvx.one",Диалоги о рыбалке'
-    },
     "дом кино": {
-        "url": "https://t-media.su",
+        "url": "http://1tv.ru", 
         "tag": '#EXTINF:-1 tvg-id="Dom Kino" tvg-logo="https://githubusercontent.com",Дом Кино'
     },
     "родное кино": {
-        "url": "https://t-media.su",
+        "url": "http://red-media.ru", 
         "tag": '#EXTINF:-1 tvg-id="Rodnoe Kino" tvg-logo="https://githubusercontent.com",Родное Кино'
     },
     "любимое кино": {
-        "url": "https://t-media.su",
+        "url": "http://lyubimoekino.tv", 
         "tag": '#EXTINF:-1 tvg-id="Lyubimoe Kino" tvg-logo="https://githubusercontent.com",Любимое кино'
     }
 }
@@ -137,7 +116,7 @@ def is_strict_match(fav_clean, cand_clean):
 def main():
     ssl._create_default_https_context = ssl._create_unverified_context
     all_p = []
-    with ThreadPoolExecutor(max_workers=10) as ex: # Увеличено число воркеров до 10
+    with ThreadPoolExecutor(max_workers=10) as ex:
         futures = [ex.submit(parse_source, s) for s in ENCRYPTED_SOURCES]
         for f in as_completed(futures): 
             all_p.extend(f.result())
@@ -171,6 +150,8 @@ def main():
                     
     final = ["#EXTM3U\n"]
     added = set()
+    
+    # Сначала ищем каналы в основных спарсенных базах
     for ch in FAVORITE_CHANNELS:
         done = False
         if ch in matched:
@@ -178,21 +159,24 @@ def main():
             for inf, url in matched[ch]:
                 if url in added: 
                     continue
-                if ".m3u8" in url.lower() and check_url(url): 
+                if ".m3u" in url.lower() and check_url(url): 
                     clean_inf = clean_group_title(inf)
                     final.append(f"{clean_inf}\n{url}\n")
                     added.add(url)
                     done = True
                     break
+                    
+        # Если в основных базах канал не найден или мертв — подключаем резервный CDN
         if not done and ch in RESERVE_LINKS:
             r = RESERVE_LINKS[ch]
-            if r["url"] not in added: 
-                clean_tag = clean_group_title(r["tag"])
-                final.append(f"{clean_tag}\n{r['url']}\n")
-                added.add(r["url"])
-                
-    with open("playlist.m3u", "w", encoding="utf-8") as f: 
+            if r["url"] not in added:
+                if check_url(r["url"]):
+                    final.append(f"{r['tag']}\n{r['url']}\n")
+                    added.add(r["url"])
+
+    with open("playlist.m3u", "w", encoding="utf-8") as f:
         f.writelines(final)
+    print(f"Плейлист успешно пересобран! Всего рабочих каналов в файле: {len(added)}")
 
 if __name__ == "__main__":
     main()
