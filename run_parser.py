@@ -1,10 +1,10 @@
-import urllib.request, urllib.error, re, base64, random, ssl
+import urllib.request, urllib.error, re, base64, random, ssl, os, shutil
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 ENCRYPTED_SOURCES = [
-    "aHR0cHM6Ly9zYXRleHByZXNzdHYucnUvYXBrL3NldHYubTN1",                                                # satexpresstv.ru
+    "aHR0cHM6Ly9zYXRexHByZXNzdHYucnUvYXBrL3NldHYubTN1",                                                # satexpresstv.ru
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0RpbW9ub3ZpY2gvVFYvRGltb25vdmljaC9GUkVFL1RW",       # Dimonovich FREE TV
-    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQWTFTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1ZlronYVRWLm0zdQ==", # VeronaTV
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0lQWTFTSEFSRUQvVmVyb25hVFYvcmVmcy9oZWFkcy9tYWluL1Zlcm9uYVRWLm0zdQ==", # VeronaTV
     "aHR0cDovL3N0cmVhbS5tY3F1YWNrLm5ldC8zNjkvaW5kZXgubTN1OA",
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",     # iptv126.m3u
     "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",                                                           # gclnk.com
@@ -16,7 +16,6 @@ ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9zbW9sbnAuZ2l0aHViLmlvL0lQVFZydS9JUFRWcnUubTN1"                                         # IPTVru Main Mirror
 ]
 
-# ИСПРАВЛЕННЫЙ СПИСОК КАНАЛОВ (УДАЛЕНЫ ДИАЛОГИ О РЫБАЛКЕ И ДОМ КИНО, ДОБАВЛЕН VF МОСФИЛЬМ)
 FAVORITE_CHANNELS = [
     "моя планета", "кино 1 international", "мосфильм золотая коллекция", "неизвестная планета", 
     "travel adventure", "индийское кино", "Travel Channel", "телепутешествия", "моя стихия", 
@@ -25,7 +24,6 @@ FAVORITE_CHANNELS = [
     "родное кино", "любимое кино"
 ]
 
-# ОБНОВЛЕННЫЕ РЕЗЕРВНЫЕ CDN СТРИМЫ
 RESERVE_LINKS = {
     "моя планета": {
         "url": "https://viju.su", 
@@ -174,9 +172,21 @@ def main():
                     done = True
                     break
 
-    with open("playlist.m3u", "w", encoding="utf-8") as f:
+    # --- ЛОГИКА АВТОМАТИЧЕСКОГО СХРАНЕНИЯ БЭКАПА ---
+    filename = "playlist.m3u"
+    backup_filename = "playlist_backup.m3u"
+    
+    if os.path.exists(filename):
+        try:
+            shutil.copyfile(filename, backup_filename)
+            print(f"Старый плейлист сохранен в резервную копию: {backup_filename}")
+        except Exception as e:
+            print(f"Не удалось создать бэкап: {e}")
+    # -----------------------------------------------
+
+    with open(filename, "w", encoding="utf-8") as f:
         f.writelines(final)
-    print(f"Плейлист пересобран! «Диалоги о рыбалке» и «Дом Кино» удалены. Добавлен «VF Мосфильм». Всего каналов: {len(added)}")
+    print(f"Новый плейлист успешно записан! Всего каналов: {len(added)}")
 
 if __name__ == "__main__":
     main()
