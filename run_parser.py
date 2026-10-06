@@ -9,8 +9,7 @@ ENCRYPTED_SOURCES = [
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2FydGVtLWFydDk5OC9JUFRWcnUvcmVmcy9oZWFkcy9tYWluL2lwdHYxMjYubTN1",     # iptv126.m3u
     "aHR0cHM6Ly9nY2xuay5jb20vbGY0SnRCTGM=",                                                           # gclnk.com
     "aHR0cHM6Ly9pcHR2LW9yZy5naXRodWIuaW8vaXB0di9pbmRleC5tM3U=",                                       # iptv-org index.m3u
-    # --- ОБНОВЛЕННЫЕ СТАБИЛЬНЫЕ АГРЕГАТОРЫ И ЗЕРКАЛА ---
-    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWUtaXB0di9pcHR2TL21hc3Rlci9jYW5hbHMvcnUubTN1",    # free-iptv russia
+    "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2ZyZWUtaXB0di9pcHR2L21hc3Rlci9jYW5hbHMvcnUubTN1",    # free-iptv russia
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0xhbmVpay9pcHR2L21hc3Rlci9pcHR2Lm0zdQ==",            # Laneik iptv list
     "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tLzFtcGgvaXB0di9tYWluL2JpZy1pcHR2Lm0zdQ==",            # big-iptv aggregator
     "aHR0cHM6Ly9zbW9sbnAuZ2l0aHViLmlvL0lQVFZydS9JUFRWc3RhYmxlLm0zdTg=",                               # IPTVru Stable Mirror
@@ -25,43 +24,31 @@ FAVORITE_CHANNELS = [
     "дом кино", "родное кино", "любимое кино"
 ]
 
-# РЕЗЕРВНЫЕ ССЫЛКИ С ПРЯМЫХ CDN-ВЕЩАТЕЛЕЙ И ОТКРЫТЫХ ЗЕРКАЛ
+# ПРЯМЫЕ СТРИМЫ БЕЗ ОГРАНИЧЕНИЙ ПРОВАЙДЕРОВ
 RESERVE_LINKS = {
     "моя планета": {
-        "url": "http://bonus-tv.ru", 
+        "url": "https://viju.su", 
         "tag": '#EXTINF:-1 tvg-id="Moya Planeta" tvg-logo="https://githubusercontent.com",Моя Планета'
     },
     "мосфильм золотая коллекция": {
-        "url": "http://cdnvideo.ru", 
+        "url": "https://footprint.net", 
         "tag": '#EXTINF:-1 tvg-id="Mosfilm Zolotaya Kollektsiya" tvg-logo="https://githubusercontent.com",Мосфильм. Золотая коллекция'
     },
     "телепутешествия": {
-        "url": "http://teletravel.tv", 
+        "url": "https://pctv.ru", 
         "tag": '#EXTINF:-1 tvg-id="Teleputeshestviya" tvg-logo="https://teletravel.tv",Телепутешествия'
     },
-    "discovery": {
-        "url": "http://discovery-stream.xyz", 
-        "tag": '#EXTINF:-1 tvg-id="Discovery Channel" tvg-logo="https://githubusercontent.com",Discovery Channel'
-    },
-    "nat geo wild": {
-        "url": "http://cdn-cluster.com", 
-        "tag": '#EXTINF:-1 tvg-id="Nat Geo Wild" tvg-logo="https://githubusercontent.com",Nat Geo Wild'
-    },
     "живая планета": {
-        "url": "http://zhivaya-planeta.ru", 
+        "url": "https://viju.su", 
         "tag": '#EXTINF:-1 tvg-id="Zhivaya Planeta" tvg-logo="https://githubusercontent.com",Живая планета'
     },
     "дом кино": {
-        "url": "http://1tv.ru", 
+        "url": "https://cdnvideo.ru", 
         "tag": '#EXTINF:-1 tvg-id="Dom Kino" tvg-logo="https://githubusercontent.com",Дом Кино'
     },
     "родное кино": {
-        "url": "http://red-media.ru", 
+        "url": "https://cdnvideo.ru", 
         "tag": '#EXTINF:-1 tvg-id="Rodnoe Kino" tvg-logo="https://githubusercontent.com",Родное Кино'
-    },
-    "любимое кино": {
-        "url": "http://lyubimoekino.tv", 
-        "tag": '#EXTINF:-1 tvg-id="Lyubimoe Kino" tvg-logo="https://githubusercontent.com",Любимое кино'
     }
 }
 
@@ -78,7 +65,22 @@ def clean_group_title(tag_line):
 def get_quality_score(c): 
     return 10 if "HD" in str(c).upper() else 0
 
+# УМНЫЙ ФИЛЬТР ЗАГЛУШЕК И ЗАБЛОКИРОВАННЫХ ПОТОКОВ
+def is_blocked_stream(url):
+    url_lower = url.lower()
+    # Отсекаем известные пулы взломанных ресиверов Триколор/НТВ+, которые выдают заглушки
+    blocked_patterns = [
+        "tricolor", "cinerama", "36e", "56e", "dre", "scrambled", 
+        "92.243.", "85.203.", "test-stream", "dummy"
+    ]
+    for pattern in blocked_patterns:
+        if pattern in url_lower:
+            return True
+    return False
+
 def check_url(url):
+    if is_blocked_stream(url):
+        return False
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=4) as r: 
@@ -116,7 +118,7 @@ def is_strict_match(fav_clean, cand_clean):
 def main():
     ssl._create_default_https_context = ssl._create_unverified_context
     all_p = []
-    with ThreadPoolExecutor(max_workers=10) as ex:
+    with ThreadPoolExecutor(max_workers=12) as ex:
         futures = [ex.submit(parse_source, s) for s in ENCRYPTED_SOURCES]
         for f in as_completed(futures): 
             all_p.extend(f.result())
@@ -151,10 +153,19 @@ def main():
     final = ["#EXTM3U\n"]
     added = set()
     
-    # Сначала ищем каналы в основных спарсенных базах
     for ch in FAVORITE_CHANNELS:
         done = False
-        if ch in matched:
+        
+        # Если для канала прописан железный и чистый CDN-резерв, берем сначала его
+        if ch in RESERVE_LINKS:
+            r = RESERVE_LINKS[ch]
+            if r["url"] not in added and check_url(r["url"]):
+                final.append(f"{r['tag']}\n{r['url']}\n")
+                added.add(r["url"])
+                done = True
+                
+        # Если резерва нет или он подвел, ищем в общих базах с жестким отсевом заглушек
+        if not done and ch in matched:
             matched[ch].sort(key=get_quality_score, reverse=True)
             for inf, url in matched[ch]:
                 if url in added: 
@@ -165,18 +176,10 @@ def main():
                     added.add(url)
                     done = True
                     break
-                    
-        # Если в основных базах канал не найден или мертв — подключаем резервный CDN
-        if not done and ch in RESERVE_LINKS:
-            r = RESERVE_LINKS[ch]
-            if r["url"] not in added:
-                if check_url(r["url"]):
-                    final.append(f"{r['tag']}\n{r['url']}\n")
-                    added.add(r["url"])
 
     with open("playlist.m3u", "w", encoding="utf-8") as f:
         f.writelines(final)
-    print(f"Плейлист успешно пересобран! Всего рабочих каналов в файле: {len(added)}")
+    print(f"Плейлист пересобран без заглушек! Всего чистых каналов: {len(added)}")
 
 if __name__ == "__main__":
     main()
