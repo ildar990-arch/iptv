@@ -8,7 +8,7 @@ http://178.134.1.158:8081/mosfilm/index.m3u8
 #EXTINF:-1 tvg-id="neizvestnaya-planeta" tvg-logo="https://iptvx.one/picons/neizvestnaya-planeta.png" ,Неизвестная Планета
 http://stitch.teletarget.ru/api/v1/hls/vintera/neplaneta/index.m3u8
 #EXTINF:-1,Travel+Adventure HD
-http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTAvNy8yMDI2IDY6NTA6MzEgUE0maGFzaF92YWx1ZT1POC9wQ2xuQXhPbml4V09iYjVNNVVnPT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
+http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTAvOC8yMDI2IDY6NTI6MDYgUE0maGFzaF92YWx1ZT1WbEtvV1Z5VmVZK3p6dnZnb2huWE5RPT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
 #EXTINF:-1  tvg-id="indiyskoe-kino" ,Индийское кино
 https://s03.watcher.uz/52/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
 #EXTINF:-1,Travel Channel HD
@@ -21,8 +21,8 @@ https://cdn.ntv.ru/th_serial/playlist.m3u8
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 tvg-id="viasat-explore" tvg-logo="https://iptvx.one/picons/viasat-explore.png" ,Viju EXPLORE
 http://stream.mcquack.net/239/index.m3u8
-#EXTINF:-1 tvg-id="discovery-channel" tvg-logo="https://iptvx.one/picons/discovery-channel.png" ,Discovery Channel HD
-http://5.188.159.128:8070/DiscoveryChannel/index.m3u8
+#EXTINF:-1 tvg-id="DiscoveryKidsLatinAmerica.us@Brazil" tvg-logo="",Discovery Kids Latin America Brazil (720p) [Geo-blocked]
+http://15.204.246.24:8080/DiscoveryKidsHD/index.m3u8
 #EXTINF:-1 tvg-id="ntv-xit" tvg-logo="https://iptvx.one/picons/ntv-xit.png" ,НТВ Хит
 http://cdn2.ntv.ru/th_hit/playlist.m3u8
 #EXTINF:-1 timeshift="7" tvg-rec="7",Живая планета
