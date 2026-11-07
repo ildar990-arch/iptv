@@ -6,9 +6,9 @@ https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1,Мосфильм. Золотая коллекция
 http://178.134.1.158:8081/mosfilm/index.m3u8
 #EXTINF:-1 tvg-logo="https://mbmh5s36ok.a.trbcdn.net/572aecd6-static/channel/10386/logo_256_1658737079.png", Неизвестная планета
-https://mhd116.iptv2022.com/x/4df6_ZadPrlSTyMjT__k7g,1793995195/streaming/np/324/1/index.m3u8?bundle=appBundle&app_name=appName&ifa=idfa&device_id=did
+https://mhd116.iptv2022.com/x/8aO-YS4tGZ5p1yfjZ9PKJw,1794081200/streaming/np/324/1/index.m3u8?bundle=appBundle&app_name=appName&ifa=idfa&device_id=did
 #EXTINF:-1,Travel+Adventure HD
-http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvNS8yMDI2IDc6NTk6NTcgUE0maGFzaF92YWx1ZT1nR1pHejNhNDRzV3RTZUV2azNBaFd3PT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
+http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvNi8yMDI2IDc6NTM6MjEgUE0maGFzaF92YWx1ZT1wVG1NNTd3Mk1aMVZOUk5SUVhQUjZRPT0mdmFsaWRtaW51dGVzPTcyMCZpZD03Nzc=
 #EXTINF:-1  tvg-id="indiyskoe-kino" ,Индийское кино
 https://s03.watcher.uz/52/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
 #EXTINF:-1,Travel Channel HD
@@ -21,18 +21,18 @@ http://cdn.ntv.ru/th_serial/mono.m3u8
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1,viju Explore
 http://46.53.200.153:7777/play/a01i/index.m3u8
-#EXTINF:-1 tvg-id="DiscoveryChannel.cz@SD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/2/27/Discovery_Channel_2019_symbol.svg/revision/latest?cb=20210804150956",Discovery Channel (Czech Republic)
-http://88.212.15.50/live/test_discovery_hd_hevc/playlist.m3u8
+#EXTINF:-1,Discovery HD
+https://bl.rutube.ru/livestream/6422d62f7e1f87bc3aec45b462cd89ea/index.m3u8?s=0gTyYU1nCPUfvIhq4eUhjA&e=2088543960&scheme=https
 #EXTINF:-1 tvg-logo="https://mbmh5s36ok.a.trbcdn.net/572aecd6-static/channel/31393/logo_256_1793624467.webp", НТВ Хит
-https://mhd116.iptv2022.com/x/Kh_Jk4iUtEewNHQbIgK-wQ,1793995195/streaming/ntvhit/324/1/index.m3u8
+https://mhd116.iptv2022.com/x/JKE_r74GDEKzF7Idi8XKyQ,1794081200/streaming/ntvhit/324/1/index.m3u8
 #EXTINF:-1 timeshift="7" tvg-rec="7",Живая планета
 http://stream.mcquack.net/83/index.m3u8
 #EXTINF:-1 tvg-logo="https://mbmh5s36ok.a.trbcdn.net/572aecd6-static/channel/10676/logo_256_1660828620.png", Глазами туриста
-https://mhd116.iptv2022.com/x/SktbhIpFA-fh4KtQh8ILlw,1793995195/streaming/tourist_eyes/324/1/index.m3u8
+https://mhd116.iptv2022.com/x/E-Za2-zxySByj6sUS1JL_g,1794081200/streaming/tourist_eyes/324/1/index.m3u8
 #EXTINF:-1,Animal Planet HD
 http://stream.mcquack.net/114/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1,National Geographic HD
-http://stream.mcquack.net/116/tracks-v1a1/mono.ts.m3u8
+https://bl.rutube.ru/livestream/2619fc295c16585ef018041d88f14db0/index.m3u8?s=gL3ElJBxZvkbFoIPLFwfIQ&e=2088543790&scheme=https
 #EXTINF:-1 tvg-id="Rodnoe Kino" tvg-logo="https://githubusercontent.com",Родное Кино
 https://cdnvideo.ru
 #EXTINF:-1, Любимое кино
