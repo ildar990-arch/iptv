@@ -1,38 +1,38 @@
 #EXTM3U
-#EXTINF:-1,Моя планета
-https://flussonic.mkpnet.ru/tv-6febc5aecf84848d/video.m3u8
+#EXTINF:-1,Моя Планета
+http://vod.tuva.ru/myplanet/index.m3u8
 #EXTINF:-1 tvg-logo="https://img.catcast.tv/uploads/25062020/logos/38617-5ef3d12196e3e.png",Кино 1 International
 https://kino-1.catcast.tv/content/38617/index.m3u8
-#EXTINF:-1,Мосфильм. Золотая коллекция
-https://fs.uplink.kz/mosfilm/mono.m3u8?token=onlinetv2
+#EXTINF:-1, Мосфильм. Золотая коллекция
+http://185.76.10.53:8080/srv5/mosfilm/tracks-v1a1/mono.m3u8?cid=144&did=5366158&m=1&rid=24397&token=2022b6576a65c40ede42a7d4941b5471
 #EXTINF:-1 tvg-logo="https://mbmh5s36ok.a.trbcdn.net/572aecd6-static/channel/10386/logo_256_1658737079.png", Неизвестная планета
-https://mhd116.iptv2022.com/x/cSa-pMM9nXjp2P4fAAjabg,1794426707/streaming/np/324/1/index.m3u8?bundle=appBundle&app_name=appName&ifa=idfa&device_id=did
+https://mhd116.iptv2022.com/x/yHg8dJAu-Bp8x04349QvJw,1794514954/streaming/np/324/1/index.m3u8?bundle=appBundle&app_name=appName&ifa=idfa&device_id=did
 #EXTINF:-1,Travel+Adventure HD
-http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvMTAvMjAyNiA3OjUxOjQ4IFBNJmhhc2hfdmFsdWU9NmswbllTK2VKZU9YK1ZRczRpRU9Tdz09JnZhbGlkbWludXRlcz03MjAmaWQ9Nzc3
+http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvMTEvMjAyNiA4OjIyOjM2IFBNJmhhc2hfdmFsdWU9L2oyam5ZT1ZKVTFNV3Q1TmU0K0lxQT09JnZhbGlkbWludXRlcz03MjAmaWQ9Nzc3
 #EXTINF:-1  tvg-id="indiyskoe-kino" ,Индийское кино
 https://s03.watcher.uz/52/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
 #EXTINF:-1,Travel Channel HD
 http://stream.mcquack.net/231/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1,Моя стихия
 http://stream.mcquack.net/141/tracks-v1a1/mono.ts.m3u8
-#EXTINF:-1,НТВ Сериал
-http://cdn.ntv.ru/th_serial/mono.m3u8
+#EXTINF:-1 ,НТВ Сериал
+https://cdn.ntv.ru/th_serial/tracks-v1a1/playlist.m3u8
 #EXTINF:-1,Nat Geo Wild HD
 http://stream.mcquack.net/149/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1,viju Explore
 http://46.53.200.153:7777/play/a01i/index.m3u8
-#EXTINF:-1,Discovery HD
-https://bl.rutube.ru/livestream/6422d62f7e1f87bc3aec45b462cd89ea/index.m3u8?s=0gTyYU1nCPUfvIhq4eUhjA&e=2088543960&scheme=https
+#EXTINF:-1 tvg-id="DiscoveryChannel.cz@SD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/2/27/Discovery_Channel_2019_symbol.svg/revision/latest?cb=20210804150956",Discovery Channel (Czech Republic)
+http://88.212.15.50/live/test_discovery_hd_hevc/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://mbmh5s36ok.a.trbcdn.net/572aecd6-static/channel/31393/logo_256_1793624467.webp", НТВ Хит
-https://mhd116.iptv2022.com/x/bRBep3h7GIQ1OmTe4-40ig,1794426707/streaming/ntvhit/324/1/index.m3u8
+https://mhd116.iptv2022.com/x/nzSc5wjJUcypsrSGVJctzw,1794514954/streaming/ntvhit/324/1/index.m3u8
 #EXTINF:-1 timeshift="7" tvg-rec="7",Живая планета
 http://stream.mcquack.net/83/index.m3u8
 #EXTINF:-1 tvg-logo="https://mbmh5s36ok.a.trbcdn.net/572aecd6-static/channel/10676/logo_256_1660828620.png", Глазами туриста
-https://mhd116.iptv2022.com/x/rmpa9fBJ7s90hpN9PPoU7w,1794426707/streaming/tourist_eyes/324/1/index.m3u8
+https://mhd116.iptv2022.com/x/fvSxQ4dH3bULAyZnrQZ9FA,1794514954/streaming/tourist_eyes/324/1/index.m3u8
 #EXTINF:-1,Animal Planet HD
 http://stream.mcquack.net/114/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1,National Geographic HD
-https://bl.rutube.ru/livestream/2619fc295c16585ef018041d88f14db0/index.m3u8?s=gL3ElJBxZvkbFoIPLFwfIQ&e=2088543790&scheme=https
+http://stream.mcquack.net/116/tracks-v1a1/mono.ts.m3u8
 #EXTINF:-1 tvg-id="Rodnoe Kino" tvg-logo="https://githubusercontent.com",Родное Кино
 https://cdnvideo.ru
 #EXTINF:-1, Любимое кино
