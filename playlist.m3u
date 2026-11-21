@@ -6,27 +6,27 @@ https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1, Мосфильм. Золотая коллекция
 http://185.76.10.53:8080/srv5/mosfilm/tracks-v1a1/mono.m3u8?cid=144&did=5366158&m=1&rid=24397&token=2022b6576a65c40ede42a7d4941b5471
 #EXTINF:-1,Travel+Adventure HD
-http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvMTkvMjAyNiA3OjUyOjMzIFBNJmhhc2hfdmFsdWU9L0FsZ3lrdXg2SG1HRjdQOURPeStLQT09JnZhbGlkbWludXRlcz03MjAmaWQ9Nzc3
+http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvMjAvMjAyNiA3OjU1OjEzIFBNJmhhc2hfdmFsdWU9ZXF1dlZzb20wTUdodHVwRFhqYVRFdz09JnZhbGlkbWludXRlcz03MjAmaWQ9Nzc3
 #EXTINF:-1  tvg-id="indiyskoe-kino" ,Индийское кино
 https://s03.watcher.uz/52/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
+#EXTINF:-1,Travel channel HD
+https://bl.rutube.ru/livestream/4196566bc9c3b7b854074ad1a9a2db36/index.m3u8?s=yQ7wg8PQuvWZ8aWClrmpQQ&e=2088589501&scheme=https
 #EXTINF:-1 ,НТВ Сериал
 https://cdn.ntv.ru/th_serial/tracks-v1a1/playlist.m3u8
-#EXTINF:-1,Nat Geo Wild
-https://fs.uplink.kz/nat_geo_wild/mono.m3u8?token=onlinetv2
+#EXTINF:-1,Nat Geo Wild HD
+https://bl.rutube.ru/livestream/c11af26c0ab831ce6c37a4888056479b/index.m3u8?s=fJtT87LjWLXCCT66HGeZLA&e=2088589653&scheme=https
 #EXTINF:-1,viju Explore
 http://46.53.200.153:7777/play/a01i/index.m3u8
 #EXTINF:-1 tvg-id="DiscoveryChannel.cz@SD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/2/27/Discovery_Channel_2019_symbol.svg/revision/latest?cb=20210804150956",Discovery Channel (Czech Republic)
 http://88.212.15.50/live/test_discovery_hd_hevc/playlist.m3u8
 #EXTINF:-1,НТВ Хит
 http://185.76.10.53:8080/srv5/ntv_hit/tracks-v1a1/mono.m3u8?cid=144&did=5366158&m=1&rid=24397&token=2022b6576a65c40ede42a7d4941b5471
-#EXTINF:-1,Живая планета
-http://dmitry-tv.ddns.net/hls/CH_ZHIVAYA_PLANETA.m3u8
 #EXTINF:-1,Глазами туриста
 http://dmi3y-tv.online/hls/CH_GLAZAMI_TURISTA.m3u8
-#EXTINF:-1 tvg-logo="http://181.119.215.61:8000/playlist/tvg-logo/a0gq.png",Animal Planet HD
-http://181.119.215.61:8000/play/a0gq/index.m3u8
-#EXTINF:-1,National Geographic
-https://fs.uplink.kz/nat_geo/mono.m3u8?token=onlinetv2
+#EXTINF:-1,Animal Planet HD
+https://bl.rutube.ru/livestream/4004c8f6817b9ae1bd0d418905ae2b02/index.m3u8?s=oze30Q2MFL1ipF1AyWna7g&e=2088589582&scheme=https
+#EXTINF:-1,National Geographic HD
+https://bl.rutube.ru/livestream/2619fc295c16585ef018041d88f14db0/index.m3u8?s=gL3ElJBxZvkbFoIPLFwfIQ&e=2088543790&scheme=https
 #EXTINF:-1 tvg-id="Rodnoe Kino" tvg-logo="https://githubusercontent.com",Родное Кино
 https://cdnvideo.ru
 #EXTINF:-1, Любимое кино
