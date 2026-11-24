@@ -5,8 +5,6 @@ https://flussonic.mkpnet.ru/tv-6febc5aecf84848d/video.m3u8
 https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1,Мосфильм. Золотая коллекция
 http://178.134.1.158:8081/mosfilm/index.m3u8
-#EXTINF:-1,Travel+Adventure HD
-http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvMjIvMjAyNiA3OjU1OjQ3IFBNJmhhc2hfdmFsdWU9bmF3eXRpUWFqS0JoMjBuSTY2bW5kZz09JnZhbGlkbWludXRlcz03MjAmaWQ9Nzc3
 #EXTINF:-1  tvg-id="indiyskoe-kino" ,Индийское кино
 https://s03.watcher.uz/52/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
 #EXTINF:-1,Travel channel HD
@@ -17,8 +15,8 @@ http://cdn.ntv.ru/th_serial/mono.m3u8
 https://bl.rutube.ru/livestream/c11af26c0ab831ce6c37a4888056479b/index.m3u8?s=fJtT87LjWLXCCT66HGeZLA&e=2088589653&scheme=https
 #EXTINF:-1,viju Explore
 http://46.53.200.153:7777/play/a01i/index.m3u8
-#EXTINF:-1,Discovery HD
-https://bl.rutube.ru/livestream/6422d62f7e1f87bc3aec45b462cd89ea/index.m3u8?s=0gTyYU1nCPUfvIhq4eUhjA&e=2088543960&scheme=https
+#EXTINF:-1 tvg-id="DiscoveryChannel.cz@SD" tvg-logo="https://static.wikia.nocookie.net/logopedia/images/2/27/Discovery_Channel_2019_symbol.svg/revision/latest?cb=20210804150956",Discovery Channel (Czech Republic)
+http://88.212.15.50/live/test_discovery_hd_hevc/playlist.m3u8
 #EXTINF:-1,НТВ Хит
 http://cdn.ntv.ru/th_hit/mono.m3u8
 #EXTINF:-1,Живая планета
