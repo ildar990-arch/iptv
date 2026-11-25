@@ -5,6 +5,8 @@ https://flussonic.mkpnet.ru/tv-6febc5aecf84848d/video.m3u8
 https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1,Мосфильм. Золотая коллекция
 http://178.134.1.158:8081/mosfilm/index.m3u8
+#EXTINF:-1,Travel+Adventure HD
+http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvMjQvMjAyNiA3OjU3OjE3IFBNJmhhc2hfdmFsdWU9aUUya0YzbWx5TTVJYzV4bFlRZlJOUT09JnZhbGlkbWludXRlcz03MjAmaWQ9Nzc3
 #EXTINF:-1  tvg-id="indiyskoe-kino" ,Индийское кино
 https://s03.watcher.uz/52/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
 #EXTINF:-1,Travel channel HD
