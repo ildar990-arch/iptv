@@ -6,7 +6,7 @@ https://kino-1.catcast.tv/content/38617/index.m3u8
 #EXTINF:-1, Мосфильм. Золотая коллекция
 http://185.76.10.53:8080/srv5/mosfilm/tracks-v1a1/mono.m3u8?cid=144&did=5366158&m=1&rid=24397&token=2022b6576a65c40ede42a7d4941b5471
 #EXTINF:-1,Travel+Adventure HD
-http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvMjYvMjAyNiA3OjU2OjQ0IFBNJmhhc2hfdmFsdWU9dDdtS2QzOFBOK3VaZG0zOGJEZEJMUT09JnZhbGlkbWludXRlcz03MjAmaWQ9Nzc3
+http://95.181.17.14/dvr02/mobile2/TravAdHD/playlist.m3u8?&wmsAuthSign=c2VydmVyX3RpbWU9MTEvMjcvMjAyNiA4OjA0OjIzIFBNJmhhc2hfdmFsdWU9TE41aWY2WE40QTJtY01xSm5pRm40dz09JnZhbGlkbWludXRlcz03MjAmaWQ9Nzc3
 #EXTINF:-1  tvg-id="indiyskoe-kino" ,Индийское кино
 https://s03.watcher.uz/52/video.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdF9pZCI6MjcwMTc3LCJsb2dpbiI6InR2LTI3MDE3NyIsInRlbXBvcmFyeSI6ZmFsc2UsImlzX29hdXRoIjpmYWxzZSwiY3JlYXRlZF90aW1lIjoxNjUwMjgzMDI3fQ.LadLj4b6plIxTGCWntQQqsQGZ3R9EsvwhaXQd1sur2g%3A15
 #EXTINF:-1,Travel channel HD
